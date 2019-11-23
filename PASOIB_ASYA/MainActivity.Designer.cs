@@ -110,7 +110,6 @@
 			this.Name = "MainActivity";
 			this.Text = "Form1";
 			this.Load += new System.EventHandler(this.MainActivity_Load);
-			this.Click += new System.EventHandler(this.MainActivity_Click);
 			this.tabControl.ResumeLayout(false);
 			this.ResumeLayout(false);
 

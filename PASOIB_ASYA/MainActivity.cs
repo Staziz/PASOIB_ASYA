@@ -21,12 +21,6 @@ namespace PASOIB_ASYA
 		private void MainActivity_Load(object sender, EventArgs e)
 		{
 			USBChecker = new USBChecker();
-			label1.Text = string.Join("\n", USBChecker.GetUSBDevicesInfo());
-		}
-
-		private void MainActivity_Click(object sender, EventArgs e)
-		{
-			label1.Text = string.Join("\n", USBChecker.GetUSBDevicesInfo(true));
 		}
 	}
 }
