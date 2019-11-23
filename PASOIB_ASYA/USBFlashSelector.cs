@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace PASOIB_ASYA
 {
-	public partial class Form1 : Form
+	public partial class USBFlashSelector : Form
 	{
-		public Form1()
+		public USBFlashSelector()
 		{
 			InitializeComponent();
 		}
