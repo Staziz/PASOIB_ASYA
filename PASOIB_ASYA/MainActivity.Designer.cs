@@ -28,14 +28,64 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.tabControl = new System.Windows.Forms.TabControl();
-			this.tabAuthentication = new System.Windows.Forms.TabPage();
-			this.tabKeySelection = new System.Windows.Forms.TabPage();
-			this.tabFilesSelection = new System.Windows.Forms.TabPage();
-			this.tabRealtimeData = new System.Windows.Forms.TabPage();
 			this.tabReports = new System.Windows.Forms.TabPage();
+			this.tabRealtimeData = new System.Windows.Forms.TabPage();
+			this.tabFilesSelection = new System.Windows.Forms.TabPage();
+			this.tabKeySelection = new System.Windows.Forms.TabPage();
+			this.tabAuthentication = new System.Windows.Forms.TabPage();
+			this.tabControl = new System.Windows.Forms.TabControl();
 			this.tabControl.SuspendLayout();
 			this.SuspendLayout();
+			// 
+			// tabReports
+			// 
+			this.tabReports.Location = new System.Drawing.Point(4, 22);
+			this.tabReports.Name = "tabReports";
+			this.tabReports.Padding = new System.Windows.Forms.Padding(3);
+			this.tabReports.Size = new System.Drawing.Size(792, 424);
+			this.tabReports.TabIndex = 4;
+			this.tabReports.Text = "Reports";
+			this.tabReports.UseVisualStyleBackColor = true;
+			// 
+			// tabRealtimeData
+			// 
+			this.tabRealtimeData.Location = new System.Drawing.Point(4, 22);
+			this.tabRealtimeData.Name = "tabRealtimeData";
+			this.tabRealtimeData.Padding = new System.Windows.Forms.Padding(3);
+			this.tabRealtimeData.Size = new System.Drawing.Size(792, 424);
+			this.tabRealtimeData.TabIndex = 3;
+			this.tabRealtimeData.Text = "Realtime Data";
+			this.tabRealtimeData.UseVisualStyleBackColor = true;
+			// 
+			// tabFilesSelection
+			// 
+			this.tabFilesSelection.Location = new System.Drawing.Point(4, 22);
+			this.tabFilesSelection.Name = "tabFilesSelection";
+			this.tabFilesSelection.Padding = new System.Windows.Forms.Padding(3);
+			this.tabFilesSelection.Size = new System.Drawing.Size(792, 424);
+			this.tabFilesSelection.TabIndex = 2;
+			this.tabFilesSelection.Text = "Files Selection";
+			this.tabFilesSelection.UseVisualStyleBackColor = true;
+			// 
+			// tabKeySelection
+			// 
+			this.tabKeySelection.Location = new System.Drawing.Point(4, 22);
+			this.tabKeySelection.Name = "tabKeySelection";
+			this.tabKeySelection.Padding = new System.Windows.Forms.Padding(3);
+			this.tabKeySelection.Size = new System.Drawing.Size(792, 424);
+			this.tabKeySelection.TabIndex = 1;
+			this.tabKeySelection.Text = "Key Selection";
+			this.tabKeySelection.UseVisualStyleBackColor = true;
+			// 
+			// tabAuthentication
+			// 
+			this.tabAuthentication.Location = new System.Drawing.Point(4, 22);
+			this.tabAuthentication.Name = "tabAuthentication";
+			this.tabAuthentication.Padding = new System.Windows.Forms.Padding(3);
+			this.tabAuthentication.Size = new System.Drawing.Size(792, 424);
+			this.tabAuthentication.TabIndex = 0;
+			this.tabAuthentication.Text = "Authentication";
+			this.tabAuthentication.UseVisualStyleBackColor = true;
 			// 
 			// tabControl
 			// 
@@ -50,56 +100,6 @@
 			this.tabControl.SelectedIndex = 0;
 			this.tabControl.Size = new System.Drawing.Size(800, 450);
 			this.tabControl.TabIndex = 4;
-			// 
-			// tabAuthentication
-			// 
-			this.tabAuthentication.Location = new System.Drawing.Point(4, 22);
-			this.tabAuthentication.Name = "tabAuthentication";
-			this.tabAuthentication.Padding = new System.Windows.Forms.Padding(3);
-			this.tabAuthentication.Size = new System.Drawing.Size(792, 424);
-			this.tabAuthentication.TabIndex = 0;
-			this.tabAuthentication.Text = "Authentication";
-			this.tabAuthentication.UseVisualStyleBackColor = true;
-			// 
-			// tabKeySelection
-			// 
-			this.tabKeySelection.Location = new System.Drawing.Point(4, 22);
-			this.tabKeySelection.Name = "tabKeySelection";
-			this.tabKeySelection.Padding = new System.Windows.Forms.Padding(3);
-			this.tabKeySelection.Size = new System.Drawing.Size(792, 424);
-			this.tabKeySelection.TabIndex = 1;
-			this.tabKeySelection.Text = "Key Selection";
-			this.tabKeySelection.UseVisualStyleBackColor = true;
-			// 
-			// tabFilesSelection
-			// 
-			this.tabFilesSelection.Location = new System.Drawing.Point(4, 22);
-			this.tabFilesSelection.Name = "tabFilesSelection";
-			this.tabFilesSelection.Padding = new System.Windows.Forms.Padding(3);
-			this.tabFilesSelection.Size = new System.Drawing.Size(792, 424);
-			this.tabFilesSelection.TabIndex = 2;
-			this.tabFilesSelection.Text = "Files Selection";
-			this.tabFilesSelection.UseVisualStyleBackColor = true;
-			// 
-			// tabRealtimeData
-			// 
-			this.tabRealtimeData.Location = new System.Drawing.Point(4, 22);
-			this.tabRealtimeData.Name = "tabRealtimeData";
-			this.tabRealtimeData.Padding = new System.Windows.Forms.Padding(3);
-			this.tabRealtimeData.Size = new System.Drawing.Size(792, 424);
-			this.tabRealtimeData.TabIndex = 3;
-			this.tabRealtimeData.Text = "Realtime Data";
-			this.tabRealtimeData.UseVisualStyleBackColor = true;
-			// 
-			// tabReports
-			// 
-			this.tabReports.Location = new System.Drawing.Point(4, 22);
-			this.tabReports.Name = "tabReports";
-			this.tabReports.Padding = new System.Windows.Forms.Padding(3);
-			this.tabReports.Size = new System.Drawing.Size(792, 424);
-			this.tabReports.TabIndex = 4;
-			this.tabReports.Text = "Reports";
-			this.tabReports.UseVisualStyleBackColor = true;
 			// 
 			// MainActivity
 			// 
@@ -117,12 +117,12 @@
 
 		#endregion
 
-		private System.Windows.Forms.TabControl tabControl;
-		private System.Windows.Forms.TabPage tabAuthentication;
-		private System.Windows.Forms.TabPage tabKeySelection;
-		private System.Windows.Forms.TabPage tabFilesSelection;
-		private System.Windows.Forms.TabPage tabRealtimeData;
 		private System.Windows.Forms.TabPage tabReports;
+		private System.Windows.Forms.TabPage tabRealtimeData;
+		private System.Windows.Forms.TabPage tabFilesSelection;
+		private System.Windows.Forms.TabPage tabKeySelection;
+		private System.Windows.Forms.TabPage tabAuthentication;
+		private System.Windows.Forms.TabControl tabControl;
 	}
 }
 
