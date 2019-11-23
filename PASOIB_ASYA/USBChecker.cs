@@ -27,9 +27,10 @@ namespace PASOIB_ASYA
 			foreach (var device in collection)
 			{
 				devices.Add(new USBDeviceInfo(
-				(string)device.GetPropertyValue("DeviceID"),
-				(string)device.GetPropertyValue("PNPDeviceID"),
-				(string)device.GetPropertyValue("Description")
+				device["DeviceID"].ToString(),
+				device["PNPDeviceID"].ToString(),
+				device["Name"].ToString(),
+				device["Description"].ToString()
 				));
 			}
 
@@ -49,6 +50,7 @@ namespace PASOIB_ASYA
 			{
 				var usbDeviceInfo = $"Device ID: {usbDevice.DeviceID}, " +
 					$"PNP Device ID: {usbDevice.PnpDeviceID}, " +
+					$"Name: {usbDevice.Name}" +
 					$"Description: {usbDevice.Description}";
 				result.Add(usbDeviceInfo);
 			}
