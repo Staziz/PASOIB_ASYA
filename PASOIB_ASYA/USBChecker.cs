@@ -11,9 +11,31 @@ namespace PASOIB_ASYA
 	{
 		private List<USBDeviceInfo> usbDevices;
 
+		public event USBDeviceInsertedHandler onUSBDeviceInserted;
+		public EventArgs eventInsertedArgs = null;
+		public delegate void USBDeviceInsertedHandler(USBChecker usbChecker, EventArgs eventInsertedArgs);
+
+		public event USBDeviceRemovedHandler onUSBDeviceRemoved;
+		public EventArgs eventRemovedArgs = null;
+		public delegate void USBDeviceRemovedHandler(USBChecker usbChecker, EventArgs eventRemovedArgs);
+
+		private readonly ManagementEventWatcher ubsInsetrionWatcher = new ManagementEventWatcher();
+		private readonly WqlEventQuery ubsInsetrionQuery = new WqlEventQuery("SELECT * FROM Win32_VolumeChangeEvent WHERE EventType = 2");
+
+		private readonly ManagementEventWatcher ubsRemovalWatcher = new ManagementEventWatcher();
+		private readonly WqlEventQuery ubsRemovalQuery = new WqlEventQuery("SELECT * FROM Win32_VolumeChangeEvent WHERE EventType = 3");
+
 		public USBChecker()
 		{
 			usbDevices = GetUSBDevices();
+
+			ubsInsetrionWatcher.EventArrived += new EventArrivedEventHandler(NativeUSBDeviceInsertedHandler);
+			ubsInsetrionWatcher.Query = ubsInsetrionQuery;
+			ubsInsetrionWatcher.Start();
+
+			ubsRemovalWatcher.EventArrived += new EventArrivedEventHandler(NativeUSBDeviceRemovedHandler);
+			ubsRemovalWatcher.Query = ubsRemovalQuery;
+			ubsRemovalWatcher.Start();
 		}
 
 		private List<USBDeviceInfo> GetUSBDevices()
@@ -38,7 +60,7 @@ namespace PASOIB_ASYA
 			return devices;
 		}
 
-		public List<string> GetUSBDevicesInfo(bool refresh = false)
+		public List<string> GetUSBDevicesInfoList(bool refresh = false)
 		{
 			if (refresh)
 			{
@@ -55,6 +77,28 @@ namespace PASOIB_ASYA
 				result.Add(usbDeviceInfo);
 			}
 			return result;
+		}
+
+		public List<USBDeviceInfo> GetUSBDevicesInfo(bool refresh = false)
+		{
+			if (refresh)
+			{
+				usbDevices = GetUSBDevices();
+			}
+
+			return usbDevices;
+		}
+
+		private void NativeUSBDeviceInsertedHandler(object sender, EventArgs eventArgs)
+		{
+			usbDevices = GetUSBDevices();
+			onUSBDeviceInserted(this, eventArgs);
+		}
+
+		private void NativeUSBDeviceRemovedHandler(object sender, EventArgs eventArgs)
+		{
+			usbDevices = GetUSBDevices();
+			onUSBDeviceRemoved(this, eventArgs);
 		}
 	}
 }

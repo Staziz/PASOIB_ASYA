@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authentication.cs" />
+    <Compile Include="Hasher.cs" />
     <Compile Include="MainActivity.cs">
       <SubType>Form</SubType>
     </Compile>

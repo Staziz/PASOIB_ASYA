@@ -8,6 +8,6 @@ namespace PASOIB_ASYA
 {
 	class Authentication
 	{
-		
+
 	}
 }

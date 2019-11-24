@@ -12,11 +12,21 @@ namespace PASOIB_ASYA
 			set
 			{
 				_state = value;
-				lockPicture.Image =
-					State == _State.Unlocked
-						? Properties.Resources.ImageUnlocked
-						: Properties.Resources.ImageLocked;
 				lockLabel.Text = State.ToString();
+				if (State == _State.Unlocked)
+				{
+					lockPicture.Image = Properties.Resources.ImageUnlocked;
+					lockLabel.BackColor = System.Drawing.Color.FromArgb(181, 230, 29);
+					lockLabel.ForeColor= System.Drawing.Color.FromArgb(34, 177, 76);
+					tableLayout.BackColor = System.Drawing.Color.FromArgb(181, 230, 29);
+				}
+				else
+				{
+					lockPicture.Image = Properties.Resources.ImageLocked;
+					lockLabel.BackColor = System.Drawing.Color.FromArgb(255, 174, 201);
+					lockLabel.ForeColor = System.Drawing.Color.FromArgb(237, 28, 36);
+					tableLayout.BackColor = System.Drawing.Color.FromArgb(255, 174, 201);
+				}
 			}
 		}
 		public VisualLock()

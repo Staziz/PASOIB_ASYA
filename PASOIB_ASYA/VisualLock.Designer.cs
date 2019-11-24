@@ -29,14 +29,16 @@
 		private void InitializeComponent()
 		{
 			this.tableLayout = new System.Windows.Forms.TableLayoutPanel();
-			this.lockLabel = new System.Windows.Forms.Label();
 			this.lockPicture = new System.Windows.Forms.PictureBox();
+			this.lockLabel = new System.Windows.Forms.Label();
 			this.tableLayout.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.lockPicture)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// tableLayout
 			// 
+			this.tableLayout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(174)))), ((int)(((byte)(201)))));
+			this.tableLayout.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
 			this.tableLayout.ColumnCount = 2;
 			this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 44.3787F));
 			this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55.6213F));
@@ -50,31 +52,31 @@
 			this.tableLayout.Size = new System.Drawing.Size(338, 148);
 			this.tableLayout.TabIndex = 0;
 			// 
-			// lockLabel
-			// 
-			this.lockLabel.AutoSize = true;
-			this.lockLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-			this.lockLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.lockLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.lockLabel.ForeColor = System.Drawing.Color.Red;
-			this.lockLabel.Location = new System.Drawing.Point(152, 0);
-			this.lockLabel.Name = "lockLabel";
-			this.lockLabel.Size = new System.Drawing.Size(183, 148);
-			this.lockLabel.TabIndex = 1;
-			this.lockLabel.Text = "Locked";
-			this.lockLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			// 
 			// lockPicture
 			// 
 			this.lockPicture.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.lockPicture.Image = global::PASOIB_ASYA.Properties.Resources.ImageLocked;
 			this.lockPicture.InitialImage = global::PASOIB_ASYA.Properties.Resources.ImageLocked;
-			this.lockPicture.Location = new System.Drawing.Point(3, 3);
+			this.lockPicture.Location = new System.Drawing.Point(4, 4);
 			this.lockPicture.Name = "lockPicture";
-			this.lockPicture.Size = new System.Drawing.Size(143, 142);
+			this.lockPicture.Size = new System.Drawing.Size(142, 140);
 			this.lockPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
 			this.lockPicture.TabIndex = 0;
 			this.lockPicture.TabStop = false;
+			// 
+			// lockLabel
+			// 
+			this.lockLabel.AutoSize = true;
+			this.lockLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(174)))), ((int)(((byte)(201)))));
+			this.lockLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.lockLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.lockLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(28)))), ((int)(((byte)(36)))));
+			this.lockLabel.Location = new System.Drawing.Point(153, 1);
+			this.lockLabel.Name = "lockLabel";
+			this.lockLabel.Size = new System.Drawing.Size(181, 146);
+			this.lockLabel.TabIndex = 1;
+			this.lockLabel.Text = "Locked";
+			this.lockLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// VisualLock
 			// 

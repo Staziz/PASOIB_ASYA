@@ -21,6 +21,7 @@ namespace PASOIB_ASYA
 			{
 				_isAuthenticated = value;
 				visualLock.ChangeState((VisualLock._State)(IsAuthenticated ? 1 : 0));
+				UpdateTabControlState();
 			}
 		}
 
@@ -32,8 +33,20 @@ namespace PASOIB_ASYA
 		private void MainActivity_Load(object sender, EventArgs e)
 		{
 			USBChecker = new USBChecker();
+			USBChecker.onUSBDeviceInserted += USBChecker_onUSBDeviceInserted;
+			USBChecker.onUSBDeviceRemoved += USBChecker_onUSBDeviceRemoved;
 			IsAuthenticated = false;
-			UpdateTabControlState();
+			ShowConnectedDevices();
+		}
+
+		private void USBChecker_onUSBDeviceInserted(USBChecker usbChecker, EventArgs eventInsertedArgs)
+		{
+			ShowConnectedDevices();
+		}
+
+		private void USBChecker_onUSBDeviceRemoved(USBChecker usbChecker, EventArgs eventRemovedArgs)
+		{
+			ShowConnectedDevices();
 		}
 
 		private void UpdateTabControlState()
@@ -42,6 +55,37 @@ namespace PASOIB_ASYA
 			((Control)tabFilesSelection).Enabled = IsAuthenticated;
 			((Control)tabRealtimeData).Enabled = IsAuthenticated;
 			((Control)tabReports).Enabled = IsAuthenticated;
+		}
+
+		private void ShowConnectedDevices()
+		{
+			if (dataGridUSBDevices.InvokeRequired)
+			{
+				dataGridUSBDevices.Invoke(new Action(() =>
+				{
+					dataGridUSBDevices.Rows.Clear();
+					USBChecker.GetUSBDevicesInfo(true).ForEach(usbDeviceInfo =>
+					{
+						var properties = typeof(USBDeviceInfo).GetProperties();
+						dataGridUSBDevices.Rows.Add(properties.Select(property => property.GetValue(usbDeviceInfo)).ToArray());
+					});
+				}));
+			}
+			else
+			{
+				dataGridUSBDevices.Rows.Clear();
+				USBChecker.GetUSBDevicesInfo(true).ForEach(usbDeviceInfo =>
+				{
+					var properties = typeof(USBDeviceInfo).GetProperties();
+					dataGridUSBDevices.Rows.Add(properties.Select(property => property.GetValue(usbDeviceInfo)).ToArray());
+				});
+			}
+		}
+
+		private void buttonSelect_Click(object sender, EventArgs e)
+		{
+			IsAuthenticated = !IsAuthenticated;
+			ShowConnectedDevices();
 		}
 	}
 }
