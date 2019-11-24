@@ -12,10 +12,17 @@ namespace PASOIB_ASYA
 {
 	public partial class MainActivity : Form
 	{
-		public enum _State { Locked, Unlocked };
-
 		private USBChecker USBChecker;
-		private bool IsAuthenticated;
+		private bool _isAuthenticated;
+		private bool IsAuthenticated
+		{
+			get => _isAuthenticated;
+			set
+			{
+				_isAuthenticated = value;
+				visualLock.ChangeState((VisualLock._State)(IsAuthenticated ? 1 : 0));
+			}
+		}
 
 		public MainActivity()
 		{

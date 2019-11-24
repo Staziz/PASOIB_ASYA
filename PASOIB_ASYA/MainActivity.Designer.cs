@@ -35,7 +35,7 @@
 			this.tableLayoutAuthentication = new System.Windows.Forms.TableLayoutPanel();
 			this.ubsDevicesList = new System.Windows.Forms.ListBox();
 			this.buttonSelect = new System.Windows.Forms.Button();
-			this.visualLock1 = new PASOIB_ASYA.VisualLock();
+			this.visualLock = new PASOIB_ASYA.VisualLock();
 			this.tabControl = new System.Windows.Forms.TabControl();
 			this.tabAuthentication.SuspendLayout();
 			this.tableLayoutAuthentication.SuspendLayout();
@@ -91,7 +91,7 @@
 			this.tableLayoutAuthentication.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
 			this.tableLayoutAuthentication.Controls.Add(this.ubsDevicesList, 2, 0);
 			this.tableLayoutAuthentication.Controls.Add(this.buttonSelect, 1, 3);
-			this.tableLayoutAuthentication.Controls.Add(this.visualLock1, 0, 1);
+			this.tableLayoutAuthentication.Controls.Add(this.visualLock, 0, 1);
 			this.tableLayoutAuthentication.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tableLayoutAuthentication.Location = new System.Drawing.Point(3, 3);
 			this.tableLayoutAuthentication.Name = "tableLayoutAuthentication";
@@ -123,16 +123,16 @@
 			this.buttonSelect.Text = "Select";
 			this.buttonSelect.UseVisualStyleBackColor = true;
 			// 
-			// visualLock1
+			// visualLock
 			// 
-			this.visualLock1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.tableLayoutAuthentication.SetColumnSpan(this.visualLock1, 2);
-			this.visualLock1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.visualLock1.Location = new System.Drawing.Point(3, 107);
-			this.visualLock1.Name = "visualLock1";
-			this.visualLock1.Size = new System.Drawing.Size(228, 98);
-			this.visualLock1.State = PASOIB_ASYA.VisualLock._State.Locked;
-			this.visualLock1.TabIndex = 5;
+			this.visualLock.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.tableLayoutAuthentication.SetColumnSpan(this.visualLock, 2);
+			this.visualLock.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.visualLock.Location = new System.Drawing.Point(3, 107);
+			this.visualLock.Name = "visualLock";
+			this.visualLock.Size = new System.Drawing.Size(228, 98);
+			this.visualLock.State = PASOIB_ASYA.VisualLock._State.Locked;
+			this.visualLock.TabIndex = 5;
 			// 
 			// tabControl
 			// 
@@ -173,7 +173,7 @@
 		private System.Windows.Forms.TableLayoutPanel tableLayoutAuthentication;
 		private System.Windows.Forms.ListBox ubsDevicesList;
 		private System.Windows.Forms.Button buttonSelect;
-		private VisualLock visualLock1;
+		private VisualLock visualLock;
 	}
 }
 
