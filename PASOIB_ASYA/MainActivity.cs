@@ -12,8 +12,11 @@ namespace PASOIB_ASYA
 {
 	public partial class MainActivity : Form
 	{
+		public enum _State { Locked, Unlocked };
+
 		private USBChecker USBChecker;
-		private bool isAuthenticated;
+		private bool IsAuthenticated;
+
 		public MainActivity()
 		{
 			InitializeComponent();
@@ -22,28 +25,16 @@ namespace PASOIB_ASYA
 		private void MainActivity_Load(object sender, EventArgs e)
 		{
 			USBChecker = new USBChecker();
-			isAuthenticated = false;
+			IsAuthenticated = false;
 			UpdateTabControlState();
 		}
 
 		private void UpdateTabControlState()
 		{
-			if (!isAuthenticated)
-			{
-				((Control)tabAuthentication).Enabled = true;
-				((Control)tabKeySelection).Enabled = false;
-				((Control)tabFilesSelection).Enabled = false;
-				((Control)tabRealtimeData).Enabled = false;
-				((Control)tabReports).Enabled = false;
-			}
-			else
-			{
-				((Control)tabAuthentication).Enabled = false;
-				((Control)tabKeySelection).Enabled = true;
-				((Control)tabFilesSelection).Enabled = true;
-				((Control)tabRealtimeData).Enabled = true;
-				((Control)tabReports).Enabled = true;
-			}
+			((Control)tabAuthentication).Enabled = !IsAuthenticated;
+			((Control)tabFilesSelection).Enabled = IsAuthenticated;
+			((Control)tabRealtimeData).Enabled = IsAuthenticated;
+			((Control)tabReports).Enabled = IsAuthenticated;
 		}
 	}
 }
