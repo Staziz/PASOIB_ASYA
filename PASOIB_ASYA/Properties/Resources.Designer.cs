@@ -71,6 +71,15 @@ namespace PASOIB_ASYA.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на data.txt.
+        /// </summary>
+        internal static string DataFile {
+            get {
+                return ResourceManager.GetString("DataFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap ImageLocked {
@@ -87,6 +96,15 @@ namespace PASOIB_ASYA.Properties {
             get {
                 object obj = ResourceManager.GetObject("ImageUnlocked", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на idetificator.key.
+        /// </summary>
+        internal static string KeyFile {
+            get {
+                return ResourceManager.GetString("KeyFile", resourceCulture);
             }
         }
     }

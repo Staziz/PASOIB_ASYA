@@ -39,6 +39,23 @@ namespace PASOIB_ASYA
 			ShowConnectedDevices();
 		}
 
+		private void MainActivity_Shown(object sender, EventArgs e)
+		{
+			if (DataAccess.GetIdentificator() == null)
+			{
+				DialogResult dialogResult = MessageBox.Show(
+					"Please select the USB device you want to set as a key for the program",
+					"Preparing for work...",
+					MessageBoxButtons.OKCancel,
+					MessageBoxIcon.Asterisk,
+					MessageBoxDefaultButton.Button1);
+				if (dialogResult == DialogResult.Cancel)
+				{
+					Application.Exit();
+				}
+			}
+		}
+
 		private void USBChecker_onUSBDeviceInserted(USBChecker usbChecker, EventArgs eventInsertedArgs)
 		{
 			ShowConnectedDevices();
@@ -66,7 +83,7 @@ namespace PASOIB_ASYA
 					dataGridUSBDevices.Rows.Clear();
 					USBChecker.GetUSBDevicesInfo(true).ForEach(usbDeviceInfo =>
 					{
-						var properties = typeof(USBDeviceInfo).GetProperties();
+						System.Reflection.PropertyInfo[] properties = typeof(USBDeviceInfo).GetProperties();
 						dataGridUSBDevices.Rows.Add(properties.Select(property => property.GetValue(usbDeviceInfo)).ToArray());
 					});
 				}));

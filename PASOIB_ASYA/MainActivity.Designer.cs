@@ -198,6 +198,7 @@
 			this.Name = "MainActivity";
 			this.Text = "Form1";
 			this.Load += new System.EventHandler(this.MainActivity_Load);
+			this.Shown += new System.EventHandler(this.MainActivity_Shown);
 			this.tabAuthentication.ResumeLayout(false);
 			this.tableLayoutAuthentication.ResumeLayout(false);
 			this.tabControl.ResumeLayout(false);
