@@ -31,20 +31,24 @@
 			this.tabReports = new System.Windows.Forms.TabPage();
 			this.tabRealtimeData = new System.Windows.Forms.TabPage();
 			this.tabFilesSelection = new System.Windows.Forms.TabPage();
+			this.FilesSelectionTableLayout = new System.Windows.Forms.TableLayoutPanel();
+			this.ProctectingFilesCheckedListBox = new System.Windows.Forms.CheckedListBox();
 			this.tabAuthentication = new System.Windows.Forms.TabPage();
-			this.tableLayoutAuthentication = new System.Windows.Forms.TableLayoutPanel();
-			this.buttonSelect = new System.Windows.Forms.Button();
-			this.tabControl = new System.Windows.Forms.TabControl();
-			this.dataGridUSBDevices = new System.Windows.Forms.DataGridView();
+			this.AuthenticationTableLayout = new System.Windows.Forms.TableLayoutPanel();
+			this.SelectButton = new System.Windows.Forms.Button();
+			this.VisualLock = new PASOIB_ASYA.VisualLock();
+			this.USBDevicesDataGrid = new System.Windows.Forms.DataGridView();
 			this.DeviceID = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.PNPDeviceID = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.DeviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.visualLock = new PASOIB_ASYA.VisualLock();
+			this.tabControl = new System.Windows.Forms.TabControl();
+			this.tabFilesSelection.SuspendLayout();
+			this.FilesSelectionTableLayout.SuspendLayout();
 			this.tabAuthentication.SuspendLayout();
-			this.tableLayoutAuthentication.SuspendLayout();
+			this.AuthenticationTableLayout.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.USBDevicesDataGrid)).BeginInit();
 			this.tabControl.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridUSBDevices)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// tabReports
@@ -69,6 +73,7 @@
 			// 
 			// tabFilesSelection
 			// 
+			this.tabFilesSelection.Controls.Add(this.FilesSelectionTableLayout);
 			this.tabFilesSelection.Location = new System.Drawing.Point(4, 22);
 			this.tabFilesSelection.Name = "tabFilesSelection";
 			this.tabFilesSelection.Padding = new System.Windows.Forms.Padding(3);
@@ -77,9 +82,33 @@
 			this.tabFilesSelection.Text = "Files Selection";
 			this.tabFilesSelection.UseVisualStyleBackColor = true;
 			// 
+			// FilesSelectionTableLayout
+			// 
+			this.FilesSelectionTableLayout.ColumnCount = 2;
+			this.FilesSelectionTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.FilesSelectionTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.FilesSelectionTableLayout.Controls.Add(this.ProctectingFilesCheckedListBox, 0, 0);
+			this.FilesSelectionTableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.FilesSelectionTableLayout.Location = new System.Drawing.Point(3, 3);
+			this.FilesSelectionTableLayout.Name = "FilesSelectionTableLayout";
+			this.FilesSelectionTableLayout.RowCount = 2;
+			this.FilesSelectionTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.FilesSelectionTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.FilesSelectionTableLayout.Size = new System.Drawing.Size(786, 418);
+			this.FilesSelectionTableLayout.TabIndex = 1;
+			// 
+			// ProctectingFilesCheckedListBox
+			// 
+			this.ProctectingFilesCheckedListBox.BackColor = System.Drawing.Color.White;
+			this.ProctectingFilesCheckedListBox.FormattingEnabled = true;
+			this.ProctectingFilesCheckedListBox.Location = new System.Drawing.Point(3, 3);
+			this.ProctectingFilesCheckedListBox.Name = "ProctectingFilesCheckedListBox";
+			this.ProctectingFilesCheckedListBox.Size = new System.Drawing.Size(120, 94);
+			this.ProctectingFilesCheckedListBox.TabIndex = 0;
+			// 
 			// tabAuthentication
 			// 
-			this.tabAuthentication.Controls.Add(this.tableLayoutAuthentication);
+			this.tabAuthentication.Controls.Add(this.AuthenticationTableLayout);
 			this.tabAuthentication.Location = new System.Drawing.Point(4, 22);
 			this.tabAuthentication.Name = "tabAuthentication";
 			this.tabAuthentication.Padding = new System.Windows.Forms.Padding(3);
@@ -88,71 +117,69 @@
 			this.tabAuthentication.Text = "Authentication";
 			this.tabAuthentication.UseVisualStyleBackColor = true;
 			// 
-			// tableLayoutAuthentication
+			// AuthenticationTableLayout
 			// 
-			this.tableLayoutAuthentication.ColumnCount = 3;
-			this.tableLayoutAuthentication.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
-			this.tableLayoutAuthentication.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
-			this.tableLayoutAuthentication.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
-			this.tableLayoutAuthentication.Controls.Add(this.buttonSelect, 1, 3);
-			this.tableLayoutAuthentication.Controls.Add(this.visualLock, 0, 1);
-			this.tableLayoutAuthentication.Controls.Add(this.dataGridUSBDevices, 2, 0);
-			this.tableLayoutAuthentication.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tableLayoutAuthentication.Location = new System.Drawing.Point(3, 3);
-			this.tableLayoutAuthentication.Name = "tableLayoutAuthentication";
-			this.tableLayoutAuthentication.RowCount = 4;
-			this.tableLayoutAuthentication.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-			this.tableLayoutAuthentication.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-			this.tableLayoutAuthentication.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-			this.tableLayoutAuthentication.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-			this.tableLayoutAuthentication.Size = new System.Drawing.Size(786, 418);
-			this.tableLayoutAuthentication.TabIndex = 0;
+			this.AuthenticationTableLayout.ColumnCount = 3;
+			this.AuthenticationTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
+			this.AuthenticationTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
+			this.AuthenticationTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+			this.AuthenticationTableLayout.Controls.Add(this.SelectButton, 1, 3);
+			this.AuthenticationTableLayout.Controls.Add(this.VisualLock, 0, 1);
+			this.AuthenticationTableLayout.Controls.Add(this.USBDevicesDataGrid, 2, 0);
+			this.AuthenticationTableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.AuthenticationTableLayout.Location = new System.Drawing.Point(3, 3);
+			this.AuthenticationTableLayout.Name = "AuthenticationTableLayout";
+			this.AuthenticationTableLayout.RowCount = 4;
+			this.AuthenticationTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+			this.AuthenticationTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+			this.AuthenticationTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+			this.AuthenticationTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+			this.AuthenticationTableLayout.Size = new System.Drawing.Size(786, 418);
+			this.AuthenticationTableLayout.TabIndex = 0;
 			// 
-			// buttonSelect
+			// SelectButton
 			// 
-			this.buttonSelect.Dock = System.Windows.Forms.DockStyle.Top;
-			this.buttonSelect.Location = new System.Drawing.Point(120, 315);
-			this.buttonSelect.Name = "buttonSelect";
-			this.buttonSelect.Size = new System.Drawing.Size(111, 23);
-			this.buttonSelect.TabIndex = 4;
-			this.buttonSelect.Text = "Select";
-			this.buttonSelect.UseVisualStyleBackColor = true;
-			this.buttonSelect.Click += new System.EventHandler(this.ButtonSelect_Click);
+			this.SelectButton.Dock = System.Windows.Forms.DockStyle.Top;
+			this.SelectButton.Location = new System.Drawing.Point(120, 315);
+			this.SelectButton.Name = "SelectButton";
+			this.SelectButton.Size = new System.Drawing.Size(111, 23);
+			this.SelectButton.TabIndex = 4;
+			this.SelectButton.Text = "Select";
+			this.SelectButton.UseVisualStyleBackColor = true;
+			this.SelectButton.Click += new System.EventHandler(this.ButtonSelect_Click);
 			// 
-			// tabControl
+			// VisualLock
 			// 
-			this.tabControl.Controls.Add(this.tabAuthentication);
-			this.tabControl.Controls.Add(this.tabFilesSelection);
-			this.tabControl.Controls.Add(this.tabRealtimeData);
-			this.tabControl.Controls.Add(this.tabReports);
-			this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tabControl.Location = new System.Drawing.Point(0, 0);
-			this.tabControl.Name = "tabControl";
-			this.tabControl.SelectedIndex = 0;
-			this.tabControl.Size = new System.Drawing.Size(800, 450);
-			this.tabControl.TabIndex = 0;
+			this.VisualLock.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.AuthenticationTableLayout.SetColumnSpan(this.VisualLock, 2);
+			this.VisualLock.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.VisualLock.Location = new System.Drawing.Point(3, 107);
+			this.VisualLock.Name = "VisualLock";
+			this.VisualLock.Size = new System.Drawing.Size(228, 98);
+			this.VisualLock.State = PASOIB_ASYA.VisualLock._State.Locked;
+			this.VisualLock.TabIndex = 5;
 			// 
-			// dataGridUSBDevices
+			// USBDevicesDataGrid
 			// 
-			this.dataGridUSBDevices.AllowUserToAddRows = false;
-			this.dataGridUSBDevices.AllowUserToDeleteRows = false;
-			this.dataGridUSBDevices.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-			this.dataGridUSBDevices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridUSBDevices.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+			this.USBDevicesDataGrid.AllowUserToAddRows = false;
+			this.USBDevicesDataGrid.AllowUserToDeleteRows = false;
+			this.USBDevicesDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+			this.USBDevicesDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.USBDevicesDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.DeviceID,
             this.PNPDeviceID,
             this.DeviceName,
             this.Description});
-			this.dataGridUSBDevices.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.dataGridUSBDevices.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-			this.dataGridUSBDevices.Location = new System.Drawing.Point(237, 3);
-			this.dataGridUSBDevices.MultiSelect = false;
-			this.dataGridUSBDevices.Name = "dataGridUSBDevices";
-			this.dataGridUSBDevices.ReadOnly = true;
-			this.dataGridUSBDevices.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-			this.tableLayoutAuthentication.SetRowSpan(this.dataGridUSBDevices, 4);
-			this.dataGridUSBDevices.Size = new System.Drawing.Size(546, 412);
-			this.dataGridUSBDevices.TabIndex = 7;
+			this.USBDevicesDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.USBDevicesDataGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+			this.USBDevicesDataGrid.Location = new System.Drawing.Point(237, 3);
+			this.USBDevicesDataGrid.MultiSelect = false;
+			this.USBDevicesDataGrid.Name = "USBDevicesDataGrid";
+			this.USBDevicesDataGrid.ReadOnly = true;
+			this.USBDevicesDataGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+			this.AuthenticationTableLayout.SetRowSpan(this.USBDevicesDataGrid, 4);
+			this.USBDevicesDataGrid.Size = new System.Drawing.Size(546, 412);
+			this.USBDevicesDataGrid.TabIndex = 7;
 			// 
 			// DeviceID
 			// 
@@ -178,16 +205,18 @@
 			this.Description.Name = "Description";
 			this.Description.ReadOnly = true;
 			// 
-			// visualLock
+			// tabControl
 			// 
-			this.visualLock.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.tableLayoutAuthentication.SetColumnSpan(this.visualLock, 2);
-			this.visualLock.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.visualLock.Location = new System.Drawing.Point(3, 107);
-			this.visualLock.Name = "visualLock";
-			this.visualLock.Size = new System.Drawing.Size(228, 98);
-			this.visualLock.State = PASOIB_ASYA.VisualLock._State.Locked;
-			this.visualLock.TabIndex = 5;
+			this.tabControl.Controls.Add(this.tabAuthentication);
+			this.tabControl.Controls.Add(this.tabFilesSelection);
+			this.tabControl.Controls.Add(this.tabRealtimeData);
+			this.tabControl.Controls.Add(this.tabReports);
+			this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tabControl.Location = new System.Drawing.Point(0, 0);
+			this.tabControl.Name = "tabControl";
+			this.tabControl.SelectedIndex = 0;
+			this.tabControl.Size = new System.Drawing.Size(800, 450);
+			this.tabControl.TabIndex = 0;
 			// 
 			// MainActivity
 			// 
@@ -199,10 +228,12 @@
 			this.Text = "Form1";
 			this.Load += new System.EventHandler(this.MainActivity_Load);
 			this.Shown += new System.EventHandler(this.MainActivity_Shown);
+			this.tabFilesSelection.ResumeLayout(false);
+			this.FilesSelectionTableLayout.ResumeLayout(false);
 			this.tabAuthentication.ResumeLayout(false);
-			this.tableLayoutAuthentication.ResumeLayout(false);
+			this.AuthenticationTableLayout.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.USBDevicesDataGrid)).EndInit();
 			this.tabControl.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.dataGridUSBDevices)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -214,14 +245,16 @@
 		private System.Windows.Forms.TabPage tabFilesSelection;
 		private System.Windows.Forms.TabPage tabAuthentication;
 		private System.Windows.Forms.TabControl tabControl;
-		private System.Windows.Forms.TableLayoutPanel tableLayoutAuthentication;
-		private System.Windows.Forms.Button buttonSelect;
-		private VisualLock visualLock;
-		private System.Windows.Forms.DataGridView dataGridUSBDevices;
+		private System.Windows.Forms.TableLayoutPanel AuthenticationTableLayout;
+		private System.Windows.Forms.Button SelectButton;
+		private VisualLock VisualLock;
+		private System.Windows.Forms.DataGridView USBDevicesDataGrid;
 		private System.Windows.Forms.DataGridViewTextBoxColumn DeviceID;
 		private System.Windows.Forms.DataGridViewTextBoxColumn PNPDeviceID;
 		private System.Windows.Forms.DataGridViewTextBoxColumn DeviceName;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Description;
+		private System.Windows.Forms.TableLayoutPanel FilesSelectionTableLayout;
+		private System.Windows.Forms.CheckedListBox ProctectingFilesCheckedListBox;
 	}
 }
 

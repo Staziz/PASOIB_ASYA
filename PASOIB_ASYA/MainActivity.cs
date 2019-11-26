@@ -20,7 +20,7 @@ namespace PASOIB_ASYA
 			set
 			{
 				_isAuthenticated = value;
-				visualLock.ChangeState((VisualLock._State)(IsAuthenticated ? 1 : 0));
+				VisualLock.ChangeState((VisualLock._State)(IsAuthenticated ? 1 : 0));
 				UpdateTabControlState();
 			}
 		}
@@ -64,25 +64,25 @@ namespace PASOIB_ASYA
 
 		private void ShowConnectedDevices()
 		{
-			if (dataGridUSBDevices.InvokeRequired)
+			if (USBDevicesDataGrid.InvokeRequired)
 			{
-				dataGridUSBDevices.Invoke(new Action(() =>
+				USBDevicesDataGrid.Invoke(new Action(() =>
 				{
-					dataGridUSBDevices.Rows.Clear();
+					USBDevicesDataGrid.Rows.Clear();
 					USBChecker.GetUSBDevicesInfo(true).ForEach(usbDeviceInfo =>
 					{
 						System.Reflection.PropertyInfo[] properties = typeof(USBDeviceInfo).GetProperties();
-						dataGridUSBDevices.Rows.Add(properties.Select(property => property.GetValue(usbDeviceInfo)).ToArray());
+						USBDevicesDataGrid.Rows.Add(properties.Select(property => property.GetValue(usbDeviceInfo)).ToArray());
 					});
 				}));
 			}
 			else
 			{
-				dataGridUSBDevices.Rows.Clear();
+				USBDevicesDataGrid.Rows.Clear();
 				USBChecker.GetUSBDevicesInfo(true).ForEach(usbDeviceInfo =>
 				{
 					var properties = typeof(USBDeviceInfo).GetProperties();
-					dataGridUSBDevices.Rows.Add(properties.Select(property => property.GetValue(usbDeviceInfo)).ToArray());
+					USBDevicesDataGrid.Rows.Add(properties.Select(property => property.GetValue(usbDeviceInfo)).ToArray());
 				});
 			}
 		}
@@ -91,7 +91,7 @@ namespace PASOIB_ASYA
 		{
 			try
 			{
-				string currentId = dataGridUSBDevices.SelectedRows[0].Cells[0].Value.ToString();
+				string currentId = USBDevicesDataGrid.SelectedRows[0].Cells[0].Value.ToString();
 				string masterId = DataAccess.GetIdentificator();
 				IsAuthenticated = Authentication.TryAuthentify(currentId, masterId);
 				if (!IsAuthenticated)
