@@ -41,29 +41,7 @@ namespace PASOIB_ASYA
 
 		private void MainActivity_Shown(object sender, EventArgs e)
 		{
-			string message = "";
-			string capture = "";
-			if (DataAccess.GetIdentificator() == null)
-			{
-				message = "Please select the USB device you want to set as a key for the program";
-				capture = "Preparing for work...";
-			}
-			else
-			{
-				message = "Please select the USB device you want to use to enter the program";
-				capture = "Preparing for work...";
-			}
-
-			DialogResult dialogResult = MessageBox.Show(
-					message,
-					capture,
-					MessageBoxButtons.OKCancel,
-					MessageBoxIcon.Asterisk,
-					MessageBoxDefaultButton.Button1);
-			if (dialogResult == DialogResult.Cancel)
-			{
-				Application.Exit();
-			}
+			Authentication.ShowGreeting();
 		}
 
 		private void USBChecker_onUSBDeviceInserted(USBChecker usbChecker, EventArgs eventInsertedArgs)
@@ -115,25 +93,14 @@ namespace PASOIB_ASYA
 			{
 				string currentId = dataGridUSBDevices.SelectedRows[0].Cells[0].Value.ToString();
 				string masterId = DataAccess.GetIdentificator();
-				if (masterId == null)
+				IsAuthenticated = Authentication.TryAuthentify(currentId, masterId);
+				if (!IsAuthenticated)
 				{
-					DataAccess.SetIdentificator(currentId);
-					IsAuthenticated = true;
-				}
-				else
-				{
-					if (Hasher.IsStringEqualsHash(currentId, masterId))
-					{
-						IsAuthenticated = true;
-					}
-					else
-					{
-						MessageBox.Show(
-							"This is an incorrect identifier",
-							"Error",
-							MessageBoxButtons.OK,
-							MessageBoxIcon.Error);
-					}
+					MessageBox.Show(
+						"This is an incorrect identifier",
+						"Error",
+						MessageBoxButtons.OK,
+						MessageBoxIcon.Error);
 				}
 			}
 			catch
