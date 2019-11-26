@@ -14,7 +14,12 @@ namespace PASOIB_ASYA
 			string keyFilePath = Path.GetFullPath($"~{Properties.Resources.KeyFile}");
 			using (StreamWriter keyFile = File.Exists(keyFilePath) ? new StreamWriter(keyFilePath) : File.AppendText(keyFilePath))
 			{
-				keyFile.WriteLine(identificator);
+				keyFile.WriteLine(Hasher.GetMd5Hash(identificator));
+				System.Windows.Forms.MessageBox.Show(
+					"The key was successfully saved!",
+					"Info",
+					System.Windows.Forms.MessageBoxButtons.OK,
+					System.Windows.Forms.MessageBoxIcon.Asterisk);
 			}
 		}
 

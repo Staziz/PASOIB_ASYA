@@ -117,7 +117,7 @@
 			this.buttonSelect.TabIndex = 4;
 			this.buttonSelect.Text = "Select";
 			this.buttonSelect.UseVisualStyleBackColor = true;
-			this.buttonSelect.Click += new System.EventHandler(this.buttonSelect_Click);
+			this.buttonSelect.Click += new System.EventHandler(this.ButtonSelect_Click);
 			// 
 			// tabControl
 			// 

@@ -26,7 +26,7 @@ namespace PASOIB_ASYA
 			return sBuilder.ToString();
 		}
 
-		public static bool IsStringHasHash(string input, string hash)
+		public static bool IsStringEqualsHash(string input, string hash)
 		{
 			string hashOfInput = GetMd5Hash(input);
 			StringComparer comparer = StringComparer.OrdinalIgnoreCase;

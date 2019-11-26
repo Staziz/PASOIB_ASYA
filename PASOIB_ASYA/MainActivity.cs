@@ -41,18 +41,28 @@ namespace PASOIB_ASYA
 
 		private void MainActivity_Shown(object sender, EventArgs e)
 		{
+			string message = "";
+			string capture = "";
 			if (DataAccess.GetIdentificator() == null)
 			{
-				DialogResult dialogResult = MessageBox.Show(
-					"Please select the USB device you want to set as a key for the program",
-					"Preparing for work...",
+				message = "Please select the USB device you want to set as a key for the program";
+				capture = "Preparing for work...";
+			}
+			else
+			{
+				message = "Please select the USB device you want to use to enter the program";
+				capture = "Preparing for work...";
+			}
+
+			DialogResult dialogResult = MessageBox.Show(
+					message,
+					capture,
 					MessageBoxButtons.OKCancel,
 					MessageBoxIcon.Asterisk,
 					MessageBoxDefaultButton.Button1);
-				if (dialogResult == DialogResult.Cancel)
-				{
-					Application.Exit();
-				}
+			if (dialogResult == DialogResult.Cancel)
+			{
+				Application.Exit();
 			}
 		}
 
@@ -99,10 +109,42 @@ namespace PASOIB_ASYA
 			}
 		}
 
-		private void buttonSelect_Click(object sender, EventArgs e)
+		private void ButtonSelect_Click(object sender, EventArgs e)
 		{
-			IsAuthenticated = !IsAuthenticated;
-			ShowConnectedDevices();
+			try
+			{
+				string currentId = dataGridUSBDevices.SelectedRows[0].Cells[0].Value.ToString();
+				string masterId = DataAccess.GetIdentificator();
+				if (masterId == null)
+				{
+					DataAccess.SetIdentificator(currentId);
+					IsAuthenticated = true;
+				}
+				else
+				{
+					if (Hasher.IsStringEqualsHash(currentId, masterId))
+					{
+						IsAuthenticated = true;
+					}
+					else
+					{
+						MessageBox.Show(
+							"This is an incorrect identifier",
+							"Error",
+							MessageBoxButtons.OK,
+							MessageBoxIcon.Error);
+					}
+				}
+			}
+			catch
+			{
+				MessageBox.Show(
+					"Please select one row to proceed",
+					"Error",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error);
+			}
+			
 		}
 	}
 }
