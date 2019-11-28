@@ -34,6 +34,8 @@
 			this.FilesSelectionTableLayout = new System.Windows.Forms.TableLayoutPanel();
 			this.ProctectingFilesDataGrid = new System.Windows.Forms.DataGridView();
 			this.FileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.ButtonsTableLayout = new System.Windows.Forms.TableLayoutPanel();
+			this.AddFileButton = new System.Windows.Forms.Button();
 			this.tabAuthentication = new System.Windows.Forms.TabPage();
 			this.AuthenticationTableLayout = new System.Windows.Forms.TableLayoutPanel();
 			this.SelectButton = new System.Windows.Forms.Button();
@@ -44,16 +46,14 @@
 			this.DeviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tabControl = new System.Windows.Forms.TabControl();
-			this.ButtonsTableLayout = new System.Windows.Forms.TableLayoutPanel();
-			this.AddFileButton = new System.Windows.Forms.Button();
 			this.tabFilesSelection.SuspendLayout();
 			this.FilesSelectionTableLayout.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.ProctectingFilesDataGrid)).BeginInit();
+			this.ButtonsTableLayout.SuspendLayout();
 			this.tabAuthentication.SuspendLayout();
 			this.AuthenticationTableLayout.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.USBDevicesDataGrid)).BeginInit();
 			this.tabControl.SuspendLayout();
-			this.ButtonsTableLayout.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabReports
@@ -124,6 +124,31 @@
 			this.FileName.HeaderText = "File Name";
 			this.FileName.Name = "FileName";
 			this.FileName.ReadOnly = true;
+			// 
+			// ButtonsTableLayout
+			// 
+			this.ButtonsTableLayout.ColumnCount = 2;
+			this.ButtonsTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.ButtonsTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.ButtonsTableLayout.Controls.Add(this.AddFileButton, 1, 0);
+			this.ButtonsTableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.ButtonsTableLayout.Location = new System.Drawing.Point(396, 212);
+			this.ButtonsTableLayout.Name = "ButtonsTableLayout";
+			this.ButtonsTableLayout.RowCount = 2;
+			this.ButtonsTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.ButtonsTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.ButtonsTableLayout.Size = new System.Drawing.Size(387, 203);
+			this.ButtonsTableLayout.TabIndex = 1;
+			// 
+			// AddFileButton
+			// 
+			this.AddFileButton.Location = new System.Drawing.Point(196, 3);
+			this.AddFileButton.Name = "AddFileButton";
+			this.AddFileButton.Size = new System.Drawing.Size(75, 23);
+			this.AddFileButton.TabIndex = 0;
+			this.AddFileButton.Text = "Add File";
+			this.AddFileButton.UseVisualStyleBackColor = true;
+			this.AddFileButton.Click += new System.EventHandler(this.AddFileButton_Click);
 			// 
 			// tabAuthentication
 			// 
@@ -237,30 +262,6 @@
 			this.tabControl.Size = new System.Drawing.Size(800, 450);
 			this.tabControl.TabIndex = 0;
 			// 
-			// ButtonsTableLayout
-			// 
-			this.ButtonsTableLayout.ColumnCount = 2;
-			this.ButtonsTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.ButtonsTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.ButtonsTableLayout.Controls.Add(this.AddFileButton, 1, 0);
-			this.ButtonsTableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.ButtonsTableLayout.Location = new System.Drawing.Point(396, 212);
-			this.ButtonsTableLayout.Name = "ButtonsTableLayout";
-			this.ButtonsTableLayout.RowCount = 2;
-			this.ButtonsTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.ButtonsTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.ButtonsTableLayout.Size = new System.Drawing.Size(387, 203);
-			this.ButtonsTableLayout.TabIndex = 1;
-			// 
-			// AddFileButton
-			// 
-			this.AddFileButton.Location = new System.Drawing.Point(196, 3);
-			this.AddFileButton.Name = "AddFileButton";
-			this.AddFileButton.Size = new System.Drawing.Size(75, 23);
-			this.AddFileButton.TabIndex = 0;
-			this.AddFileButton.Text = "Add File";
-			this.AddFileButton.UseVisualStyleBackColor = true;
-			// 
 			// MainActivity
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -274,11 +275,11 @@
 			this.tabFilesSelection.ResumeLayout(false);
 			this.FilesSelectionTableLayout.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.ProctectingFilesDataGrid)).EndInit();
+			this.ButtonsTableLayout.ResumeLayout(false);
 			this.tabAuthentication.ResumeLayout(false);
 			this.AuthenticationTableLayout.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.USBDevicesDataGrid)).EndInit();
 			this.tabControl.ResumeLayout(false);
-			this.ButtonsTableLayout.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}

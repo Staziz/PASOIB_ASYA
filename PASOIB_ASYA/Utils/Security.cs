@@ -7,24 +7,18 @@ namespace PASOIB_ASYA
 {
 	public static class Security
 	{
-		private static readonly MD5 md5Hash;
-
-		static Security()
-		{
-			md5Hash = MD5.Create();
-		}
-
 		public static string GetMd5Hash(string input)
 		{
-			byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
-			StringBuilder sBuilder = new StringBuilder();
-
-			for (int i = 0; i < data.Length; i++)
+			using (MD5 md5Hash = MD5.Create())
 			{
-				sBuilder.Append(data[i].ToString("x2"));
+				byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+				StringBuilder sBuilder = new StringBuilder();
+				for (int i = 0; i < data.Length; i++)
+				{
+					sBuilder.Append(data[i].ToString("x2"));
+				}
+				return sBuilder.ToString();
 			}
-
-			return sBuilder.ToString();
 		}
 
 		public static bool IsStringEqualsHash(string input, string hash)
@@ -34,19 +28,12 @@ namespace PASOIB_ASYA
 			return 0 == comparer.Compare(hashOfInput, hash);
 		}
 
-		static byte[] EncryptStringToBytes_Aes(string plainText, byte[] Key, byte[] IV)
+		public static string EncryptFileAES(string plainText, string Key, string IV)
 		{
-			if (plainText == null || plainText.Length <= 0)
-				throw new ArgumentNullException("plainText");
-			if (Key == null || Key.Length <= 0)
-				throw new ArgumentNullException("Key");
-			if (IV == null || IV.Length <= 0)
-				throw new ArgumentNullException("IV");
-			byte[] encrypted;
 			using (AesCryptoServiceProvider aesAlg = new AesCryptoServiceProvider())
 			{
-				aesAlg.Key = Key;
-				aesAlg.IV = IV;
+				aesAlg.Key = Encoding.UTF8.GetBytes(Key);
+				aesAlg.IV = Encoding.UTF8.GetBytes(IV);
 				ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
 				using (MemoryStream msEncrypt = new MemoryStream())
 				{
@@ -56,43 +43,30 @@ namespace PASOIB_ASYA
 						{
 							swEncrypt.Write(plainText);
 						}
-						encrypted = msEncrypt.ToArray();
+						return Encoding.UTF8.GetString(msEncrypt.ToArray());
 					}
 				}
 			}
-			return encrypted;
-
 		}
 
-		static string DecryptStringFromBytes_Aes(byte[] cipherText, byte[] Key, byte[] IV)
+		public static string DecryptFileAES(string cipherText, string Key, string IV)
 		{
-			if (cipherText == null || cipherText.Length <= 0)
-				throw new ArgumentNullException("cipherText");
-			if (Key == null || Key.Length <= 0)
-				throw new ArgumentNullException("Key");
-			if (IV == null || IV.Length <= 0)
-				throw new ArgumentNullException("IV");
-			string plaintext = null;
 			using (AesCryptoServiceProvider aesAlg = new AesCryptoServiceProvider())
 			{
-				aesAlg.Key = Key;
-				aesAlg.IV = IV;
+				aesAlg.Key = Encoding.UTF8.GetBytes(Key);
+				aesAlg.IV = Encoding.UTF8.GetBytes(IV);
 				ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
-				using (MemoryStream msDecrypt = new MemoryStream(cipherText))
+				using (MemoryStream msDecrypt = new MemoryStream(Encoding.UTF8.GetBytes(cipherText)))
 				{
 					using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
 					{
 						using (StreamReader srDecrypt = new StreamReader(csDecrypt))
 						{
-							plaintext = srDecrypt.ReadToEnd();
+							return srDecrypt.ReadToEnd();
 						}
 					}
 				}
-
 			}
-
-			return plaintext;
-
 		}
 
 	}

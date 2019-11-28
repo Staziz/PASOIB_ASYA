@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -113,6 +114,19 @@ namespace PASOIB_ASYA
 					MessageBoxIcon.Error);
 			}
 			
+		}
+
+		private void AddFileButton_Click(object sender, EventArgs e)
+		{
+			using (var openFileDialog = new OpenFileDialog())
+			{
+				openFileDialog.InitialDirectory = Application.StartupPath;
+				openFileDialog.RestoreDirectory = true;
+				if (openFileDialog.ShowDialog() == DialogResult.OK)
+				{
+					var targetFileInfo = new FileInfo(openFileDialog.FileName);
+				}
+			}
 		}
 	}
 }

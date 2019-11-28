@@ -44,7 +44,6 @@ namespace PASOIB_ASYA
 
 		internal static string GetFileContent(FileInfo fileInfo)
 		{
-			//var fi = new FileInfo(openFileDialog.FileName); // TODO: How to open file
 			using (StreamReader fileInput = new StreamReader(fileInfo.FullName))
 			{
 				return fileInput.ReadToEnd();
