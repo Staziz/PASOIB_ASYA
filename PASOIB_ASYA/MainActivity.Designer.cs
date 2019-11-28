@@ -32,7 +32,8 @@
 			this.tabRealtimeData = new System.Windows.Forms.TabPage();
 			this.tabFilesSelection = new System.Windows.Forms.TabPage();
 			this.FilesSelectionTableLayout = new System.Windows.Forms.TableLayoutPanel();
-			this.ProctectingFilesCheckedListBox = new System.Windows.Forms.CheckedListBox();
+			this.ProctectingFilesDataGrid = new System.Windows.Forms.DataGridView();
+			this.FileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tabAuthentication = new System.Windows.Forms.TabPage();
 			this.AuthenticationTableLayout = new System.Windows.Forms.TableLayoutPanel();
 			this.SelectButton = new System.Windows.Forms.Button();
@@ -43,12 +44,16 @@
 			this.DeviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tabControl = new System.Windows.Forms.TabControl();
+			this.ButtonsTableLayout = new System.Windows.Forms.TableLayoutPanel();
+			this.AddFileButton = new System.Windows.Forms.Button();
 			this.tabFilesSelection.SuspendLayout();
 			this.FilesSelectionTableLayout.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.ProctectingFilesDataGrid)).BeginInit();
 			this.tabAuthentication.SuspendLayout();
 			this.AuthenticationTableLayout.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.USBDevicesDataGrid)).BeginInit();
 			this.tabControl.SuspendLayout();
+			this.ButtonsTableLayout.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabReports
@@ -87,24 +92,38 @@
 			this.FilesSelectionTableLayout.ColumnCount = 2;
 			this.FilesSelectionTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
 			this.FilesSelectionTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.FilesSelectionTableLayout.Controls.Add(this.ProctectingFilesCheckedListBox, 0, 0);
+			this.FilesSelectionTableLayout.Controls.Add(this.ProctectingFilesDataGrid, 0, 0);
+			this.FilesSelectionTableLayout.Controls.Add(this.ButtonsTableLayout, 1, 1);
 			this.FilesSelectionTableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.FilesSelectionTableLayout.Location = new System.Drawing.Point(3, 3);
 			this.FilesSelectionTableLayout.Name = "FilesSelectionTableLayout";
 			this.FilesSelectionTableLayout.RowCount = 2;
 			this.FilesSelectionTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
 			this.FilesSelectionTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.FilesSelectionTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+			this.FilesSelectionTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+			this.FilesSelectionTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+			this.FilesSelectionTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+			this.FilesSelectionTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
 			this.FilesSelectionTableLayout.Size = new System.Drawing.Size(786, 418);
 			this.FilesSelectionTableLayout.TabIndex = 1;
 			// 
-			// ProctectingFilesCheckedListBox
+			// ProctectingFilesDataGrid
 			// 
-			this.ProctectingFilesCheckedListBox.BackColor = System.Drawing.Color.White;
-			this.ProctectingFilesCheckedListBox.FormattingEnabled = true;
-			this.ProctectingFilesCheckedListBox.Location = new System.Drawing.Point(3, 3);
-			this.ProctectingFilesCheckedListBox.Name = "ProctectingFilesCheckedListBox";
-			this.ProctectingFilesCheckedListBox.Size = new System.Drawing.Size(120, 94);
-			this.ProctectingFilesCheckedListBox.TabIndex = 0;
+			this.ProctectingFilesDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.ProctectingFilesDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.FileName});
+			this.ProctectingFilesDataGrid.Location = new System.Drawing.Point(3, 3);
+			this.ProctectingFilesDataGrid.Name = "ProctectingFilesDataGrid";
+			this.ProctectingFilesDataGrid.ReadOnly = true;
+			this.ProctectingFilesDataGrid.Size = new System.Drawing.Size(358, 157);
+			this.ProctectingFilesDataGrid.TabIndex = 0;
+			// 
+			// FileName
+			// 
+			this.FileName.HeaderText = "File Name";
+			this.FileName.Name = "FileName";
+			this.FileName.ReadOnly = true;
 			// 
 			// tabAuthentication
 			// 
@@ -218,6 +237,30 @@
 			this.tabControl.Size = new System.Drawing.Size(800, 450);
 			this.tabControl.TabIndex = 0;
 			// 
+			// ButtonsTableLayout
+			// 
+			this.ButtonsTableLayout.ColumnCount = 2;
+			this.ButtonsTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.ButtonsTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.ButtonsTableLayout.Controls.Add(this.AddFileButton, 1, 0);
+			this.ButtonsTableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.ButtonsTableLayout.Location = new System.Drawing.Point(396, 212);
+			this.ButtonsTableLayout.Name = "ButtonsTableLayout";
+			this.ButtonsTableLayout.RowCount = 2;
+			this.ButtonsTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.ButtonsTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.ButtonsTableLayout.Size = new System.Drawing.Size(387, 203);
+			this.ButtonsTableLayout.TabIndex = 1;
+			// 
+			// AddFileButton
+			// 
+			this.AddFileButton.Location = new System.Drawing.Point(196, 3);
+			this.AddFileButton.Name = "AddFileButton";
+			this.AddFileButton.Size = new System.Drawing.Size(75, 23);
+			this.AddFileButton.TabIndex = 0;
+			this.AddFileButton.Text = "Add File";
+			this.AddFileButton.UseVisualStyleBackColor = true;
+			// 
 			// MainActivity
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -230,10 +273,12 @@
 			this.Shown += new System.EventHandler(this.MainActivity_Shown);
 			this.tabFilesSelection.ResumeLayout(false);
 			this.FilesSelectionTableLayout.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.ProctectingFilesDataGrid)).EndInit();
 			this.tabAuthentication.ResumeLayout(false);
 			this.AuthenticationTableLayout.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.USBDevicesDataGrid)).EndInit();
 			this.tabControl.ResumeLayout(false);
+			this.ButtonsTableLayout.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -249,12 +294,15 @@
 		private System.Windows.Forms.Button SelectButton;
 		private VisualLock VisualLock;
 		private System.Windows.Forms.DataGridView USBDevicesDataGrid;
+		private System.Windows.Forms.TableLayoutPanel FilesSelectionTableLayout;
+		private System.Windows.Forms.DataGridView ProctectingFilesDataGrid;
+		private System.Windows.Forms.DataGridViewTextBoxColumn FileName;
 		private System.Windows.Forms.DataGridViewTextBoxColumn DeviceID;
 		private System.Windows.Forms.DataGridViewTextBoxColumn PNPDeviceID;
 		private System.Windows.Forms.DataGridViewTextBoxColumn DeviceName;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Description;
-		private System.Windows.Forms.TableLayoutPanel FilesSelectionTableLayout;
-		private System.Windows.Forms.CheckedListBox ProctectingFilesCheckedListBox;
+		private System.Windows.Forms.TableLayoutPanel ButtonsTableLayout;
+		private System.Windows.Forms.Button AddFileButton;
 	}
 }
 

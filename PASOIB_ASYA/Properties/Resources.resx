@@ -128,7 +128,7 @@
     <value>..\ImageUnlocked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="KeyFile" xml:space="preserve">
-    <value>idetificator.key</value>
+    <value>idetificator.id</value>
   </data>
   <data name="_709066" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\709066.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

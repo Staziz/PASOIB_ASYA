@@ -11,10 +11,10 @@ namespace PASOIB_ASYA
 	{
 		internal static void SetIdentificator(string identificator)
 		{
-			string keyFilePath = Path.GetFullPath($"~{Properties.Resources.KeyFile}");
+			string keyFilePath = Path.GetFullPath($"~/{Properties.Resources.KeyFile}");
 			using (StreamWriter keyFile = File.Exists(keyFilePath) ? new StreamWriter(keyFilePath) : File.AppendText(keyFilePath))
 			{
-				keyFile.WriteLine(Hasher.GetMd5Hash(identificator));
+				keyFile.WriteLine(Security.GetMd5Hash(identificator));
 				System.Windows.Forms.MessageBox.Show(
 					"The key was successfully saved!",
 					"Info",
@@ -40,6 +40,15 @@ namespace PASOIB_ASYA
 			}
 
 			return identificator;
+		}
+
+		internal static string GetFileContent(FileInfo fileInfo)
+		{
+			//var fi = new FileInfo(openFileDialog.FileName); // TODO: How to open file
+			using (StreamReader fileInput = new StreamReader(fileInfo.FullName))
+			{
+				return fileInput.ReadToEnd();
+			}
 		}
 
 		internal static void SetData(List<string> data)

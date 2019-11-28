@@ -47,9 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Authentication.cs" />
-    <Compile Include="DataAccess.cs" />
-    <Compile Include="Hasher.cs" />
+    <Compile Include="Views\Authentication.cs" />
+    <Compile Include="Utils\DataAccess.cs" />
+    <Compile Include="ProtectedFileEntry.cs" />
+    <Compile Include="Utils\Security.cs" />
     <Compile Include="MainActivity.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -58,8 +59,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="USBChecker.cs" />
+    <Compile Include="Utils\USBChecker.cs" />
     <Compile Include="USBDeviceInfo.cs" />
+    <Compile Include="Views\FilesSelection.cs" />
     <Compile Include="VisualLock.cs">
       <SubType>UserControl</SubType>
     </Compile>

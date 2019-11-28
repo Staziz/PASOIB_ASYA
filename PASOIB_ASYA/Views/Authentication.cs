@@ -7,9 +7,16 @@ using System.Windows.Forms;
 
 namespace PASOIB_ASYA
 {
-	public static class Authentication
+	internal class Authentication
 	{
-		public static void ShowGreeting()
+		internal bool IsAuthenticated;
+
+		public Authentication()
+		{
+			IsAuthenticated = false;
+		}
+
+		public void ShowGreeting()
 		{
 			string message = "";
 			string capture = "";
@@ -36,22 +43,22 @@ namespace PASOIB_ASYA
 			}
 		}
 
-		public static bool TryAuthentify(string currentID, string masterID)
+		public void TryAuthentify(string currentID, string masterID)
 		{
 			if (masterID == null)
 			{
 				DataAccess.SetIdentificator(currentID);
-				return true;
+				IsAuthenticated = true;
 			}
 			else
 			{
-				if (Hasher.IsStringEqualsHash(currentID, masterID))
+				if (Security.IsStringEqualsHash(currentID, masterID))
 				{
-					return true;
+					IsAuthenticated = true;
 				}
 				else
 				{
-					return false;
+					IsAuthenticated = false;
 				}
 			}
 		}

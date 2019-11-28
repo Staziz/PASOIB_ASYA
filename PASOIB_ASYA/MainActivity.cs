@@ -13,13 +13,13 @@ namespace PASOIB_ASYA
 	public partial class MainActivity : Form
 	{
 		private USBChecker USBChecker;
-		private bool _isAuthenticated;
+		private Authentication Authentication;
 		private bool IsAuthenticated
 		{
-			get => _isAuthenticated;
+			get => Authentication.IsAuthenticated;
 			set
 			{
-				_isAuthenticated = value;
+				Authentication.IsAuthenticated = value;
 				VisualLock.ChangeState((VisualLock._State)(IsAuthenticated ? 1 : 0));
 				UpdateTabControlState();
 			}
@@ -33,6 +33,7 @@ namespace PASOIB_ASYA
 		private void MainActivity_Load(object sender, EventArgs e)
 		{
 			USBChecker = new USBChecker();
+			Authentication = new Authentication();
 			USBChecker.onUSBDeviceInserted += USBChecker_onUSBDeviceInserted;
 			USBChecker.onUSBDeviceRemoved += USBChecker_onUSBDeviceRemoved;
 			IsAuthenticated = false;
@@ -93,7 +94,7 @@ namespace PASOIB_ASYA
 			{
 				string currentId = USBDevicesDataGrid.SelectedRows[0].Cells[0].Value.ToString();
 				string masterId = DataAccess.GetIdentificator();
-				IsAuthenticated = Authentication.TryAuthentify(currentId, masterId);
+				Authentication.TryAuthentify(currentId, masterId);
 				if (!IsAuthenticated)
 				{
 					MessageBox.Show(

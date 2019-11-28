@@ -100,7 +100,7 @@ namespace PASOIB_ASYA.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на idetificator.key.
+        ///   Ищет локализованную строку, похожую на idetificator.id.
         /// </summary>
         internal static string KeyFile {
             get {
