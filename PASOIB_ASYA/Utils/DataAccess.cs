@@ -11,7 +11,7 @@ namespace PASOIB_ASYA
 	{
 		internal static void SetIdentificator(string identificator)
 		{
-			string keyFilePath = Path.GetFullPath($"~/{Properties.Resources.KeyFile}");
+			string keyFilePath = Path.GetFullPath(Properties.Resources.KeyFile);
 			using (StreamWriter keyFile = File.Exists(keyFilePath) ? new StreamWriter(keyFilePath) : File.AppendText(keyFilePath))
 			{
 				keyFile.WriteLine(Security.GetMd5Hash(identificator));
@@ -25,7 +25,7 @@ namespace PASOIB_ASYA
 
 		internal static string GetIdentificator()
 		{
-			string keyFilePath = Path.GetFullPath($"~{Properties.Resources.KeyFile}");
+			string keyFilePath = Path.GetFullPath(Properties.Resources.KeyFile);
 			string identificator = "";
 			try
 			{
