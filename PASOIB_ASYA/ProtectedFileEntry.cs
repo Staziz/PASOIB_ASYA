@@ -21,6 +21,8 @@ namespace PASOIB_ASYA
 
 		private readonly string FileContent;
 
+		private FileSystemWatcher Watcher;
+
 		public ProtectedFileEntry(FileInfo targetFileInfo)
 		{
 			Name = targetFileInfo.Name;
@@ -30,6 +32,33 @@ namespace PASOIB_ASYA
 			Size = targetFileInfo.Length;
 			FileContent = DataAccess.GetFileContent(targetFileInfo);
 			MD5Hash = Security.GetMd5Hash(FileContent);
+
+			Watcher = new FileSystemWatcher(TargetDirectory)
+			{
+				Filter = Name,
+				NotifyFilter = NotifyFilters.LastAccess
+				| NotifyFilters.LastWrite
+				| NotifyFilters.FileName
+				| NotifyFilters.DirectoryName
+				| NotifyFilters.Size
+			};
+			Watcher.Changed += OnChanged;
+			Watcher.Created += OnChanged;
+			Watcher.Deleted += OnChanged;
+			Watcher.Renamed += OnRenamed;
+			Watcher.EnableRaisingEvents = true;
+		}
+
+		private static void OnChanged(object source, FileSystemEventArgs e)
+		{
+			System.Windows.Forms.MessageBox.Show($"File: {e.FullPath} {e.ChangeType}");
+			// TODO: Implement writing events to logs
+		}
+
+		private static void OnRenamed(object source, RenamedEventArgs e)
+		{
+			System.Windows.Forms.MessageBox.Show($"File: {e.OldFullPath} renamed to {e.FullPath}");
+			// TODO: Implement writing events to logs
 		}
 	}
 }

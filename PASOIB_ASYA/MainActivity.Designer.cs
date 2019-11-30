@@ -34,7 +34,6 @@
 			this.FilesSelectionTableLayout = new System.Windows.Forms.TableLayoutPanel();
 			this.ProctectingFilesDataGrid = new System.Windows.Forms.DataGridView();
 			this.ButtonsTableLayout = new System.Windows.Forms.TableLayoutPanel();
-			this.AddFileButton = new System.Windows.Forms.Button();
 			this.tabAuthentication = new System.Windows.Forms.TabPage();
 			this.AuthenticationTableLayout = new System.Windows.Forms.TableLayoutPanel();
 			this.SelectButton = new System.Windows.Forms.Button();
@@ -48,6 +47,7 @@
 			this.FileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.FileCreationTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.FileSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.AddFileButton = new System.Windows.Forms.Button();
 			this.tabFilesSelection.SuspendLayout();
 			this.FilesSelectionTableLayout.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.ProctectingFilesDataGrid)).BeginInit();
@@ -92,8 +92,8 @@
 			// FilesSelectionTableLayout
 			// 
 			this.FilesSelectionTableLayout.ColumnCount = 2;
-			this.FilesSelectionTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.FilesSelectionTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.FilesSelectionTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+			this.FilesSelectionTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
 			this.FilesSelectionTableLayout.Controls.Add(this.ProctectingFilesDataGrid, 0, 0);
 			this.FilesSelectionTableLayout.Controls.Add(this.ButtonsTableLayout, 1, 1);
 			this.FilesSelectionTableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -102,11 +102,6 @@
 			this.FilesSelectionTableLayout.RowCount = 2;
 			this.FilesSelectionTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
 			this.FilesSelectionTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.FilesSelectionTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-			this.FilesSelectionTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-			this.FilesSelectionTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-			this.FilesSelectionTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-			this.FilesSelectionTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
 			this.FilesSelectionTableLayout.Size = new System.Drawing.Size(786, 418);
 			this.FilesSelectionTableLayout.TabIndex = 1;
 			// 
@@ -120,36 +115,27 @@
             this.FileName,
             this.FileCreationTime,
             this.FileSize});
+			this.ProctectingFilesDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.ProctectingFilesDataGrid.Location = new System.Drawing.Point(3, 3);
 			this.ProctectingFilesDataGrid.Name = "ProctectingFilesDataGrid";
 			this.ProctectingFilesDataGrid.ReadOnly = true;
-			this.ProctectingFilesDataGrid.Size = new System.Drawing.Size(358, 157);
+			this.FilesSelectionTableLayout.SetRowSpan(this.ProctectingFilesDataGrid, 2);
+			this.ProctectingFilesDataGrid.Size = new System.Drawing.Size(544, 412);
 			this.ProctectingFilesDataGrid.TabIndex = 0;
 			// 
 			// ButtonsTableLayout
 			// 
-			this.ButtonsTableLayout.ColumnCount = 2;
+			this.ButtonsTableLayout.ColumnCount = 1;
 			this.ButtonsTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.ButtonsTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.ButtonsTableLayout.Controls.Add(this.AddFileButton, 1, 0);
+			this.ButtonsTableLayout.Controls.Add(this.AddFileButton, 0, 0);
 			this.ButtonsTableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.ButtonsTableLayout.Location = new System.Drawing.Point(396, 212);
+			this.ButtonsTableLayout.Location = new System.Drawing.Point(553, 212);
 			this.ButtonsTableLayout.Name = "ButtonsTableLayout";
 			this.ButtonsTableLayout.RowCount = 2;
 			this.ButtonsTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
 			this.ButtonsTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.ButtonsTableLayout.Size = new System.Drawing.Size(387, 203);
+			this.ButtonsTableLayout.Size = new System.Drawing.Size(230, 203);
 			this.ButtonsTableLayout.TabIndex = 1;
-			// 
-			// AddFileButton
-			// 
-			this.AddFileButton.Location = new System.Drawing.Point(196, 3);
-			this.AddFileButton.Name = "AddFileButton";
-			this.AddFileButton.Size = new System.Drawing.Size(75, 23);
-			this.AddFileButton.TabIndex = 0;
-			this.AddFileButton.Text = "Add File";
-			this.AddFileButton.UseVisualStyleBackColor = true;
-			this.AddFileButton.Click += new System.EventHandler(this.AddFileButton_Click);
 			// 
 			// tabAuthentication
 			// 
@@ -281,6 +267,16 @@
 			this.FileSize.Name = "FileSize";
 			this.FileSize.ReadOnly = true;
 			// 
+			// AddFileButton
+			// 
+			this.AddFileButton.Location = new System.Drawing.Point(3, 3);
+			this.AddFileButton.Name = "AddFileButton";
+			this.AddFileButton.Size = new System.Drawing.Size(75, 23);
+			this.AddFileButton.TabIndex = 0;
+			this.AddFileButton.Text = "Add File";
+			this.AddFileButton.UseVisualStyleBackColor = true;
+			this.AddFileButton.Click += new System.EventHandler(this.AddFileButton_Click);
+			// 
 			// MainActivity
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -321,10 +317,10 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn DeviceName;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Description;
 		private System.Windows.Forms.TableLayoutPanel ButtonsTableLayout;
-		private System.Windows.Forms.Button AddFileButton;
 		private System.Windows.Forms.DataGridViewTextBoxColumn FileName;
 		private System.Windows.Forms.DataGridViewTextBoxColumn FileCreationTime;
 		private System.Windows.Forms.DataGridViewTextBoxColumn FileSize;
+		private System.Windows.Forms.Button AddFileButton;
 	}
 }
 
