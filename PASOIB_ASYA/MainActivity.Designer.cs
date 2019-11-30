@@ -33,7 +33,6 @@
 			this.tabFilesSelection = new System.Windows.Forms.TabPage();
 			this.FilesSelectionTableLayout = new System.Windows.Forms.TableLayoutPanel();
 			this.ProctectingFilesDataGrid = new System.Windows.Forms.DataGridView();
-			this.FileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.ButtonsTableLayout = new System.Windows.Forms.TableLayoutPanel();
 			this.AddFileButton = new System.Windows.Forms.Button();
 			this.tabAuthentication = new System.Windows.Forms.TabPage();
@@ -46,6 +45,9 @@
 			this.DeviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tabControl = new System.Windows.Forms.TabControl();
+			this.FileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.FileCreationTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.FileSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tabFilesSelection.SuspendLayout();
 			this.FilesSelectionTableLayout.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.ProctectingFilesDataGrid)).BeginInit();
@@ -110,20 +112,19 @@
 			// 
 			// ProctectingFilesDataGrid
 			// 
+			this.ProctectingFilesDataGrid.AllowUserToAddRows = false;
+			this.ProctectingFilesDataGrid.AllowUserToDeleteRows = false;
+			this.ProctectingFilesDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
 			this.ProctectingFilesDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.ProctectingFilesDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.FileName});
+            this.FileName,
+            this.FileCreationTime,
+            this.FileSize});
 			this.ProctectingFilesDataGrid.Location = new System.Drawing.Point(3, 3);
 			this.ProctectingFilesDataGrid.Name = "ProctectingFilesDataGrid";
 			this.ProctectingFilesDataGrid.ReadOnly = true;
 			this.ProctectingFilesDataGrid.Size = new System.Drawing.Size(358, 157);
 			this.ProctectingFilesDataGrid.TabIndex = 0;
-			// 
-			// FileName
-			// 
-			this.FileName.HeaderText = "File Name";
-			this.FileName.Name = "FileName";
-			this.FileName.ReadOnly = true;
 			// 
 			// ButtonsTableLayout
 			// 
@@ -262,6 +263,24 @@
 			this.tabControl.Size = new System.Drawing.Size(800, 450);
 			this.tabControl.TabIndex = 0;
 			// 
+			// FileName
+			// 
+			this.FileName.HeaderText = "File Name";
+			this.FileName.Name = "FileName";
+			this.FileName.ReadOnly = true;
+			// 
+			// FileCreationTime
+			// 
+			this.FileCreationTime.HeaderText = "Creation Time";
+			this.FileCreationTime.Name = "FileCreationTime";
+			this.FileCreationTime.ReadOnly = true;
+			// 
+			// FileSize
+			// 
+			this.FileSize.HeaderText = "Size";
+			this.FileSize.Name = "FileSize";
+			this.FileSize.ReadOnly = true;
+			// 
 			// MainActivity
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -297,13 +316,15 @@
 		private System.Windows.Forms.DataGridView USBDevicesDataGrid;
 		private System.Windows.Forms.TableLayoutPanel FilesSelectionTableLayout;
 		private System.Windows.Forms.DataGridView ProctectingFilesDataGrid;
-		private System.Windows.Forms.DataGridViewTextBoxColumn FileName;
 		private System.Windows.Forms.DataGridViewTextBoxColumn DeviceID;
 		private System.Windows.Forms.DataGridViewTextBoxColumn PNPDeviceID;
 		private System.Windows.Forms.DataGridViewTextBoxColumn DeviceName;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Description;
 		private System.Windows.Forms.TableLayoutPanel ButtonsTableLayout;
 		private System.Windows.Forms.Button AddFileButton;
+		private System.Windows.Forms.DataGridViewTextBoxColumn FileName;
+		private System.Windows.Forms.DataGridViewTextBoxColumn FileCreationTime;
+		private System.Windows.Forms.DataGridViewTextBoxColumn FileSize;
 	}
 }
 

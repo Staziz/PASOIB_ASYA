@@ -15,6 +15,7 @@ namespace PASOIB_ASYA
 	{
 		private USBChecker USBChecker;
 		private Authentication Authentication;
+		private FilesSelection FilesSelection;
 		private bool IsAuthenticated
 		{
 			get => Authentication.IsAuthenticated;
@@ -35,6 +36,9 @@ namespace PASOIB_ASYA
 		{
 			USBChecker = new USBChecker();
 			Authentication = new Authentication();
+
+			FilesSelection = new FilesSelection();
+
 			USBChecker.onUSBDeviceInserted += USBChecker_onUSBDeviceInserted;
 			USBChecker.onUSBDeviceRemoved += USBChecker_onUSBDeviceRemoved;
 			IsAuthenticated = false;
@@ -58,6 +62,7 @@ namespace PASOIB_ASYA
 
 		private void UpdateTabControlState()
 		{
+			// TODO: Add tabs initialization/disposing here
 			((Control)tabAuthentication).Enabled = !IsAuthenticated;
 			((Control)tabFilesSelection).Enabled = IsAuthenticated;
 			((Control)tabRealtimeData).Enabled = IsAuthenticated;
@@ -83,7 +88,7 @@ namespace PASOIB_ASYA
 				USBDevicesDataGrid.Rows.Clear();
 				USBChecker.GetUSBDevicesInfo(true).ForEach(usbDeviceInfo =>
 				{
-					var properties = typeof(USBDeviceInfo).GetProperties();
+					System.Reflection.PropertyInfo[] properties = typeof(USBDeviceInfo).GetProperties();
 					USBDevicesDataGrid.Rows.Add(properties.Select(property => property.GetValue(usbDeviceInfo)).ToArray());
 				});
 			}
@@ -96,6 +101,7 @@ namespace PASOIB_ASYA
 				string currentId = USBDevicesDataGrid.SelectedRows[0].Cells[0].Value.ToString();
 				string masterId = DataAccess.GetIdentificator();
 				Authentication.TryAuthentify(currentId, masterId);
+				IsAuthenticated = Authentication.IsAuthenticated;
 				if (!IsAuthenticated)
 				{
 					MessageBox.Show(
@@ -124,9 +130,14 @@ namespace PASOIB_ASYA
 				openFileDialog.RestoreDirectory = true;
 				if (openFileDialog.ShowDialog() == DialogResult.OK)
 				{
-					var targetFileInfo = new FileInfo(openFileDialog.FileName);
+					FilesSelection.AddFile(new FileInfo(openFileDialog.FileName));
 				}
 			}
+			ProctectingFilesDataGrid.Rows.Clear();
+			FilesSelection.ProtectedFileEntries.ForEach(protectedFileEntry =>
+			{
+				ProctectingFilesDataGrid.Rows.Add(protectedFileEntry.Name, protectedFileEntry.CreationTime, protectedFileEntry.Size);
+			});
 		}
 	}
 }
