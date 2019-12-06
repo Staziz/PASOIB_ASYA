@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Xml.Serialization;
+using System.Windows.Forms;
 
 namespace PASOIB_ASYA
 {
@@ -11,7 +13,7 @@ namespace PASOIB_ASYA
 	{
 		internal static void SetIdentificator(string identificator)
 		{
-			string keyFilePath = Path.GetFullPath(Properties.Resources.KeyFile);
+			string keyFilePath = Path.Combine(Application.CommonAppDataPath, Properties.Resources.KeyFile);
 			using (StreamWriter keyFile = File.Exists(keyFilePath) ? new StreamWriter(keyFilePath) : File.AppendText(keyFilePath))
 			{
 				keyFile.WriteLine(Security.GetMd5Hash(identificator));
@@ -25,7 +27,7 @@ namespace PASOIB_ASYA
 
 		internal static string GetIdentificator()
 		{
-			string keyFilePath = Path.GetFullPath(Properties.Resources.KeyFile);
+			string keyFilePath = Path.Combine(Application.CommonAppDataPath, Properties.Resources.KeyFile);
 			string identificator = "";
 			try
 			{
@@ -47,6 +49,61 @@ namespace PASOIB_ASYA
 			using (StreamReader fileInput = new StreamReader(fileInfo.FullName))
 			{
 				return fileInput.ReadToEnd();
+			}
+		}
+
+		internal static void SetFileContent(string fileName, string content)
+		{
+			using (StreamWriter fileInput = new StreamWriter(fileName))
+			{
+				fileInput.Write(content);
+			}
+		}
+
+		internal static ProtectedFileEntry ReadProtectedFileContent(string name)
+		{
+			if (!name.EndsWith(Properties.Resources.ProtectedFileExtension))
+			{
+				name += Properties.Resources.ProtectedFileExtension;
+			}
+			using (StreamReader fileInput = new StreamReader(name))
+			{
+				string Name = fileInput.ReadLine();
+				string DirectoryName = fileInput.ReadLine();
+				FileAttributes Attributes = (FileAttributes)Enum.Parse(typeof(FileAttributes), fileInput.ReadLine());
+				DateTime.TryParse(fileInput.ReadLine(), out DateTime CreationTime);
+				long.TryParse(fileInput.ReadLine(), out long Length);
+				string FileContent;
+				string MD5Hash = fileInput.ReadLine();
+				string InitializationVector = fileInput.ReadLine();
+
+				FileContent = fileInput.ReadToEnd();
+				return new ProtectedFileEntry(
+					Name,
+					DirectoryName,
+					Attributes,
+					CreationTime,
+					Length,
+					FileContent,
+					MD5Hash,
+					InitializationVector);
+			}
+		}
+
+		internal static void WriteProtectedFileContent(ProtectedFileEntry protectedFile)
+		{
+			string path = Path.Combine(Application.CommonAppDataPath, protectedFile.Name + Properties.Resources.ProtectedFileExtension);
+			using (StreamWriter fileOutput = new StreamWriter(path))
+			{
+				fileOutput.WriteLine(protectedFile.Name);
+				fileOutput.WriteLine(protectedFile.TargetDirectory);
+				fileOutput.WriteLine(protectedFile.Attributes);
+				fileOutput.WriteLine(protectedFile.CreationTime);
+				fileOutput.WriteLine(protectedFile.Size);
+				fileOutput.WriteLine(protectedFile.MD5Hash);
+				fileOutput.WriteLine(protectedFile.InitializationVector);
+
+				fileOutput.Write(protectedFile.FileContent);
 			}
 		}
 
