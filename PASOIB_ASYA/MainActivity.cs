@@ -65,6 +65,7 @@ namespace PASOIB_ASYA
 			// TODO: Add tabs initialization/disposing here
 			((Control)tabAuthentication).Enabled = !IsAuthenticated;
 			((Control)tabFilesSelection).Enabled = IsAuthenticated;
+			UpdateProtectingFiles(IsAuthenticated);
 			((Control)tabRealtimeData).Enabled = IsAuthenticated;
 			((Control)tabReports).Enabled = IsAuthenticated;
 		}
@@ -126,18 +127,26 @@ namespace PASOIB_ASYA
 		{
 			using (var openFileDialog = new OpenFileDialog())
 			{
-				openFileDialog.InitialDirectory = Application.StartupPath;
+				openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 				openFileDialog.RestoreDirectory = true;
 				if (openFileDialog.ShowDialog() == DialogResult.OK)
 				{
 					FilesSelection.AddFile(new FileInfo(openFileDialog.FileName));
 				}
 			}
+			UpdateProtectingFiles(true);
+		}
+
+		private void UpdateProtectingFiles(bool isAuthenticated = false)
+		{
 			ProctectingFilesDataGrid.Rows.Clear();
-			FilesSelection.ProtectedFileEntries.ForEach(protectedFileEntry =>
+			if (isAuthenticated)
 			{
-				ProctectingFilesDataGrid.Rows.Add(protectedFileEntry.Name, protectedFileEntry.CreationTime, protectedFileEntry.Size);
-			});
+				FilesSelection.ProtectedFileEntries.ForEach(protectedFileEntry =>
+				{
+					ProctectingFilesDataGrid.Rows.Add(protectedFileEntry.Name, protectedFileEntry.CreationTime, protectedFileEntry.Size);
+				});
+			}
 		}
 	}
 }
