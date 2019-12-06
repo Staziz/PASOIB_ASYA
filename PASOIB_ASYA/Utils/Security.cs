@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -11,7 +12,7 @@ namespace PASOIB_ASYA
 		{
 			using (MD5 md5Hash = MD5.Create())
 			{
-				byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+				byte[] data = md5Hash.ComputeHash(Encoding.Unicode.GetBytes(input));
 				StringBuilder sBuilder = new StringBuilder();
 				for (int i = 0; i < data.Length; i++)
 				{
@@ -30,10 +31,12 @@ namespace PASOIB_ASYA
 
 		public static string EncryptFileAES(string plainText, string Key, string IV)
 		{
+			string cipherText = null;
 			using (AesCryptoServiceProvider aesAlg = new AesCryptoServiceProvider())
 			{
-				aesAlg.Key = Encoding.UTF8.GetBytes(Key);
-				aesAlg.IV = Encoding.UTF8.GetBytes(IV);
+				aesAlg.Key = Convert.FromBase64String(Key);
+				aesAlg.IV = Convert.FromBase64String(IV);
+				aesAlg.Padding = PaddingMode.Zeros;
 				ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
 				using (MemoryStream msEncrypt = new MemoryStream())
 				{
@@ -43,30 +46,67 @@ namespace PASOIB_ASYA
 						{
 							swEncrypt.Write(plainText);
 						}
-						return Encoding.UTF8.GetString(msEncrypt.ToArray());
+						cipherText = Convert.ToBase64String(msEncrypt.ToArray());
 					}
 				}
 			}
+			return cipherText;
 		}
 
 		public static string DecryptFileAES(string cipherText, string Key, string IV)
 		{
+			string plainText = null;
 			using (AesCryptoServiceProvider aesAlg = new AesCryptoServiceProvider())
 			{
-				aesAlg.Key = Encoding.UTF8.GetBytes(Key);
-				aesAlg.IV = Encoding.UTF8.GetBytes(IV);
+				aesAlg.Key = Convert.FromBase64String(Key);
+				aesAlg.IV = Convert.FromBase64String(IV);
+				aesAlg.Padding = PaddingMode.Zeros;
 				ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
-				using (MemoryStream msDecrypt = new MemoryStream(Encoding.UTF8.GetBytes(cipherText)))
+				using (MemoryStream msDecrypt = new MemoryStream(Convert.FromBase64String(cipherText)))
 				{
 					using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
 					{
 						using (StreamReader srDecrypt = new StreamReader(csDecrypt))
 						{
-							return srDecrypt.ReadToEnd();
+							plainText = srDecrypt.ReadToEnd();
 						}
 					}
 				}
 			}
+			return plainText;
+		}
+
+		public static string GetKey(string humanKey = null)
+		{
+			using (AesCryptoServiceProvider aesCryptoProvider = new AesCryptoServiceProvider())
+			{
+				aesCryptoProvider.GenerateKey();
+				var keyString = Convert.ToBase64String(aesCryptoProvider.Key);
+				if (humanKey == null)
+				{
+					humanKey = DataAccess.GetIdentificator();
+				}
+				return XORStrings(humanKey, keyString);
+			}
+		}
+
+		public static string GetInitializationVector()
+		{
+			using (AesCryptoServiceProvider aesCryptoProvider = new AesCryptoServiceProvider())
+			{
+				aesCryptoProvider.GenerateIV();
+				return Convert.ToBase64String(aesCryptoProvider.IV);
+			}
+		}
+
+		public static string XORStrings(string key, string input)
+		{
+			List<byte> result = new List<byte>();
+			for (int i = 0; i < input.Length; i++)
+			{
+				result.Add(Convert.ToByte(input[i] ^ key[i % key.Length]));
+			}
+			return Convert.ToBase64String(result.ToArray());
 		}
 
 	}
