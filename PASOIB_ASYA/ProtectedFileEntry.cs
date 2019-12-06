@@ -4,22 +4,23 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace PASOIB_ASYA
 {
 	internal class ProtectedFileEntry
 	{
-		private readonly string Key;
-		private readonly string InitializationVector;
+		internal readonly string Key;
+		internal readonly string InitializationVector;
 
 		internal readonly string Name;
-		private readonly string TargetDirectory;
-		private readonly FileAttributes Attributes;
+		internal readonly string TargetDirectory;
+		internal readonly FileAttributes Attributes;
 		internal readonly DateTime CreationTime;
 		internal readonly long Size;
-		private readonly string MD5Hash;
+		internal readonly string MD5Hash;
 
-		private readonly string FileContent;
+		internal readonly string FileContent;
 
 		private FileSystemWatcher Watcher;
 
@@ -30,8 +31,56 @@ namespace PASOIB_ASYA
 			Attributes = targetFileInfo.Attributes;
 			CreationTime = targetFileInfo.CreationTime;
 			Size = targetFileInfo.Length;
-			FileContent = DataAccess.GetFileContent(targetFileInfo);
+
+			Key = Security.GetKey();
+			InitializationVector = Security.GetInitializationVector();
+
+			FileContent = Security.EncryptFileAES(DataAccess.GetFileContent(targetFileInfo), Key, InitializationVector);
 			MD5Hash = Security.GetMd5Hash(FileContent);
+			//DataAccess.SetFileContent(Path.Combine(Application.CommonAppDataPath, "written.txt"), FileContent);
+			//FileContent = DataAccess.GetFileContent(targetFileInfo);
+
+
+			Watcher = new FileSystemWatcher(TargetDirectory)
+			{
+				Filter = Name,
+				NotifyFilter = NotifyFilters.LastAccess
+				| NotifyFilters.LastWrite
+				| NotifyFilters.FileName
+				| NotifyFilters.DirectoryName
+				| NotifyFilters.Size
+			};
+			Watcher.Changed += OnChanged;
+			Watcher.Created += OnChanged;
+			Watcher.Deleted += OnChanged;
+			Watcher.Renamed += OnRenamed;
+			Watcher.EnableRaisingEvents = true;
+		}
+
+		public ProtectedFileEntry(
+			string Name, 
+			string DirectoryName, 
+			FileAttributes Attributes, 
+			DateTime CreationTime, 
+			long Length,
+			string FileContent,
+			string MD5Hash,
+			string InitializationVector)
+		{
+			this.Name = Name;
+			this.TargetDirectory = DirectoryName;
+			this.Attributes = Attributes;
+			this.CreationTime = CreationTime;
+			this.Size = Length;
+			this.FileContent = FileContent; // TODO Write to file and compare
+			//DataAccess.SetFileContent(Path.Combine(Application.CommonAppDataPath, "read.txt"), FileContent);
+			this.Key = DataAccess.GetIdentificator();
+			this.InitializationVector = InitializationVector;
+			//Security.DecryptFileAES(FileContent, this.Key, this.InitializationVector)
+			this.MD5Hash = Security.GetMd5Hash(FileContent) == MD5Hash 
+				? MD5Hash 
+				: throw new ProtectedFileHashInconsistence(Name);
+
 
 			Watcher = new FileSystemWatcher(TargetDirectory)
 			{
@@ -61,4 +110,15 @@ namespace PASOIB_ASYA
 			// TODO: Implement writing events to logs
 		}
 	}
+
+	[System.Serializable]
+	public class ProtectedFileHashInconsistence : Exception
+	{
+		public ProtectedFileHashInconsistence() { }
+		public ProtectedFileHashInconsistence(string message) : base(message) { }
+		public ProtectedFileHashInconsistence(string message, Exception inner) : base(message, inner) { }
+		protected ProtectedFileHashInconsistence(
+		  System.Runtime.Serialization.SerializationInfo info,
+		  System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+	}  
 }
