@@ -37,9 +37,6 @@ namespace PASOIB_ASYA
 
 			FileContent = Security.EncryptFileAES(DataAccess.GetFileContent(targetFileInfo), Key, InitializationVector);
 			MD5Hash = Security.GetMd5Hash(FileContent);
-			//DataAccess.SetFileContent(Path.Combine(Application.CommonAppDataPath, "written.txt"), FileContent);
-			//FileContent = DataAccess.GetFileContent(targetFileInfo);
-
 
 			Watcher = new FileSystemWatcher(TargetDirectory)
 			{
@@ -72,11 +69,11 @@ namespace PASOIB_ASYA
 			this.Attributes = Attributes;
 			this.CreationTime = CreationTime;
 			this.Size = Length;
-			this.FileContent = FileContent; // TODO Write to file and compare
-			//DataAccess.SetFileContent(Path.Combine(Application.CommonAppDataPath, "read.txt"), FileContent);
+
 			this.Key = DataAccess.GetIdentificator();
 			this.InitializationVector = InitializationVector;
-			//Security.DecryptFileAES(FileContent, this.Key, this.InitializationVector)
+
+			this.FileContent = FileContent;
 			this.MD5Hash = Security.GetMd5Hash(FileContent) == MD5Hash 
 				? MD5Hash 
 				: throw new ProtectedFileHashInconsistence(Name);

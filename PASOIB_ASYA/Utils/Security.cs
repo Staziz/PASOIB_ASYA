@@ -36,7 +36,6 @@ namespace PASOIB_ASYA
 			{
 				aesAlg.Key = Convert.FromBase64String(Key);
 				aesAlg.IV = Convert.FromBase64String(IV);
-				aesAlg.Padding = PaddingMode.Zeros;
 				ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
 				using (MemoryStream msEncrypt = new MemoryStream())
 				{
@@ -60,7 +59,6 @@ namespace PASOIB_ASYA
 			{
 				aesAlg.Key = Convert.FromBase64String(Key);
 				aesAlg.IV = Convert.FromBase64String(IV);
-				aesAlg.Padding = PaddingMode.Zeros;
 				ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
 				using (MemoryStream msDecrypt = new MemoryStream(Convert.FromBase64String(cipherText)))
 				{
@@ -81,7 +79,7 @@ namespace PASOIB_ASYA
 			using (AesCryptoServiceProvider aesCryptoProvider = new AesCryptoServiceProvider())
 			{
 				aesCryptoProvider.GenerateKey();
-				var keyString = Convert.ToBase64String(aesCryptoProvider.Key);
+				var keyString = aesCryptoProvider.Key;
 				if (humanKey == null)
 				{
 					humanKey = DataAccess.GetIdentificator();
@@ -99,7 +97,7 @@ namespace PASOIB_ASYA
 			}
 		}
 
-		public static string XORStrings(string key, string input)
+		public static string XORStrings(string key, byte[] input)
 		{
 			List<byte> result = new List<byte>();
 			for (int i = 0; i < input.Length; i++)
