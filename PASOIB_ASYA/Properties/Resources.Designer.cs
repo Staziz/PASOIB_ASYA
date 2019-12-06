@@ -107,5 +107,14 @@ namespace PASOIB_ASYA.Properties {
                 return ResourceManager.GetString("KeyFile", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на .protec.
+        /// </summary>
+        internal static string ProtectedFileExtension {
+            get {
+                return ResourceManager.GetString("ProtectedFileExtension", resourceCulture);
+            }
+        }
     }
 }
