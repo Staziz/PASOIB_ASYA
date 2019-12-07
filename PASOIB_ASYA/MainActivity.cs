@@ -151,7 +151,7 @@ namespace PASOIB_ASYA
 					FilesSelection.AddFile(new FileInfo(openFileDialog.FileName));
 				}
 			}
-			UpdateProtectingFiles(true);
+			UpdateProtectingFiles(IsAuthenticated);
 		}
 
 		private void RestoreFileButton_Click(object sender, EventArgs e)
@@ -160,6 +160,24 @@ namespace PASOIB_ASYA
 			{
 				string fileName = ProctectingFilesDataGrid.SelectedRows[0].Cells[0].Value.ToString();
 				FilesSelection.RestoreFile(fileName);
+			}
+			catch
+			{
+				MessageBox.Show(
+					"Please select one row to proceed",
+					"Error",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error);
+			}
+		}
+
+		private void DeleteFileButton_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				string fileName = ProctectingFilesDataGrid.SelectedRows[0].Cells[0].Value.ToString();
+				FilesSelection.DeleteFile(fileName);
+				UpdateProtectingFiles(IsAuthenticated);
 			}
 			catch
 			{

@@ -36,7 +36,9 @@
 			this.FileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.FileCreationTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.FileSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.ButtonsFlowLayout = new System.Windows.Forms.FlowLayoutPanel();
 			this.AddFileButton = new System.Windows.Forms.Button();
+			this.RestoreFileButton = new System.Windows.Forms.Button();
 			this.tabAuthentication = new System.Windows.Forms.TabPage();
 			this.AuthenticationTableLayout = new System.Windows.Forms.TableLayoutPanel();
 			this.SelectButton = new System.Windows.Forms.Button();
@@ -47,16 +49,15 @@
 			this.DeviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tabControl = new System.Windows.Forms.TabControl();
-			this.ButtonsFlowLayout = new System.Windows.Forms.FlowLayoutPanel();
-			this.RestoreFileButton = new System.Windows.Forms.Button();
+			this.DeleteFileButton = new System.Windows.Forms.Button();
 			this.tabFilesSelection.SuspendLayout();
 			this.FilesSelectionTableLayout.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.ProctectingFilesDataGrid)).BeginInit();
+			this.ButtonsFlowLayout.SuspendLayout();
 			this.tabAuthentication.SuspendLayout();
 			this.AuthenticationTableLayout.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.USBDevicesDataGrid)).BeginInit();
 			this.tabControl.SuspendLayout();
-			this.ButtonsFlowLayout.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabReports
@@ -142,6 +143,17 @@
 			this.FileSize.Name = "FileSize";
 			this.FileSize.ReadOnly = true;
 			// 
+			// ButtonsFlowLayout
+			// 
+			this.ButtonsFlowLayout.Controls.Add(this.AddFileButton);
+			this.ButtonsFlowLayout.Controls.Add(this.RestoreFileButton);
+			this.ButtonsFlowLayout.Controls.Add(this.DeleteFileButton);
+			this.ButtonsFlowLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.ButtonsFlowLayout.Location = new System.Drawing.Point(553, 212);
+			this.ButtonsFlowLayout.Name = "ButtonsFlowLayout";
+			this.ButtonsFlowLayout.Size = new System.Drawing.Size(230, 203);
+			this.ButtonsFlowLayout.TabIndex = 1;
+			// 
 			// AddFileButton
 			// 
 			this.AddFileButton.Location = new System.Drawing.Point(3, 3);
@@ -151,6 +163,16 @@
 			this.AddFileButton.Text = "Add File";
 			this.AddFileButton.UseVisualStyleBackColor = true;
 			this.AddFileButton.Click += new System.EventHandler(this.AddFileButton_Click);
+			// 
+			// RestoreFileButton
+			// 
+			this.RestoreFileButton.Location = new System.Drawing.Point(84, 3);
+			this.RestoreFileButton.Name = "RestoreFileButton";
+			this.RestoreFileButton.Size = new System.Drawing.Size(75, 23);
+			this.RestoreFileButton.TabIndex = 1;
+			this.RestoreFileButton.Text = "Restore File";
+			this.RestoreFileButton.UseVisualStyleBackColor = true;
+			this.RestoreFileButton.Click += new System.EventHandler(this.RestoreFileButton_Click);
 			// 
 			// tabAuthentication
 			// 
@@ -264,25 +286,15 @@
 			this.tabControl.Size = new System.Drawing.Size(800, 450);
 			this.tabControl.TabIndex = 0;
 			// 
-			// ButtonsFlowLayout
+			// DeleteFileButton
 			// 
-			this.ButtonsFlowLayout.Controls.Add(this.AddFileButton);
-			this.ButtonsFlowLayout.Controls.Add(this.RestoreFileButton);
-			this.ButtonsFlowLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.ButtonsFlowLayout.Location = new System.Drawing.Point(553, 212);
-			this.ButtonsFlowLayout.Name = "ButtonsFlowLayout";
-			this.ButtonsFlowLayout.Size = new System.Drawing.Size(230, 203);
-			this.ButtonsFlowLayout.TabIndex = 1;
-			// 
-			// RestoreFileButton
-			// 
-			this.RestoreFileButton.Location = new System.Drawing.Point(84, 3);
-			this.RestoreFileButton.Name = "RestoreFileButton";
-			this.RestoreFileButton.Size = new System.Drawing.Size(75, 23);
-			this.RestoreFileButton.TabIndex = 1;
-			this.RestoreFileButton.Text = "Restore File";
-			this.RestoreFileButton.UseVisualStyleBackColor = true;
-			this.RestoreFileButton.Click += new System.EventHandler(this.RestoreFileButton_Click);
+			this.DeleteFileButton.Location = new System.Drawing.Point(3, 32);
+			this.DeleteFileButton.Name = "DeleteFileButton";
+			this.DeleteFileButton.Size = new System.Drawing.Size(75, 23);
+			this.DeleteFileButton.TabIndex = 2;
+			this.DeleteFileButton.Text = "Delete File";
+			this.DeleteFileButton.UseVisualStyleBackColor = true;
+			this.DeleteFileButton.Click += new System.EventHandler(this.DeleteFileButton_Click);
 			// 
 			// MainActivity
 			// 
@@ -297,11 +309,11 @@
 			this.tabFilesSelection.ResumeLayout(false);
 			this.FilesSelectionTableLayout.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.ProctectingFilesDataGrid)).EndInit();
+			this.ButtonsFlowLayout.ResumeLayout(false);
 			this.tabAuthentication.ResumeLayout(false);
 			this.AuthenticationTableLayout.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.USBDevicesDataGrid)).EndInit();
 			this.tabControl.ResumeLayout(false);
-			this.ButtonsFlowLayout.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -329,6 +341,7 @@
 		private System.Windows.Forms.Button AddFileButton;
 		private System.Windows.Forms.FlowLayoutPanel ButtonsFlowLayout;
 		private System.Windows.Forms.Button RestoreFileButton;
+		private System.Windows.Forms.Button DeleteFileButton;
 	}
 }
 

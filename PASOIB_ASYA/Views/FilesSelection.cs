@@ -24,6 +24,16 @@ namespace PASOIB_ASYA
 
 		public ProtectedFileEntry AddFile(FileInfo fileInfo)
 		{
+			if (GetProtectedFileByName(fileInfo.Name) != null)
+			{
+				MessageBox.Show(
+					"This file has been already added",
+					"Warning",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Exclamation
+					);
+				return null;
+			}
 			ProtectedFileEntry protectedFile = new ProtectedFileEntry(fileInfo);
 			ProtectedFileEntries.Add(protectedFile);
 			DataAccess.WriteProtectedFileContent(protectedFile);
@@ -32,7 +42,7 @@ namespace PASOIB_ASYA
 
 		public void RestoreFile(string fileName)
 		{
-			ProtectedFileEntry targetProtectedFile = ProtectedFileEntries.First(protectedFile => protectedFile.Name == fileName);
+			ProtectedFileEntry targetProtectedFile = GetProtectedFileByName(fileName);
 			try
 			{
 				targetProtectedFile.RestoreContent();
@@ -40,6 +50,32 @@ namespace PASOIB_ASYA
 			catch (Exception e)
 			{
 				MessageBox.Show(e.Message, e.Source);
+			}
+		}
+
+		public void DeleteFile(string fileName)
+		{
+			ProtectedFileEntry targetProtectedFile = GetProtectedFileByName(fileName);
+			targetProtectedFile.Delete();
+			MessageBox.Show(
+					$"The file {targetProtectedFile.FullPath} is deleting and\n" +
+					$"will NOT be tracked anymore",
+					"Warning",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Exclamation
+					);
+			ProtectedFileEntries.Remove(targetProtectedFile);
+		}
+
+		private ProtectedFileEntry GetProtectedFileByName(string fileName)
+		{
+			try
+			{
+				return ProtectedFileEntries.First(protectedFile => protectedFile.Name == fileName);
+			}
+			catch (Exception)
+			{
+				return null;
 			}
 		}
 

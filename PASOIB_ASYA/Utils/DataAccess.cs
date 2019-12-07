@@ -83,6 +83,17 @@ namespace PASOIB_ASYA
 			};
 		}
 
+		internal static void DeleteFile(string fileName)
+		{
+			FileInfo fileInfo = new FileInfo(fileName);
+			fileInfo.Delete();
+		}
+
+		internal static void DeleteFile(FileInfo fileInfo)
+		{
+			fileInfo.Delete();
+		}
+
 		internal static ProtectedFileEntry ReadProtectedFileContent(string name)
 		{
 			if (!name.EndsWith(Properties.Resources.ProtectedFileExtension))

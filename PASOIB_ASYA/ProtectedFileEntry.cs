@@ -15,6 +15,8 @@ namespace PASOIB_ASYA
 
 		internal readonly string Name;
 		internal readonly string TargetDirectory;
+		internal string FullPath => Path.Combine(TargetDirectory, Name);
+
 		internal readonly FileAttributes Attributes;
 		internal readonly DateTime CreationTime;
 		internal readonly DateTime LastWriteTime;
@@ -106,7 +108,7 @@ namespace PASOIB_ASYA
 
 		public void RestoreContent()
 		{
-			string path = Path.Combine(TargetDirectory, Name);
+			string path = FullPath;
 			string restoredContent = Security.DecryptFileAES(FileContent, Key, InitializationVector);
 			DataAccess.SetFileContent(path, restoredContent, Attributes, CreationTime, LastWriteTime);
 
@@ -116,6 +118,12 @@ namespace PASOIB_ASYA
 				throw new ProtectedFileHashInconsistence(Name);
 			}
 
+		}
+
+		public void Delete()
+		{
+			Watcher.Dispose();
+			DataAccess.DeleteFile(Path.Combine(Application.CommonAppDataPath, Name + Properties.Resources.ProtectedFileExtension));
 		}
 
 		private static void OnChanged(object source, FileSystemEventArgs e)
