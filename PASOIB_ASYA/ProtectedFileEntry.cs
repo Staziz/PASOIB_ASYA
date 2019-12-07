@@ -74,7 +74,7 @@ namespace PASOIB_ASYA
 			this.LastWriteTime = LastWriteTime;
 			this.Size = Length;
 
-			this.Key = DataAccess.GetIdentificator();
+			this.Key = Security.GetKey();
 			this.InitializationVector = InitializationVector;
 
 			this.FileContent = FileContent;
