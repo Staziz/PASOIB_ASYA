@@ -11,20 +11,6 @@ namespace PASOIB_ASYA
 {
 	internal static class DataAccess
 	{
-		internal static void SetIdentificator(string identificator)
-		{
-			string keyFilePath = Path.Combine(Application.CommonAppDataPath, Properties.Resources.KeyFile);
-			using (StreamWriter keyFile = File.Exists(keyFilePath) ? new StreamWriter(keyFilePath) : File.AppendText(keyFilePath))
-			{
-				keyFile.WriteLine(Security.GetMd5Hash(identificator));
-				System.Windows.Forms.MessageBox.Show(
-					"The key was successfully saved!",
-					"Info",
-					System.Windows.Forms.MessageBoxButtons.OK,
-					System.Windows.Forms.MessageBoxIcon.Asterisk);
-			}
-		}
-
 		internal static string GetIdentificator()
 		{
 			string keyFilePath = Path.Combine(Application.CommonAppDataPath, Properties.Resources.KeyFile);
@@ -42,6 +28,20 @@ namespace PASOIB_ASYA
 			}
 
 			return identificator;
+		}
+
+		internal static void SetIdentificator(string identificator)
+		{
+			string keyFilePath = Path.Combine(Application.CommonAppDataPath, Properties.Resources.KeyFile);
+			using (StreamWriter keyFile = File.Exists(keyFilePath) ? new StreamWriter(keyFilePath) : File.AppendText(keyFilePath))
+			{
+				keyFile.WriteLine(Security.GetMd5Hash(identificator));
+				System.Windows.Forms.MessageBox.Show(
+					"The key was successfully saved!",
+					"Info",
+					System.Windows.Forms.MessageBoxButtons.OK,
+					System.Windows.Forms.MessageBoxIcon.Asterisk);
+			}
 		}
 
 		internal static string GetFileContent(string fileName)
