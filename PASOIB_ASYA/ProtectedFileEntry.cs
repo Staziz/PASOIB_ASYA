@@ -34,11 +34,13 @@ namespace PASOIB_ASYA
 			LastWriteTime = targetFileInfo.LastWriteTime;
 			Size = targetFileInfo.Length;
 
-			Key = Security.GetKey();
+			FileContent = DataAccess.GetFileContent(targetFileInfo);
+			MD5Hash = Security.GetMd5Hash(FileContent);
+
+			Key = Security.GetKey(keyInit: MD5Hash);
 			InitializationVector = Security.GetInitializationVector();
 
-			FileContent = Security.EncryptFileAES(DataAccess.GetFileContent(targetFileInfo), Key, InitializationVector);
-			MD5Hash = Security.GetMd5Hash(FileContent);
+			FileContent = Security.EncryptFileAES(FileContent, Key, InitializationVector);
 
 			Watcher = new FileSystemWatcher(TargetDirectory)
 			{
@@ -74,11 +76,15 @@ namespace PASOIB_ASYA
 			this.LastWriteTime = LastWriteTime;
 			this.Size = Length;
 
-			this.Key = Security.GetKey();
+			this.Key = Security.GetKey(keyInit: MD5Hash);
 			this.InitializationVector = InitializationVector;
 
 			this.FileContent = FileContent;
-			this.MD5Hash = Security.GetMd5Hash(FileContent) == MD5Hash 
+			this.MD5Hash = Security.GetMd5Hash(
+					Security.DecryptFileAES(
+						this.FileContent,
+						this.Key,
+						this.InitializationVector)) == MD5Hash 
 				? MD5Hash 
 				: throw new ProtectedFileHashInconsistence(Name);
 
@@ -105,7 +111,7 @@ namespace PASOIB_ASYA
 			DataAccess.SetFileContent(path, restoredContent, Attributes, CreationTime, LastWriteTime);
 
 			restoredContent = DataAccess.GetFileContent(path);
-			if (Security.GetMd5Hash(Security.GetMd5Hash(restoredContent)) != MD5Hash)
+			if (Security.GetMd5Hash(restoredContent) != MD5Hash)
 			{
 				throw new ProtectedFileHashInconsistence(Name);
 			}

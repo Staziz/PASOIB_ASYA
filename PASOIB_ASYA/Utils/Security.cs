@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -74,18 +75,29 @@ namespace PASOIB_ASYA
 			return plainText;
 		}
 
-		public static string GetKey(string humanKey = null)
+		public static string GetKey(string humanKey = null, string keyInit = null)
 		{
+			byte[] keyString;
+			int keyStringSize = 0;
+			if (humanKey == null)
+			{
+				humanKey = DataAccess.GetIdentificator();
+			}
 			using (AesCryptoServiceProvider aesCryptoProvider = new AesCryptoServiceProvider())
 			{
-				aesCryptoProvider.GenerateKey();
-				var keyString = aesCryptoProvider.Key;
-				if (humanKey == null)
+				if (keyInit != null)
 				{
-					humanKey = DataAccess.GetIdentificator();
+					keyString = Encoding.Unicode.GetBytes(keyInit);
+					keyStringSize = aesCryptoProvider.Key.Length;
+					keyString = keyString.Take(keyStringSize).ToArray();
 				}
-				return XORStrings(humanKey, keyString);
+				else
+				{
+					aesCryptoProvider.GenerateKey();
+					keyString = aesCryptoProvider.Key;
+				}
 			}
+			return XORStrings(humanKey, keyString);
 		}
 
 		public static string GetInitializationVector()
