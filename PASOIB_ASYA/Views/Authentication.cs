@@ -43,9 +43,9 @@ namespace PASOIB_ASYA
 			}
 		}
 
-		public void TryAuthentify(string currentID, string masterID)
+		public void TryAuthentify(string currentID, string masterID, bool force = false)
 		{
-			if (masterID == null)
+			if ((masterID == null) && force)
 			{
 				DataAccess.SetIdentificator(currentID);
 				IsAuthenticated = true;

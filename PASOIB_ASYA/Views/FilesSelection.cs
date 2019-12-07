@@ -30,5 +30,18 @@ namespace PASOIB_ASYA
 			return ProtectedFileEntries.Last();
 		}
 
+		public void RestoreFile(string fileName)
+		{
+			ProtectedFileEntry targetProtectedFile = ProtectedFileEntries.First(protectedFile => protectedFile.Name == fileName);
+			try
+			{
+				targetProtectedFile.RestoreContent();
+			}
+			catch (Exception e)
+			{
+				MessageBox.Show(e.Message, e.Source);
+			}
+		}
+
 	}
 }

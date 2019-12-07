@@ -33,7 +33,10 @@
 			this.tabFilesSelection = new System.Windows.Forms.TabPage();
 			this.FilesSelectionTableLayout = new System.Windows.Forms.TableLayoutPanel();
 			this.ProctectingFilesDataGrid = new System.Windows.Forms.DataGridView();
-			this.ButtonsTableLayout = new System.Windows.Forms.TableLayoutPanel();
+			this.FileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.FileCreationTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.FileSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.AddFileButton = new System.Windows.Forms.Button();
 			this.tabAuthentication = new System.Windows.Forms.TabPage();
 			this.AuthenticationTableLayout = new System.Windows.Forms.TableLayoutPanel();
 			this.SelectButton = new System.Windows.Forms.Button();
@@ -44,18 +47,16 @@
 			this.DeviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tabControl = new System.Windows.Forms.TabControl();
-			this.FileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.FileCreationTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.FileSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.AddFileButton = new System.Windows.Forms.Button();
+			this.ButtonsFlowLayout = new System.Windows.Forms.FlowLayoutPanel();
+			this.RestoreFileButton = new System.Windows.Forms.Button();
 			this.tabFilesSelection.SuspendLayout();
 			this.FilesSelectionTableLayout.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.ProctectingFilesDataGrid)).BeginInit();
-			this.ButtonsTableLayout.SuspendLayout();
 			this.tabAuthentication.SuspendLayout();
 			this.AuthenticationTableLayout.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.USBDevicesDataGrid)).BeginInit();
 			this.tabControl.SuspendLayout();
+			this.ButtonsFlowLayout.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabReports
@@ -95,7 +96,7 @@
 			this.FilesSelectionTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
 			this.FilesSelectionTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
 			this.FilesSelectionTableLayout.Controls.Add(this.ProctectingFilesDataGrid, 0, 0);
-			this.FilesSelectionTableLayout.Controls.Add(this.ButtonsTableLayout, 1, 1);
+			this.FilesSelectionTableLayout.Controls.Add(this.ButtonsFlowLayout, 1, 1);
 			this.FilesSelectionTableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.FilesSelectionTableLayout.Location = new System.Drawing.Point(3, 3);
 			this.FilesSelectionTableLayout.Name = "FilesSelectionTableLayout";
@@ -123,19 +124,33 @@
 			this.ProctectingFilesDataGrid.Size = new System.Drawing.Size(544, 412);
 			this.ProctectingFilesDataGrid.TabIndex = 0;
 			// 
-			// ButtonsTableLayout
+			// FileName
 			// 
-			this.ButtonsTableLayout.ColumnCount = 1;
-			this.ButtonsTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.ButtonsTableLayout.Controls.Add(this.AddFileButton, 0, 0);
-			this.ButtonsTableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.ButtonsTableLayout.Location = new System.Drawing.Point(553, 212);
-			this.ButtonsTableLayout.Name = "ButtonsTableLayout";
-			this.ButtonsTableLayout.RowCount = 2;
-			this.ButtonsTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.ButtonsTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.ButtonsTableLayout.Size = new System.Drawing.Size(230, 203);
-			this.ButtonsTableLayout.TabIndex = 1;
+			this.FileName.HeaderText = "File Name";
+			this.FileName.Name = "FileName";
+			this.FileName.ReadOnly = true;
+			// 
+			// FileCreationTime
+			// 
+			this.FileCreationTime.HeaderText = "Creation Time";
+			this.FileCreationTime.Name = "FileCreationTime";
+			this.FileCreationTime.ReadOnly = true;
+			// 
+			// FileSize
+			// 
+			this.FileSize.HeaderText = "Size";
+			this.FileSize.Name = "FileSize";
+			this.FileSize.ReadOnly = true;
+			// 
+			// AddFileButton
+			// 
+			this.AddFileButton.Location = new System.Drawing.Point(3, 3);
+			this.AddFileButton.Name = "AddFileButton";
+			this.AddFileButton.Size = new System.Drawing.Size(75, 23);
+			this.AddFileButton.TabIndex = 0;
+			this.AddFileButton.Text = "Add File";
+			this.AddFileButton.UseVisualStyleBackColor = true;
+			this.AddFileButton.Click += new System.EventHandler(this.AddFileButton_Click);
 			// 
 			// tabAuthentication
 			// 
@@ -249,33 +264,25 @@
 			this.tabControl.Size = new System.Drawing.Size(800, 450);
 			this.tabControl.TabIndex = 0;
 			// 
-			// FileName
+			// ButtonsFlowLayout
 			// 
-			this.FileName.HeaderText = "File Name";
-			this.FileName.Name = "FileName";
-			this.FileName.ReadOnly = true;
+			this.ButtonsFlowLayout.Controls.Add(this.AddFileButton);
+			this.ButtonsFlowLayout.Controls.Add(this.RestoreFileButton);
+			this.ButtonsFlowLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.ButtonsFlowLayout.Location = new System.Drawing.Point(553, 212);
+			this.ButtonsFlowLayout.Name = "ButtonsFlowLayout";
+			this.ButtonsFlowLayout.Size = new System.Drawing.Size(230, 203);
+			this.ButtonsFlowLayout.TabIndex = 1;
 			// 
-			// FileCreationTime
+			// RestoreFileButton
 			// 
-			this.FileCreationTime.HeaderText = "Creation Time";
-			this.FileCreationTime.Name = "FileCreationTime";
-			this.FileCreationTime.ReadOnly = true;
-			// 
-			// FileSize
-			// 
-			this.FileSize.HeaderText = "Size";
-			this.FileSize.Name = "FileSize";
-			this.FileSize.ReadOnly = true;
-			// 
-			// AddFileButton
-			// 
-			this.AddFileButton.Location = new System.Drawing.Point(3, 3);
-			this.AddFileButton.Name = "AddFileButton";
-			this.AddFileButton.Size = new System.Drawing.Size(75, 23);
-			this.AddFileButton.TabIndex = 0;
-			this.AddFileButton.Text = "Add File";
-			this.AddFileButton.UseVisualStyleBackColor = true;
-			this.AddFileButton.Click += new System.EventHandler(this.AddFileButton_Click);
+			this.RestoreFileButton.Location = new System.Drawing.Point(84, 3);
+			this.RestoreFileButton.Name = "RestoreFileButton";
+			this.RestoreFileButton.Size = new System.Drawing.Size(75, 23);
+			this.RestoreFileButton.TabIndex = 1;
+			this.RestoreFileButton.Text = "Restore File";
+			this.RestoreFileButton.UseVisualStyleBackColor = true;
+			this.RestoreFileButton.Click += new System.EventHandler(this.RestoreFileButton_Click);
 			// 
 			// MainActivity
 			// 
@@ -290,11 +297,11 @@
 			this.tabFilesSelection.ResumeLayout(false);
 			this.FilesSelectionTableLayout.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.ProctectingFilesDataGrid)).EndInit();
-			this.ButtonsTableLayout.ResumeLayout(false);
 			this.tabAuthentication.ResumeLayout(false);
 			this.AuthenticationTableLayout.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.USBDevicesDataGrid)).EndInit();
 			this.tabControl.ResumeLayout(false);
+			this.ButtonsFlowLayout.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -316,11 +323,12 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn PNPDeviceID;
 		private System.Windows.Forms.DataGridViewTextBoxColumn DeviceName;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Description;
-		private System.Windows.Forms.TableLayoutPanel ButtonsTableLayout;
 		private System.Windows.Forms.DataGridViewTextBoxColumn FileName;
 		private System.Windows.Forms.DataGridViewTextBoxColumn FileCreationTime;
 		private System.Windows.Forms.DataGridViewTextBoxColumn FileSize;
 		private System.Windows.Forms.Button AddFileButton;
+		private System.Windows.Forms.FlowLayoutPanel ButtonsFlowLayout;
+		private System.Windows.Forms.Button RestoreFileButton;
 	}
 }
 

@@ -44,6 +44,15 @@ namespace PASOIB_ASYA
 			return identificator;
 		}
 
+		internal static string GetFileContent(string fileName)
+		{
+			FileInfo fileInfo = new FileInfo(fileName);
+			using (StreamReader fileInput = new StreamReader(fileInfo.FullName))
+			{
+				return fileInput.ReadToEnd();
+			}
+		}
+
 		internal static string GetFileContent(FileInfo fileInfo)
 		{
 			using (StreamReader fileInput = new StreamReader(fileInfo.FullName))
@@ -60,6 +69,20 @@ namespace PASOIB_ASYA
 			}
 		}
 
+		internal static void SetFileContent(string fileName, string content, FileAttributes attributes, DateTime creationTime, DateTime lastWriteTime)
+		{
+			using (StreamWriter fileInput = new StreamWriter(fileName))
+			{
+				fileInput.Write(content);
+			}
+			FileInfo file = new FileInfo(fileName)
+			{
+				Attributes = attributes,
+				CreationTime = creationTime,
+				LastWriteTime = lastWriteTime
+			};
+		}
+
 		internal static ProtectedFileEntry ReadProtectedFileContent(string name)
 		{
 			if (!name.EndsWith(Properties.Resources.ProtectedFileExtension))
@@ -72,17 +95,18 @@ namespace PASOIB_ASYA
 				string DirectoryName = fileInput.ReadLine();
 				FileAttributes Attributes = (FileAttributes)Enum.Parse(typeof(FileAttributes), fileInput.ReadLine());
 				DateTime.TryParse(fileInput.ReadLine(), out DateTime CreationTime);
+				DateTime.TryParse(fileInput.ReadLine(), out DateTime LastWriteTime);
 				long.TryParse(fileInput.ReadLine(), out long Length);
-				string FileContent;
 				string MD5Hash = fileInput.ReadLine();
 				string InitializationVector = fileInput.ReadLine();
 
-				FileContent = fileInput.ReadToEnd();
+				string FileContent = fileInput.ReadToEnd();
 				return new ProtectedFileEntry(
 					Name,
 					DirectoryName,
 					Attributes,
 					CreationTime,
+					LastWriteTime,
 					Length,
 					FileContent,
 					MD5Hash,
@@ -99,6 +123,7 @@ namespace PASOIB_ASYA
 				fileOutput.WriteLine(protectedFile.TargetDirectory);
 				fileOutput.WriteLine(protectedFile.Attributes);
 				fileOutput.WriteLine(protectedFile.CreationTime);
+				fileOutput.WriteLine(protectedFile.LastWriteTime);
 				fileOutput.WriteLine(protectedFile.Size);
 				fileOutput.WriteLine(protectedFile.MD5Hash);
 				fileOutput.WriteLine(protectedFile.InitializationVector);

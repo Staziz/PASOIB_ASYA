@@ -17,6 +17,7 @@ namespace PASOIB_ASYA
 		internal readonly string TargetDirectory;
 		internal readonly FileAttributes Attributes;
 		internal readonly DateTime CreationTime;
+		internal readonly DateTime LastWriteTime;
 		internal readonly long Size;
 		internal readonly string MD5Hash;
 
@@ -30,6 +31,7 @@ namespace PASOIB_ASYA
 			TargetDirectory = targetFileInfo.DirectoryName;
 			Attributes = targetFileInfo.Attributes;
 			CreationTime = targetFileInfo.CreationTime;
+			LastWriteTime = targetFileInfo.LastWriteTime;
 			Size = targetFileInfo.Length;
 
 			Key = Security.GetKey();
@@ -59,6 +61,7 @@ namespace PASOIB_ASYA
 			string DirectoryName, 
 			FileAttributes Attributes, 
 			DateTime CreationTime, 
+			DateTime LastWriteTime,
 			long Length,
 			string FileContent,
 			string MD5Hash,
@@ -68,6 +71,7 @@ namespace PASOIB_ASYA
 			this.TargetDirectory = DirectoryName;
 			this.Attributes = Attributes;
 			this.CreationTime = CreationTime;
+			this.LastWriteTime = LastWriteTime;
 			this.Size = Length;
 
 			this.Key = DataAccess.GetIdentificator();
@@ -77,7 +81,6 @@ namespace PASOIB_ASYA
 			this.MD5Hash = Security.GetMd5Hash(FileContent) == MD5Hash 
 				? MD5Hash 
 				: throw new ProtectedFileHashInconsistence(Name);
-
 
 			Watcher = new FileSystemWatcher(TargetDirectory)
 			{
@@ -93,6 +96,20 @@ namespace PASOIB_ASYA
 			Watcher.Deleted += OnChanged;
 			Watcher.Renamed += OnRenamed;
 			Watcher.EnableRaisingEvents = true;
+		}
+
+		public void RestoreContent()
+		{
+			string path = Path.Combine(TargetDirectory, Name);
+			string restoredContent = Security.DecryptFileAES(FileContent, Key, InitializationVector);
+			DataAccess.SetFileContent(path, restoredContent, Attributes, CreationTime, LastWriteTime);
+
+			restoredContent = DataAccess.GetFileContent(path);
+			if (Security.GetMd5Hash(Security.GetMd5Hash(restoredContent)) != MD5Hash)
+			{
+				throw new ProtectedFileHashInconsistence(Name);
+			}
+
 		}
 
 		private static void OnChanged(object source, FileSystemEventArgs e)

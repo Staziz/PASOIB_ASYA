@@ -35,12 +35,13 @@ namespace PASOIB_ASYA
 		private void MainActivity_Load(object sender, EventArgs e)
 		{
 			USBChecker = new USBChecker();
+			USBChecker.onUSBDeviceInserted += USBChecker_onUSBDeviceInserted;
+			USBChecker.onUSBDeviceRemoved += USBChecker_onUSBDeviceRemoved;
+
 			Authentication = new Authentication();
 
 			FilesSelection = new FilesSelection();
 
-			USBChecker.onUSBDeviceInserted += USBChecker_onUSBDeviceInserted;
-			USBChecker.onUSBDeviceRemoved += USBChecker_onUSBDeviceRemoved;
 			IsAuthenticated = false;
 			ShowConnectedDevices();
 		}
@@ -72,6 +73,9 @@ namespace PASOIB_ASYA
 
 		private void ShowConnectedDevices()
 		{
+			bool isAuthenticated = false;
+			string currentId = null;
+			string masterId = DataAccess.GetIdentificator();
 			if (USBDevicesDataGrid.InvokeRequired)
 			{
 				USBDevicesDataGrid.Invoke(new Action(() =>
@@ -81,7 +85,14 @@ namespace PASOIB_ASYA
 					{
 						System.Reflection.PropertyInfo[] properties = typeof(USBDeviceInfo).GetProperties();
 						USBDevicesDataGrid.Rows.Add(properties.Select(property => property.GetValue(usbDeviceInfo)).ToArray());
+						currentId = USBDevicesDataGrid.Rows[USBDevicesDataGrid.Rows.Count - 1].Cells[0].Value.ToString();
+						Authentication.TryAuthentify(currentId, masterId);
+						isAuthenticated = isAuthenticated ? isAuthenticated : Authentication.IsAuthenticated;
 					});
+					if (!isAuthenticated)
+					{
+						IsAuthenticated = false;
+					}
 				}));
 			}
 			else
@@ -91,7 +102,14 @@ namespace PASOIB_ASYA
 				{
 					System.Reflection.PropertyInfo[] properties = typeof(USBDeviceInfo).GetProperties();
 					USBDevicesDataGrid.Rows.Add(properties.Select(property => property.GetValue(usbDeviceInfo)).ToArray());
+					currentId = USBDevicesDataGrid.Rows[USBDevicesDataGrid.Rows.Count - 1].Cells[0].Value.ToString();
+					Authentication.TryAuthentify(currentId, masterId);
+					isAuthenticated = isAuthenticated ? isAuthenticated : Authentication.IsAuthenticated;
 				});
+				if (!isAuthenticated)
+				{
+					IsAuthenticated = false;
+				}
 			}
 		}
 
@@ -101,7 +119,7 @@ namespace PASOIB_ASYA
 			{
 				string currentId = USBDevicesDataGrid.SelectedRows[0].Cells[0].Value.ToString();
 				string masterId = DataAccess.GetIdentificator();
-				Authentication.TryAuthentify(currentId, masterId);
+				Authentication.TryAuthentify(currentId, masterId, true);
 				IsAuthenticated = Authentication.IsAuthenticated;
 				if (!IsAuthenticated)
 				{
@@ -120,7 +138,6 @@ namespace PASOIB_ASYA
 					MessageBoxButtons.OK,
 					MessageBoxIcon.Error);
 			}
-			
 		}
 
 		private void AddFileButton_Click(object sender, EventArgs e)
@@ -137,6 +154,23 @@ namespace PASOIB_ASYA
 			UpdateProtectingFiles(true);
 		}
 
+		private void RestoreFileButton_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				string fileName = ProctectingFilesDataGrid.SelectedRows[0].Cells[0].Value.ToString();
+				FilesSelection.RestoreFile(fileName);
+			}
+			catch
+			{
+				MessageBox.Show(
+					"Please select one row to proceed",
+					"Error",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error);
+			}
+		}
+
 		private void UpdateProtectingFiles(bool isAuthenticated = false)
 		{
 			ProctectingFilesDataGrid.Rows.Clear();
@@ -148,5 +182,6 @@ namespace PASOIB_ASYA
 				});
 			}
 		}
+
 	}
 }

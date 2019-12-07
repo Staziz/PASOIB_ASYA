@@ -14,8 +14,8 @@ namespace UnitTestProject
 		[TestMethod]
 		public void EncryptDecrypt()
 		{
-			string key = Security.GetKey("SomeKey");
-			string initVector = Security.GetInitializationVector();
+			string key = null;
+			string initVector = null;
 
 			for (int i = 0; i < 10; i++)
 			{
