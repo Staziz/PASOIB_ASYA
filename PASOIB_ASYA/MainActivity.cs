@@ -16,6 +16,7 @@ namespace PASOIB_ASYA
 		private USBChecker USBChecker;
 		private Authentication Authentication;
 		private FilesSelection FilesSelection;
+		private RealtimeData RealtimeData;
 		private bool IsAuthenticated
 		{
 			get => Authentication.IsAuthenticated;
@@ -41,9 +42,24 @@ namespace PASOIB_ASYA
 			Authentication = new Authentication();
 
 			FilesSelection = new FilesSelection();
+			FilesSelection.onProtectedFileChanged += FilesSelection_onProtectedFileChanged;
+			FilesSelection.onProtectedFileRenamed += FilesSelection_onProtectedFileRenamed;
+
+			RealtimeData = new RealtimeData();
 
 			IsAuthenticated = false;
-			ShowConnectedDevices();
+		}
+
+		private void FilesSelection_onProtectedFileChanged(ProtectedFileEntry protectedFile, FileSystemEventArgs eventArgs)
+		{
+			RealtimeData.AddChangeEvent(eventArgs.FullPath, eventArgs.ChangeType.ToString());
+			UpdateEventLog();
+		}
+
+		private void FilesSelection_onProtectedFileRenamed(ProtectedFileEntry protectedFile, RenamedEventArgs eventArgs)
+		{
+			RealtimeData.AddRenameEvent(eventArgs.OldFullPath, eventArgs.FullPath);
+			UpdateEventLog();
 		}
 
 		private void MainActivity_Shown(object sender, EventArgs e)
@@ -65,9 +81,11 @@ namespace PASOIB_ASYA
 		{
 			// TODO: Add tabs initialization/disposing here
 			((Control)tabAuthentication).Enabled = !IsAuthenticated;
+			ShowConnectedDevices();
 			((Control)tabFilesSelection).Enabled = IsAuthenticated;
-			UpdateProtectingFiles(IsAuthenticated);
+			UpdateProtectingFiles();
 			((Control)tabRealtimeData).Enabled = IsAuthenticated;
+			UpdateEventLog();
 			((Control)tabReports).Enabled = IsAuthenticated;
 		}
 
@@ -102,13 +120,47 @@ namespace PASOIB_ASYA
 				{
 					System.Reflection.PropertyInfo[] properties = typeof(USBDeviceInfo).GetProperties();
 					USBDevicesDataGrid.Rows.Add(properties.Select(property => property.GetValue(usbDeviceInfo)).ToArray());
-					currentId = USBDevicesDataGrid.Rows[USBDevicesDataGrid.Rows.Count - 1].Cells[0].Value.ToString();
-					Authentication.TryAuthentify(currentId, masterId);
-					isAuthenticated = isAuthenticated ? isAuthenticated : Authentication.IsAuthenticated;
 				});
-				if (!isAuthenticated)
+			}
+		}
+
+		private void UpdateProtectingFiles()
+		{
+			ProctectingFilesDataGrid.Rows.Clear();
+			if (IsAuthenticated)
+			{
+				FilesSelection.ProtectedFileEntries.ForEach(protectedFileEntry =>
 				{
-					IsAuthenticated = false;
+					ProctectingFilesDataGrid.Rows.Add(protectedFileEntry.Name, protectedFileEntry.CreationTime, protectedFileEntry.Size);
+				});
+			}
+		}
+
+		private void UpdateEventLog()
+		{
+			if (EventsListBox.InvokeRequired)
+			{
+				EventsListBox.Invoke(new Action(() =>
+				{
+					EventsListBox.Items.Clear();
+					if (IsAuthenticated)
+					{
+						RealtimeData.FileEventsList.ForEach(eventString =>
+						{
+							EventsListBox.Items.Add(eventString);
+						});
+					}
+				}));
+			}
+			else
+			{
+				EventsListBox.Items.Clear();
+				if (IsAuthenticated)
+				{
+					RealtimeData.FileEventsList.ForEach(eventString =>
+					{
+						EventsListBox.Items.Add(eventString);
+					});
 				}
 			}
 		}
@@ -151,15 +203,17 @@ namespace PASOIB_ASYA
 					FilesSelection.AddFile(new FileInfo(openFileDialog.FileName));
 				}
 			}
-			UpdateProtectingFiles(IsAuthenticated);
+			UpdateProtectingFiles();
 		}
 
 		private void RestoreFileButton_Click(object sender, EventArgs e)
 		{
 			try
 			{
+				RealtimeData.AddSystemEvent("Restore started");
 				string fileName = ProctectingFilesDataGrid.SelectedRows[0].Cells[0].Value.ToString();
 				FilesSelection.RestoreFile(fileName);
+				RealtimeData.AddSystemEvent("Restore completed");
 			}
 			catch
 			{
@@ -177,7 +231,7 @@ namespace PASOIB_ASYA
 			{
 				string fileName = ProctectingFilesDataGrid.SelectedRows[0].Cells[0].Value.ToString();
 				FilesSelection.DeleteFile(fileName);
-				UpdateProtectingFiles(IsAuthenticated);
+				UpdateProtectingFiles();
 			}
 			catch
 			{
@@ -189,17 +243,7 @@ namespace PASOIB_ASYA
 			}
 		}
 
-		private void UpdateProtectingFiles(bool isAuthenticated = false)
-		{
-			ProctectingFilesDataGrid.Rows.Clear();
-			if (isAuthenticated)
-			{
-				FilesSelection.ProtectedFileEntries.ForEach(protectedFileEntry =>
-				{
-					ProctectingFilesDataGrid.Rows.Add(protectedFileEntry.Name, protectedFileEntry.CreationTime, protectedFileEntry.Size);
-				});
-			}
-		}
+		
 
 	}
 }

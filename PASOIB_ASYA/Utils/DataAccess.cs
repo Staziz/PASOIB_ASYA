@@ -143,14 +143,30 @@ namespace PASOIB_ASYA
 			}
 		}
 
-		internal static void SetData(List<string> data)
+		internal static void SetData(string data)
 		{
-			throw new NotImplementedException();
+			string path = Path.Combine(Application.CommonAppDataPath, Properties.Resources.DataFile);
+			using (StreamWriter dataFile = new StreamWriter(path, true))
+			{
+				dataFile.WriteLine(data);
+			}
 		}
 
 		internal static List<string> GetData()
 		{
-			throw new NotImplementedException();
+			string path = Path.Combine(Application.CommonAppDataPath, Properties.Resources.DataFile);
+			List<string> result = new List<string>();
+			if(File.Exists(path))
+			{
+				using (StreamReader dataFile = new StreamReader(path))
+				{
+					while (!dataFile.EndOfStream)
+					{
+						result.Add(dataFile.ReadLine());
+					}
+				}
+			}
+			return result;
 		}
 	}
 }

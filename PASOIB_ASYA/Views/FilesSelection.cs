@@ -12,14 +12,33 @@ namespace PASOIB_ASYA
 	{
 		internal List<ProtectedFileEntry> ProtectedFileEntries;
 
+		public event ProtectedFileChanged onProtectedFileChanged;
+		public delegate void ProtectedFileChanged(ProtectedFileEntry protectedFile, FileSystemEventArgs eventArgs);
+
+		public event ProtectedFileRenamed onProtectedFileRenamed;
+		public delegate void ProtectedFileRenamed(ProtectedFileEntry protectedFile, RenamedEventArgs eventArgs);
+
 		public FilesSelection()
 		{
 			ProtectedFileEntries = new List<ProtectedFileEntry>();
 			foreach (FileInfo fileInfo in new DirectoryInfo(Application.CommonAppDataPath)
 				.EnumerateFiles($"*{Properties.Resources.ProtectedFileExtension}"))
 			{
-				ProtectedFileEntries.Add(DataAccess.ReadProtectedFileContent(fileInfo.FullName));
+				ProtectedFileEntry protectedFile = DataAccess.ReadProtectedFileContent(fileInfo.FullName);
+				protectedFile.onFileChanged += ProtectedFile_onFileChanged;
+				protectedFile.onFileRenamed += ProtectedFile_onFileRenamed;
+				ProtectedFileEntries.Add(protectedFile);
 			}
+		}
+
+		private void ProtectedFile_onFileChanged(ProtectedFileEntry protectedFile, FileSystemEventArgs eventArgs)
+		{
+			onProtectedFileChanged(protectedFile, eventArgs);
+		}
+
+		private void ProtectedFile_onFileRenamed(ProtectedFileEntry protectedFile, RenamedEventArgs eventArgs)
+		{
+			onProtectedFileRenamed(protectedFile, eventArgs);
 		}
 
 		public ProtectedFileEntry AddFile(FileInfo fileInfo)
@@ -35,6 +54,8 @@ namespace PASOIB_ASYA
 				return null;
 			}
 			ProtectedFileEntry protectedFile = new ProtectedFileEntry(fileInfo);
+			protectedFile.onFileChanged += ProtectedFile_onFileChanged;
+			protectedFile.onFileRenamed += ProtectedFile_onFileRenamed;
 			ProtectedFileEntries.Add(protectedFile);
 			DataAccess.WriteProtectedFileContent(protectedFile);
 			return ProtectedFileEntries.Last();

@@ -30,6 +30,7 @@
 		{
 			this.tabReports = new System.Windows.Forms.TabPage();
 			this.tabRealtimeData = new System.Windows.Forms.TabPage();
+			this.EventsListBox = new System.Windows.Forms.ListBox();
 			this.tabFilesSelection = new System.Windows.Forms.TabPage();
 			this.FilesSelectionTableLayout = new System.Windows.Forms.TableLayoutPanel();
 			this.ProctectingFilesDataGrid = new System.Windows.Forms.DataGridView();
@@ -39,6 +40,7 @@
 			this.ButtonsFlowLayout = new System.Windows.Forms.FlowLayoutPanel();
 			this.AddFileButton = new System.Windows.Forms.Button();
 			this.RestoreFileButton = new System.Windows.Forms.Button();
+			this.DeleteFileButton = new System.Windows.Forms.Button();
 			this.tabAuthentication = new System.Windows.Forms.TabPage();
 			this.AuthenticationTableLayout = new System.Windows.Forms.TableLayoutPanel();
 			this.SelectButton = new System.Windows.Forms.Button();
@@ -49,7 +51,7 @@
 			this.DeviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tabControl = new System.Windows.Forms.TabControl();
-			this.DeleteFileButton = new System.Windows.Forms.Button();
+			this.tabRealtimeData.SuspendLayout();
 			this.tabFilesSelection.SuspendLayout();
 			this.FilesSelectionTableLayout.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.ProctectingFilesDataGrid)).BeginInit();
@@ -72,6 +74,7 @@
 			// 
 			// tabRealtimeData
 			// 
+			this.tabRealtimeData.Controls.Add(this.EventsListBox);
 			this.tabRealtimeData.Location = new System.Drawing.Point(4, 22);
 			this.tabRealtimeData.Name = "tabRealtimeData";
 			this.tabRealtimeData.Padding = new System.Windows.Forms.Padding(3);
@@ -79,6 +82,17 @@
 			this.tabRealtimeData.TabIndex = 3;
 			this.tabRealtimeData.Text = "Realtime Data";
 			this.tabRealtimeData.UseVisualStyleBackColor = true;
+			// 
+			// EventsListBox
+			// 
+			this.EventsListBox.BackColor = System.Drawing.Color.White;
+			this.EventsListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.EventsListBox.FormattingEnabled = true;
+			this.EventsListBox.Location = new System.Drawing.Point(3, 3);
+			this.EventsListBox.Margin = new System.Windows.Forms.Padding(25);
+			this.EventsListBox.Name = "EventsListBox";
+			this.EventsListBox.Size = new System.Drawing.Size(786, 418);
+			this.EventsListBox.TabIndex = 0;
 			// 
 			// tabFilesSelection
 			// 
@@ -173,6 +187,16 @@
 			this.RestoreFileButton.Text = "Restore File";
 			this.RestoreFileButton.UseVisualStyleBackColor = true;
 			this.RestoreFileButton.Click += new System.EventHandler(this.RestoreFileButton_Click);
+			// 
+			// DeleteFileButton
+			// 
+			this.DeleteFileButton.Location = new System.Drawing.Point(3, 32);
+			this.DeleteFileButton.Name = "DeleteFileButton";
+			this.DeleteFileButton.Size = new System.Drawing.Size(75, 23);
+			this.DeleteFileButton.TabIndex = 2;
+			this.DeleteFileButton.Text = "Delete File";
+			this.DeleteFileButton.UseVisualStyleBackColor = true;
+			this.DeleteFileButton.Click += new System.EventHandler(this.DeleteFileButton_Click);
 			// 
 			// tabAuthentication
 			// 
@@ -286,16 +310,6 @@
 			this.tabControl.Size = new System.Drawing.Size(800, 450);
 			this.tabControl.TabIndex = 0;
 			// 
-			// DeleteFileButton
-			// 
-			this.DeleteFileButton.Location = new System.Drawing.Point(3, 32);
-			this.DeleteFileButton.Name = "DeleteFileButton";
-			this.DeleteFileButton.Size = new System.Drawing.Size(75, 23);
-			this.DeleteFileButton.TabIndex = 2;
-			this.DeleteFileButton.Text = "Delete File";
-			this.DeleteFileButton.UseVisualStyleBackColor = true;
-			this.DeleteFileButton.Click += new System.EventHandler(this.DeleteFileButton_Click);
-			// 
 			// MainActivity
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -306,6 +320,7 @@
 			this.Text = "Form1";
 			this.Load += new System.EventHandler(this.MainActivity_Load);
 			this.Shown += new System.EventHandler(this.MainActivity_Shown);
+			this.tabRealtimeData.ResumeLayout(false);
 			this.tabFilesSelection.ResumeLayout(false);
 			this.FilesSelectionTableLayout.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.ProctectingFilesDataGrid)).EndInit();
@@ -342,6 +357,7 @@
 		private System.Windows.Forms.FlowLayoutPanel ButtonsFlowLayout;
 		private System.Windows.Forms.Button RestoreFileButton;
 		private System.Windows.Forms.Button DeleteFileButton;
+		private System.Windows.Forms.ListBox EventsListBox;
 	}
 }
 

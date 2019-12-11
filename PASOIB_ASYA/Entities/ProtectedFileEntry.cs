@@ -25,6 +25,12 @@ namespace PASOIB_ASYA
 
 		internal readonly string FileContent;
 
+		public event FileChanged onFileChanged;
+		public delegate void FileChanged(ProtectedFileEntry protectedFile, FileSystemEventArgs eventArgs);
+
+		public event FileRenamed onFileRenamed;
+		public delegate void FileRenamed(ProtectedFileEntry protectedFile, RenamedEventArgs eventArgs);
+
 		private FileSystemWatcher Watcher;
 
 		public ProtectedFileEntry(FileInfo targetFileInfo)
@@ -117,7 +123,6 @@ namespace PASOIB_ASYA
 			{
 				throw new ProtectedFileHashInconsistence(Name);
 			}
-
 		}
 
 		public void Delete()
@@ -126,16 +131,14 @@ namespace PASOIB_ASYA
 			DataAccess.DeleteFile(Path.Combine(Application.CommonAppDataPath, Name + Properties.Resources.ProtectedFileExtension));
 		}
 
-		private static void OnChanged(object source, FileSystemEventArgs e)
+		private void OnChanged(object source, FileSystemEventArgs e)
 		{
-			System.Windows.Forms.MessageBox.Show($"File: {e.FullPath} {e.ChangeType}");
-			// TODO: Implement writing events to logs
+			onFileChanged(this, e);
 		}
 
-		private static void OnRenamed(object source, RenamedEventArgs e)
+		private void OnRenamed(object source, RenamedEventArgs e)
 		{
-			System.Windows.Forms.MessageBox.Show($"File: {e.OldFullPath} renamed to {e.FullPath}");
-			// TODO: Implement writing events to logs
+			onFileRenamed(this, e);
 		}
 	}
 
