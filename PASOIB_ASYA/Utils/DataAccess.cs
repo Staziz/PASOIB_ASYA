@@ -81,6 +81,7 @@ namespace PASOIB_ASYA
 				CreationTime = creationTime,
 				LastWriteTime = lastWriteTime
 			};
+			System.Threading.Thread.Sleep(500);
 		}
 
 		internal static void DeleteFile(string fileName)
