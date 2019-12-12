@@ -102,7 +102,6 @@ namespace PASOIB_ASYA
 				NotifyFilter = NotifyFilters.LastAccess
 				| NotifyFilters.LastWrite
 				| NotifyFilters.FileName
-				| NotifyFilters.DirectoryName
 				| NotifyFilters.Size
 			};
 			Watcher.Changed += OnChanged;

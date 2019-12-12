@@ -19,12 +19,12 @@ namespace PASOIB_ASYA
 
 		internal async void AddChangeEvent(string source, string whatKind)
 		{
+			string eventString = $"({DateTime.Now}) | File : {source} \t\t {whatKind}";
+			FileEventsList.Add(eventString);
 			try
 			{
 				IOLock.AcquireWriterLock(WriteTimeoutMs);
-				string eventString = $"({DateTime.Now}) | File : {source} \t\t {whatKind}";
 				await DataAccess.SetData(eventString);
-				FileEventsList.Add(eventString);
 			}
 			finally
 			{
@@ -34,12 +34,12 @@ namespace PASOIB_ASYA
 
 		internal async void AddRenameEvent(string oldName, string newName)
 		{
+			string eventString = $"({DateTime.Now}) | File : {oldName} renamed to\t {newName}";
+			FileEventsList.Add(eventString);
 			try
 			{
 				IOLock.AcquireWriterLock(WriteTimeoutMs);
-				string eventString = $"({DateTime.Now}) | File : {oldName} renamed to\t {newName}";
 				await DataAccess.SetData(eventString);
-				FileEventsList.Add(eventString);
 			}
 			finally
 			{
@@ -49,12 +49,12 @@ namespace PASOIB_ASYA
 
 		internal async void AddSystemEvent(params string[] arguments)
 		{
+			string eventString = $"({DateTime.Now}) | {string.Join(" : ", arguments)}";
+			FileEventsList.Add(eventString);
 			try
 			{
 				IOLock.AcquireWriterLock(WriteTimeoutMs);
-				string eventString = $"({DateTime.Now}) | {string.Join(" : ", arguments)}";
 				await DataAccess.SetData(eventString);
-				FileEventsList.Add(eventString);
 			}
 			finally
 			{
