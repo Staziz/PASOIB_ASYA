@@ -81,7 +81,6 @@ namespace PASOIB_ASYA
 				CreationTime = creationTime,
 				LastWriteTime = lastWriteTime
 			};
-			System.Threading.Thread.Sleep(500);
 		}
 
 		internal static void DeleteFile(string fileName)
@@ -144,12 +143,12 @@ namespace PASOIB_ASYA
 			}
 		}
 
-		internal static void SetData(string data)
+		internal static async Task SetData(string data)
 		{
 			string path = Path.Combine(Application.CommonAppDataPath, Properties.Resources.DataFile);
 			using (StreamWriter dataFile = new StreamWriter(path, true))
 			{
-				dataFile.WriteLine(data);
+				await dataFile.WriteLineAsync(data);
 			}
 		}
 

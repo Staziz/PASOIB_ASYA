@@ -1,38 +1,65 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading;
 
 namespace PASOIB_ASYA
 {
 	internal class RealtimeData
 	{
 		internal List<string> FileEventsList;
+		private readonly ReaderWriterLock IOLock;
+		private readonly int WriteTimeoutMs;
 
 		public RealtimeData()
 		{
 			FileEventsList = DataAccess.GetData();
+			IOLock = new ReaderWriterLock();
+			WriteTimeoutMs = 1550;
 		}
 
-		internal void AddChangeEvent(string source, string whatKind)
+		internal async void AddChangeEvent(string source, string whatKind)
 		{
-			string eventString = $"({DateTime.Now}) | File : {source} \t\t {whatKind}";
-			DataAccess.SetData(eventString);
-			FileEventsList.Add(eventString);
+			try
+			{
+				IOLock.AcquireWriterLock(WriteTimeoutMs);
+				string eventString = $"({DateTime.Now}) | File : {source} \t\t {whatKind}";
+				await DataAccess.SetData(eventString);
+				FileEventsList.Add(eventString);
+			}
+			finally
+			{
+				IOLock.ReleaseLock();
+			}
 		}
 
-		internal void AddRenameEvent(string oldName, string newName)
+		internal async void AddRenameEvent(string oldName, string newName)
 		{
-			string eventString = $"({DateTime.Now}) | File : {oldName} renamed to\t {newName}";
-			DataAccess.SetData(eventString);
-			FileEventsList.Add(eventString);
+			try
+			{
+				IOLock.AcquireWriterLock(WriteTimeoutMs);
+				string eventString = $"({DateTime.Now}) | File : {oldName} renamed to\t {newName}";
+				await DataAccess.SetData(eventString);
+				FileEventsList.Add(eventString);
+			}
+			finally
+			{
+				IOLock.ReleaseLock();
+			}
 		}
 
-		internal void AddSystemEvent(params string[] arguments)
+		internal async void AddSystemEvent(params string[] arguments)
 		{
-			string eventString = $"({DateTime.Now}) | {string.Join(" : ", arguments)}";
-			DataAccess.SetData(eventString);
-			FileEventsList.Add(eventString);
+			try
+			{
+				IOLock.AcquireWriterLock(WriteTimeoutMs);
+				string eventString = $"({DateTime.Now}) | {string.Join(" : ", arguments)}";
+				await DataAccess.SetData(eventString);
+				FileEventsList.Add(eventString);
+			}
+			finally
+			{
+				IOLock.ReleaseLock();
+			}
 		}
 	}
 }
