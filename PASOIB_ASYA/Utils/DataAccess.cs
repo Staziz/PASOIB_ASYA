@@ -46,41 +46,38 @@ namespace PASOIB_ASYA
 
 		internal static string GetFileContent(string fileName)
 		{
-			FileInfo fileInfo = new FileInfo(fileName);
-			using (StreamReader fileInput = new StreamReader(fileInfo.FullName))
-			{
-				return fileInput.ReadToEnd();
-			}
+			byte[] fileContent = File.ReadAllBytes(fileName);
+			return Convert.ToBase64String(fileContent);
 		}
 
 		internal static string GetFileContent(FileInfo fileInfo)
 		{
-			using (StreamReader fileInput = new StreamReader(fileInfo.FullName))
-			{
-				return fileInput.ReadToEnd();
-			}
+			byte[] fileContent = File.ReadAllBytes(fileInfo.FullName);
+			return Convert.ToBase64String(fileContent);
 		}
 
 		internal static void SetFileContent(string fileName, string content)
 		{
-			using (StreamWriter fileInput = new StreamWriter(fileName))
-			{
-				fileInput.Write(content);
-			}
+			byte[] fileContent = Convert.FromBase64String(content);
+			File.WriteAllBytes(fileName, fileContent);
 		}
 
 		internal static void SetFileContent(string fileName, string content, FileAttributes attributes, DateTime creationTime, DateTime lastWriteTime)
 		{
-			using (StreamWriter fileInput = new StreamWriter(fileName))
+			if (File.Exists(fileName))
 			{
-				fileInput.Write(content);
+				RemoveFileAttributes(fileName, 
+					FileAttributes.ReadOnly 
+					| FileAttributes.Archive 
+					| FileAttributes.Compressed
+					| FileAttributes.Hidden
+					| FileAttributes.System);
 			}
-			FileInfo file = new FileInfo(fileName)
-			{
-				Attributes = attributes,
-				CreationTime = creationTime,
-				LastWriteTime = lastWriteTime
-			};
+			byte[] fileContent = Convert.FromBase64String(content);
+			File.WriteAllBytes(fileName, fileContent);
+			File.SetCreationTime(fileName, creationTime);
+			File.SetLastWriteTime(fileName, lastWriteTime);
+			File.SetAttributes(fileName, attributes);
 		}
 
 		internal static void DeleteFile(string fileName)
@@ -167,6 +164,13 @@ namespace PASOIB_ASYA
 				}
 			}
 			return result;
+		}
+
+		private static void RemoveFileAttributes(string fileName, FileAttributes attributes)
+		{
+			FileInfo file = new FileInfo(fileName);
+			FileAttributes oldAttributes = File.GetAttributes(fileName);
+			File.SetAttributes(fileName, oldAttributes & ~attributes);
 		}
 	}
 }
