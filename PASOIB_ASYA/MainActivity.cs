@@ -201,6 +201,7 @@ namespace PASOIB_ASYA
 				if (openFileDialog.ShowDialog() == DialogResult.OK)
 				{
 					FilesSelection.AddFile(new FileInfo(openFileDialog.FileName));
+					RealtimeData.AddSystemEvent("File is tracking now", openFileDialog.FileName);
 				}
 			}
 			UpdateProtectingFiles();
@@ -210,10 +211,10 @@ namespace PASOIB_ASYA
 		{
 			try
 			{
-				RealtimeData.AddSystemEvent("Restore started");
 				string fileName = ProctectingFilesDataGrid.SelectedRows[0].Cells[0].Value.ToString();
+				RealtimeData.AddSystemEvent("Restore started", fileName);
 				FilesSelection.RestoreFile(fileName);
-				RealtimeData.AddSystemEvent("Restore completed");
+				RealtimeData.AddSystemEvent("Restore completed", fileName);
 			}
 			catch
 			{
@@ -231,6 +232,7 @@ namespace PASOIB_ASYA
 			{
 				string fileName = ProctectingFilesDataGrid.SelectedRows[0].Cells[0].Value.ToString();
 				FilesSelection.DeleteFile(fileName);
+				RealtimeData.AddSystemEvent("File is not tracking anymore", fileName);
 				UpdateProtectingFiles();
 			}
 			catch
