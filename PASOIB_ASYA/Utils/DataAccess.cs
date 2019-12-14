@@ -163,6 +163,23 @@ namespace PASOIB_ASYA
 			return result;
 		}
 
+		internal static string GetDialogTargetFile()
+		{
+			using (var openFileDialog = new OpenFileDialog())
+			{
+				openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+				openFileDialog.RestoreDirectory = true;
+				if (openFileDialog.ShowDialog() == DialogResult.OK)
+				{
+					return openFileDialog.FileName;
+				}
+				else
+				{
+					return null;
+				}
+			}
+		}
+
 		private static void RemoveFileAttributes(string fileName, FileAttributes attributes)
 		{
 			FileInfo file = new FileInfo(fileName);

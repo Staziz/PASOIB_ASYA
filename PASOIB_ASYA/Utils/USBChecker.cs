@@ -63,7 +63,7 @@ namespace PASOIB_ASYA
 			return devices;
 		}
 
-		private string GetUSBDevicesFullPropertySet()
+		public string GetUSBDevicesFullPropertySet()
 		{
 			string result = "";
 

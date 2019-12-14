@@ -51,6 +51,8 @@
 			this.DeviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tabControl = new System.Windows.Forms.TabControl();
+			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+			this.PrintEventListButton = new System.Windows.Forms.Button();
 			this.tabRealtimeData.SuspendLayout();
 			this.tabFilesSelection.SuspendLayout();
 			this.FilesSelectionTableLayout.SuspendLayout();
@@ -60,6 +62,7 @@
 			this.AuthenticationTableLayout.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.USBDevicesDataGrid)).BeginInit();
 			this.tabControl.SuspendLayout();
+			this.tableLayoutPanel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabReports
@@ -74,7 +77,7 @@
 			// 
 			// tabRealtimeData
 			// 
-			this.tabRealtimeData.Controls.Add(this.EventsListBox);
+			this.tabRealtimeData.Controls.Add(this.tableLayoutPanel1);
 			this.tabRealtimeData.Location = new System.Drawing.Point(4, 22);
 			this.tabRealtimeData.Name = "tabRealtimeData";
 			this.tabRealtimeData.Padding = new System.Windows.Forms.Padding(3);
@@ -88,10 +91,10 @@
 			this.EventsListBox.BackColor = System.Drawing.Color.White;
 			this.EventsListBox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.EventsListBox.FormattingEnabled = true;
-			this.EventsListBox.Location = new System.Drawing.Point(3, 3);
-			this.EventsListBox.Margin = new System.Windows.Forms.Padding(25);
+			this.EventsListBox.Location = new System.Drawing.Point(5, 5);
+			this.EventsListBox.Margin = new System.Windows.Forms.Padding(5);
 			this.EventsListBox.Name = "EventsListBox";
-			this.EventsListBox.Size = new System.Drawing.Size(786, 418);
+			this.EventsListBox.Size = new System.Drawing.Size(776, 374);
 			this.EventsListBox.TabIndex = 0;
 			// 
 			// tabFilesSelection
@@ -310,6 +313,32 @@
 			this.tabControl.Size = new System.Drawing.Size(800, 450);
 			this.tabControl.TabIndex = 0;
 			// 
+			// tableLayoutPanel1
+			// 
+			this.tableLayoutPanel1.ColumnCount = 1;
+			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.tableLayoutPanel1.Controls.Add(this.PrintEventListButton, 0, 1);
+			this.tableLayoutPanel1.Controls.Add(this.EventsListBox, 0, 0);
+			this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+			this.tableLayoutPanel1.RowCount = 2;
+			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+			this.tableLayoutPanel1.Size = new System.Drawing.Size(786, 418);
+			this.tableLayoutPanel1.TabIndex = 1;
+			// 
+			// PrintEventListButton
+			// 
+			this.PrintEventListButton.Dock = System.Windows.Forms.DockStyle.Right;
+			this.PrintEventListButton.Location = new System.Drawing.Point(708, 387);
+			this.PrintEventListButton.Name = "PrintEventListButton";
+			this.PrintEventListButton.Size = new System.Drawing.Size(75, 28);
+			this.PrintEventListButton.TabIndex = 1;
+			this.PrintEventListButton.Text = "Print";
+			this.PrintEventListButton.UseVisualStyleBackColor = true;
+			this.PrintEventListButton.Click += new System.EventHandler(this.PrintEventListButton_Click);
+			// 
 			// MainActivity
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -330,6 +359,7 @@
 			this.AuthenticationTableLayout.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.USBDevicesDataGrid)).EndInit();
 			this.tabControl.ResumeLayout(false);
+			this.tableLayoutPanel1.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -359,6 +389,8 @@
 		private System.Windows.Forms.Button RestoreFileButton;
 		private System.Windows.Forms.Button DeleteFileButton;
 		private System.Windows.Forms.ListBox EventsListBox;
+		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+		private System.Windows.Forms.Button PrintEventListButton;
 	}
 }
 

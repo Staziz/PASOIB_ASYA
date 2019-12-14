@@ -1,7 +1,11 @@
-﻿using System;
+﻿using MigraDoc.DocumentObjectModel;
+using MigraDoc.Rendering;
+using PdfSharp.Pdf;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -202,16 +206,13 @@ namespace PASOIB_ASYA
 
 		private void AddFileButton_Click(object sender, EventArgs e)
 		{
-			using (var openFileDialog = new OpenFileDialog())
+			string targerFileName = DataAccess.GetDialogTargetFile();
+			if (targerFileName == null)
 			{
-				openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-				openFileDialog.RestoreDirectory = true;
-				if (openFileDialog.ShowDialog() == DialogResult.OK)
-				{
-					RealtimeData.AddSystemEvent("File is tracking now", openFileDialog.FileName);
-					FilesSelection.AddFile(new FileInfo(openFileDialog.FileName));
-				}
+				return;
 			}
+			RealtimeData.AddSystemEvent("File is tracking now", targerFileName);
+			FilesSelection.AddFile(new FileInfo(targerFileName));
 			UpdateProtectingFilesList();
 			UpdateEventLog();
 		}
@@ -256,11 +257,79 @@ namespace PASOIB_ASYA
 			}
 		}
 
-		
-
 		private void MainActivity_FormClosed(object sender, FormClosedEventArgs e)
 		{
 			FilesSelection.RemoveProtectingFiles();
 		}
+
+		private void PrintEventListButton_Click(object sender, EventArgs e)
+		{
+
+			// Create a MigraDoc document
+			Document document = CreateDocument();
+			document.UseCmykColor = true;
+
+			// ===== Unicode encoding and font program embedding in MigraDoc is demonstrated here =====
+
+			// A flag indicating whether to create a Unicode PDF or a WinAnsi PDF file.
+			// This setting applies to all fonts used in the PDF document.
+			// This setting has no effect on the RTF renderer.
+			const bool unicode = true;
+
+			// An enum indicating whether to embed fonts or not.
+			// This setting applies to all font programs used in the document.
+			// This setting has no effect on the RTF renderer.
+			// (The term 'font program' is used by Adobe for a file containing a font. Technically a 'font file'
+			// is a collection of small programs and each program renders the glyph of a character when executed.
+			// Using a font in PDFsharp may lead to the embedding of one or more font programms, because each outline
+			// (regular, bold, italic, bold+italic, ...) has its own fontprogram)
+			const PdfFontEmbedding embedding = PdfFontEmbedding.Always;
+
+			// ========================================================================================
+
+			// Create a renderer for the MigraDoc document.
+#pragma warning disable CS0618 // Тип или член устарел
+			PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(unicode, embedding)
+			{
+
+				// Associate the MigraDoc document with a renderer
+				Document = document
+			};
+#pragma warning restore CS0618 // Тип или член устарел
+
+			// Layout and render document to PDF
+			pdfRenderer.RenderDocument();
+
+			// Save the document...
+			string filename = @"C:\Users\Клесарев Станислав\Desktop\_AAA___TEST\HelloWorld.pdf";
+			pdfRenderer.PdfDocument.Save(filename);
+			// ...and start a viewer.
+			Process.Start(filename);
+
+		}
+
+		static Document CreateDocument()
+		{
+			// Create a new MigraDoc document
+			Document document = new Document();
+
+			// Add a section to the document
+			Section section = document.AddSection();
+
+			// Add a paragraph to the section
+			Paragraph paragraph = section.AddParagraph();
+
+			paragraph.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 30, 20, 50);
+			string text;
+			using (var fileStream = new StreamReader(@"C:\ProgramData\PASOIB_ASYA\PASOIB_ASYA\1.0.0.0\data.txt"))
+			{
+				text = fileStream.ReadToEnd();
+			}
+			// Add some text to the paragraph
+			paragraph.AddFormattedText(text, TextFormat.Bold);
+
+			return document;
+		}
+
 	}
 }
