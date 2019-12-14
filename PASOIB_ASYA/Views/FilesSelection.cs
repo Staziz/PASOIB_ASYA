@@ -88,6 +88,23 @@ namespace PASOIB_ASYA
 			ProtectedFileEntries.Remove(targetProtectedFile);
 		}
 
+
+		public void RemoveProtectingFiles()
+		{
+			foreach (ProtectedFileEntry protectedFile in ProtectedFileEntries)
+			{
+				protectedFile.UpdateRemoveContent();
+			}
+		}
+
+		public void RestoreProtectingFiles()
+		{
+			foreach (ProtectedFileEntry protectedFile in ProtectedFileEntries)
+			{
+				protectedFile.RestoreContent();
+			}
+		}
+
 		private ProtectedFileEntry GetProtectedFileByName(string fileName)
 		{
 			try

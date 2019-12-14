@@ -21,9 +21,9 @@ namespace PASOIB_ASYA
 		internal readonly DateTime CreationTime;
 		internal readonly DateTime LastWriteTime;
 		internal readonly long Size;
-		internal readonly string MD5Hash;
+		internal string MD5Hash { get; private set; }
 
-		internal readonly string FileContent;
+		internal string FileContent { get; private set; }
 
 		public event FileChanged onFileChanged;
 		public delegate void FileChanged(ProtectedFileEntry protectedFile, FileSystemEventArgs eventArgs);
@@ -113,11 +113,10 @@ namespace PASOIB_ASYA
 
 		public void RestoreContent()
 		{
-			string path = FullPath;
 			string restoredContent = Security.DecryptFileAES(FileContent, Key, InitializationVector);
-			DataAccess.SetFileContent(path, restoredContent, Attributes, CreationTime, LastWriteTime);
+			DataAccess.SetFileContent(FullPath, restoredContent, Attributes, CreationTime, LastWriteTime);
 
-			restoredContent = DataAccess.GetFileContent(path);
+			restoredContent = DataAccess.GetFileContent(FullPath);
 			if (Security.GetMd5Hash(restoredContent) != MD5Hash)
 			{
 				throw new ProtectedFileHashInconsistence(Name);
@@ -128,6 +127,17 @@ namespace PASOIB_ASYA
 		{
 			Watcher.Dispose();
 			DataAccess.DeleteFile(Path.Combine(Application.CommonAppDataPath, Name + Properties.Resources.ProtectedFileExtension));
+		}
+		
+		public void UpdateRemoveContent()
+		{
+			if (File.Exists(FullPath))
+			{
+				FileContent = DataAccess.GetFileContent(FullPath);
+				MD5Hash = Security.GetMd5Hash(FileContent);
+				FileContent = Security.EncryptFileAES(FileContent, Key, InitializationVector);
+				DataAccess.DeleteFile(FullPath);
+			}
 		}
 
 		private void OnChanged(object source, FileSystemEventArgs e)

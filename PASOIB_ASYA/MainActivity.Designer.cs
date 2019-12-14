@@ -318,6 +318,7 @@
 			this.Controls.Add(this.tabControl);
 			this.Name = "MainActivity";
 			this.Text = "Form1";
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainActivity_FormClosed);
 			this.Load += new System.EventHandler(this.MainActivity_Load);
 			this.Shown += new System.EventHandler(this.MainActivity_Shown);
 			this.tabRealtimeData.ResumeLayout(false);

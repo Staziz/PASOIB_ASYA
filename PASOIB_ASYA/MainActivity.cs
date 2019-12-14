@@ -83,7 +83,15 @@ namespace PASOIB_ASYA
 			((Control)tabAuthentication).Enabled = !IsAuthenticated;
 			ShowConnectedDevices();
 			((Control)tabFilesSelection).Enabled = IsAuthenticated;
-			UpdateProtectingFiles();
+			UpdateProtectingFilesList();
+			if (IsAuthenticated)
+			{
+				FilesSelection.RestoreProtectingFiles();
+			}
+			else
+			{
+				FilesSelection.RemoveProtectingFiles();
+			}
 			((Control)tabRealtimeData).Enabled = IsAuthenticated;
 			UpdateEventLog();
 			((Control)tabReports).Enabled = IsAuthenticated;
@@ -124,7 +132,7 @@ namespace PASOIB_ASYA
 			}
 		}
 
-		private void UpdateProtectingFiles()
+		private void UpdateProtectingFilesList()
 		{
 			ProctectingFilesDataGrid.Rows.Clear();
 			if (IsAuthenticated)
@@ -204,7 +212,7 @@ namespace PASOIB_ASYA
 					FilesSelection.AddFile(new FileInfo(openFileDialog.FileName));
 				}
 			}
-			UpdateProtectingFiles();
+			UpdateProtectingFilesList();
 			UpdateEventLog();
 		}
 
@@ -235,7 +243,7 @@ namespace PASOIB_ASYA
 				string fileName = ProctectingFilesDataGrid.SelectedRows[0].Cells[0].Value.ToString();
 				RealtimeData.AddSystemEvent("File is not tracking anymore", fileName);
 				FilesSelection.DeleteFile(fileName);
-				UpdateProtectingFiles();
+				UpdateProtectingFilesList();
 				UpdateEventLog();
 			}
 			catch
@@ -250,5 +258,9 @@ namespace PASOIB_ASYA
 
 		
 
+		private void MainActivity_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			FilesSelection.RemoveProtectingFiles();
+		}
 	}
 }

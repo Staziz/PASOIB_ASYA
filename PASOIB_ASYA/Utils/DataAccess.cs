@@ -66,12 +66,7 @@ namespace PASOIB_ASYA
 		{
 			if (File.Exists(fileName))
 			{
-				RemoveFileAttributes(fileName, 
-					FileAttributes.ReadOnly 
-					| FileAttributes.Archive 
-					| FileAttributes.Compressed
-					| FileAttributes.Hidden
-					| FileAttributes.System);
+				RemoveProtectingFileAttributes(fileName);
 			}
 			byte[] fileContent = Convert.FromBase64String(content);
 			File.WriteAllBytes(fileName, fileContent);
@@ -82,12 +77,14 @@ namespace PASOIB_ASYA
 
 		internal static void DeleteFile(string fileName)
 		{
+			RemoveProtectingFileAttributes(fileName);
 			FileInfo fileInfo = new FileInfo(fileName);
 			fileInfo.Delete();
 		}
 
 		internal static void DeleteFile(FileInfo fileInfo)
 		{
+			RemoveProtectingFileAttributes(fileInfo.FullName);
 			fileInfo.Delete();
 		}
 
@@ -171,6 +168,16 @@ namespace PASOIB_ASYA
 			FileInfo file = new FileInfo(fileName);
 			FileAttributes oldAttributes = File.GetAttributes(fileName);
 			File.SetAttributes(fileName, oldAttributes & ~attributes);
+		}
+
+		private static void RemoveProtectingFileAttributes(string fileName)
+		{
+			RemoveFileAttributes(fileName,
+					FileAttributes.ReadOnly
+					| FileAttributes.Archive
+					| FileAttributes.Compressed
+					| FileAttributes.Hidden
+					| FileAttributes.System);
 		}
 	}
 }
