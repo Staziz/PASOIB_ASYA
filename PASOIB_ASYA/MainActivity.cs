@@ -84,9 +84,9 @@ namespace PASOIB_ASYA
 		private void UpdateTabControlState()
 		{
 			// TODO: Add tabs initialization/disposing here
-			((Control)tabAuthentication).Enabled = !IsAuthenticated;
+			((Control)AuthenticationTab).Enabled = !IsAuthenticated;
 			ShowConnectedDevices();
-			((Control)tabFilesSelection).Enabled = IsAuthenticated;
+			((Control)FilesSelectionTab).Enabled = IsAuthenticated;
 			UpdateProtectingFilesList();
 			if (IsAuthenticated)
 			{
@@ -96,9 +96,9 @@ namespace PASOIB_ASYA
 			{
 				FilesSelection.RemoveProtectingFiles();
 			}
-			((Control)tabRealtimeData).Enabled = IsAuthenticated;
+			((Control)RealtimeDataTab).Enabled = IsAuthenticated;
 			UpdateEventLog();
-			((Control)tabReports).Enabled = IsAuthenticated;
+			((Control)SettingsTab).Enabled = IsAuthenticated;
 		}
 
 		private void ShowConnectedDevices()
