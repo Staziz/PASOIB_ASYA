@@ -45,12 +45,16 @@ namespace PASOIB_ASYA
 		{
 			List<USBDeviceInfo> devices = new List<USBDeviceInfo>();
 
-			using (var searcher = new ManagementObjectSearcher(@"Select * From Win32_USBHub"))
+			using (var searcher = new ManagementObjectSearcher(@"Select * From Win32_PnPEntity"))
 			{
 				using (ManagementObjectCollection collection = searcher.Get())
 				{
 					foreach (var device in collection)
 					{
+						if(!device["DeviceID"].ToString().StartsWith("USBSTOR", StringComparison.OrdinalIgnoreCase))
+						{
+							continue;
+						}
 						devices.Add(new USBDeviceInfo(
 						device["DeviceID"].ToString(),
 						device["PNPDeviceID"].ToString(),

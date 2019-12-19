@@ -157,10 +157,12 @@ namespace PASOIB_ASYA
 					EventsListBox.Items.Clear();
 					if (IsAuthenticated)
 					{
-						RealtimeData.FileEventsList.ForEach(eventString =>
+						List<string> tempFileEventsList = RealtimeData.FileEventsList.ToList();
+						tempFileEventsList.ForEach(eventString =>
 						{
 							EventsListBox.Items.Add(eventString);
 						});
+						tempFileEventsList.Clear();
 					}
 				}));
 			}
@@ -169,10 +171,12 @@ namespace PASOIB_ASYA
 				EventsListBox.Items.Clear();
 				if (IsAuthenticated)
 				{
-					RealtimeData.FileEventsList.ForEach(eventString =>
+					List<string> tempFileEventsList = RealtimeData.FileEventsList.ToList();
+					tempFileEventsList.ForEach(eventString =>
 					{
 						EventsListBox.Items.Add(eventString);
 					});
+					tempFileEventsList.Clear();
 				}
 			}
 		}
