@@ -1,5 +1,8 @@
-﻿using System;
+﻿using MigraDoc.DocumentObjectModel;
+using MigraDoc.Rendering;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 
 namespace PASOIB_ASYA
@@ -60,6 +63,41 @@ namespace PASOIB_ASYA
 			{
 				IOLock.ReleaseLock();
 			}
+		}
+
+		internal void PrintData()
+		{
+			Document document = CreateDocument();
+			document.UseCmykColor = true;
+			const bool unicode = true;
+
+			PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(unicode)
+			{
+				Document = document
+			};
+
+			pdfRenderer.RenderDocument();
+
+			string filename = DataAccess.GetTargetFileByDialog(true);
+			if (filename == null)
+			{
+				filename = DataAccess.DataFileDesktopPath;
+			}
+			pdfRenderer.PdfDocument.Save(filename);
+			Process.Start(filename);
+		}
+
+		private Document CreateDocument()
+		{
+			Document document = new Document();
+			Section section = document.AddSection();
+			Paragraph paragraph = section.AddParagraph();
+
+			paragraph.Format.Font.Color = Color.FromCmyk(100, 30, 20, 50);
+			string text = DataAccess.GetDataString();
+			paragraph.AddFormattedText(text, TextFormat.NotBold);
+
+			return document;
 		}
 	}
 }
