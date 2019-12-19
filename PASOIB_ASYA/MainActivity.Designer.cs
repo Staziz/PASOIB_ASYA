@@ -46,13 +46,14 @@
 			this.AuthenticationTab = new System.Windows.Forms.TabPage();
 			this.AuthenticationTableLayout = new System.Windows.Forms.TableLayoutPanel();
 			this.SelectButton = new System.Windows.Forms.Button();
-			this.VisualLock = new PASOIB_ASYA.VisualLock();
 			this.USBDevicesDataGrid = new System.Windows.Forms.DataGridView();
 			this.DeviceID = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.PNPDeviceID = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.DeviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tabControl = new System.Windows.Forms.TabControl();
+			this.VisualLock = new PASOIB_ASYA.VisualLock();
+			this.OpenFileButton = new System.Windows.Forms.Button();
 			this.RealtimeDataTab.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.FilesSelectionTab.SuspendLayout();
@@ -191,6 +192,7 @@
 			this.ButtonsFlowLayout.Controls.Add(this.AddFileButton);
 			this.ButtonsFlowLayout.Controls.Add(this.RestoreFileButton);
 			this.ButtonsFlowLayout.Controls.Add(this.DeleteFileButton);
+			this.ButtonsFlowLayout.Controls.Add(this.OpenFileButton);
 			this.ButtonsFlowLayout.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.ButtonsFlowLayout.Location = new System.Drawing.Point(553, 212);
 			this.ButtonsFlowLayout.Name = "ButtonsFlowLayout";
@@ -269,17 +271,6 @@
 			this.SelectButton.UseVisualStyleBackColor = true;
 			this.SelectButton.Click += new System.EventHandler(this.ButtonSelect_Click);
 			// 
-			// VisualLock
-			// 
-			this.VisualLock.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.AuthenticationTableLayout.SetColumnSpan(this.VisualLock, 2);
-			this.VisualLock.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.VisualLock.Location = new System.Drawing.Point(3, 107);
-			this.VisualLock.Name = "VisualLock";
-			this.VisualLock.Size = new System.Drawing.Size(228, 98);
-			this.VisualLock.State = PASOIB_ASYA.VisualLock._State.Locked;
-			this.VisualLock.TabIndex = 5;
-			// 
 			// USBDevicesDataGrid
 			// 
 			this.USBDevicesDataGrid.AllowUserToAddRows = false;
@@ -339,6 +330,27 @@
 			this.tabControl.Size = new System.Drawing.Size(800, 450);
 			this.tabControl.TabIndex = 0;
 			// 
+			// VisualLock
+			// 
+			this.VisualLock.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.AuthenticationTableLayout.SetColumnSpan(this.VisualLock, 2);
+			this.VisualLock.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.VisualLock.Location = new System.Drawing.Point(3, 107);
+			this.VisualLock.Name = "VisualLock";
+			this.VisualLock.Size = new System.Drawing.Size(228, 98);
+			this.VisualLock.State = PASOIB_ASYA.VisualLock._State.Locked;
+			this.VisualLock.TabIndex = 5;
+			// 
+			// OpenFileButton
+			// 
+			this.OpenFileButton.Location = new System.Drawing.Point(84, 32);
+			this.OpenFileButton.Name = "OpenFileButton";
+			this.OpenFileButton.Size = new System.Drawing.Size(75, 23);
+			this.OpenFileButton.TabIndex = 2;
+			this.OpenFileButton.Text = "Open File";
+			this.OpenFileButton.UseVisualStyleBackColor = true;
+			this.OpenFileButton.Click += new System.EventHandler(this.OpenFileButton_Click);
+			// 
 			// MainActivity
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -391,6 +403,7 @@
 		private System.Windows.Forms.ListBox EventsListBox;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
 		private System.Windows.Forms.Button PrintEventListButton;
+		private System.Windows.Forms.Button OpenFileButton;
 	}
 }
 

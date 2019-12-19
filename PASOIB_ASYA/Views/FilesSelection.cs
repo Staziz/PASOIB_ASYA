@@ -105,6 +105,12 @@ namespace PASOIB_ASYA
 			}
 		}
 
+		public string GetFullPathByFileName(string fileName)
+		{
+			ProtectedFileEntry targetFile = GetProtectedFileByName(fileName);
+			return targetFile == null ? "" : targetFile.FullPath;
+		}
+
 		private ProtectedFileEntry GetProtectedFileByName(string fileName)
 		{
 			try

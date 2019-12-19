@@ -261,6 +261,45 @@ namespace PASOIB_ASYA
 			}
 		}
 
+		private void OpenFileButton_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				string fileName = ProctectingFilesDataGrid.SelectedRows[0].Cells[0].Value.ToString();
+				string fullPath = FilesSelection.GetFullPathByFileName(fileName);
+				RealtimeData.AddSystemEvent("File is opened", fullPath);
+				Task.Run(() =>
+				{
+					//using (var fileStream = new FileStream(fullPath, FileMode.Open, FileAccess.Read, FileShare.Delete))
+					//{
+					//}
+					Process newFileOpenProcess = new Process();
+					newFileOpenProcess.StartInfo.UseShellExecute = true;
+					newFileOpenProcess.StartInfo.FileName = fullPath;
+					newFileOpenProcess.StartInfo.CreateNoWindow = false;
+					newFileOpenProcess.EnableRaisingEvents = true;
+					newFileOpenProcess.Exited += NewFileOpenProcess_Exited;
+					newFileOpenProcess.Start();
+				});
+				UpdateEventLog();
+			}
+			catch
+			{
+				MessageBox.Show(
+					"Please select one row to proceed",
+					"Error",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error);
+			}
+		}
+
+		private void NewFileOpenProcess_Exited(object sender, EventArgs e)
+		{
+			string fullPath = (sender as Process).StartInfo.FileName;
+			Debug.WriteLine($"{fullPath} was closed");
+			Debug.WriteLine(e);
+		}
+
 		private void MainActivity_FormClosed(object sender, FormClosedEventArgs e)
 		{
 			FilesSelection.RemoveProtectingFiles();
