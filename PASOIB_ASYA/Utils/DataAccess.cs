@@ -11,6 +11,17 @@ namespace PASOIB_ASYA
 {
 	internal static class DataAccess
 	{
+		internal static string DesktopDefaultPath => Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+		internal static string DataFileDefaultPath => Path.Combine(Application.CommonAppDataPath, Properties.Resources.DataFile);
+
+		internal static string DataFileDesktopPath => Path.Combine(DesktopDefaultPath, Properties.Resources.DataFile);
+
+		internal static string GetProtectedFilePath(string fileName)
+		{
+			return Path.Combine(Application.CommonAppDataPath, fileName + Properties.Resources.ProtectedFileExtension);
+		}
+
 		internal static string GetIdentificator()
 		{
 			string keyFilePath = Path.Combine(Application.CommonAppDataPath, Properties.Resources.KeyFile);
@@ -121,8 +132,7 @@ namespace PASOIB_ASYA
 
 		internal static void WriteProtectedFileContent(ProtectedFileEntry protectedFile)
 		{
-			string path = Path.Combine(Application.CommonAppDataPath, protectedFile.Name + Properties.Resources.ProtectedFileExtension);
-			using (StreamWriter fileOutput = new StreamWriter(path))
+			using (StreamWriter fileOutput = new StreamWriter(GetProtectedFilePath(protectedFile.Name)))
 			{
 				fileOutput.WriteLine(protectedFile.Name);
 				fileOutput.WriteLine(protectedFile.TargetDirectory);
@@ -139,8 +149,7 @@ namespace PASOIB_ASYA
 
 		internal static async Task SetData(string data)
 		{
-			string path = Path.Combine(Application.CommonAppDataPath, Properties.Resources.DataFile);
-			using (StreamWriter dataFile = new StreamWriter(path, true))
+			using (StreamWriter dataFile = new StreamWriter(DataFileDefaultPath, true))
 			{
 				await dataFile.WriteLineAsync(data);
 			}
@@ -148,11 +157,10 @@ namespace PASOIB_ASYA
 
 		internal static List<string> GetData()
 		{
-			string path = Path.Combine(Application.CommonAppDataPath, Properties.Resources.DataFile);
 			List<string> result = new List<string>();
-			if(File.Exists(path))
+			if(File.Exists(DataFileDefaultPath))
 			{
-				using (StreamReader dataFile = new StreamReader(path))
+				using (StreamReader dataFile = new StreamReader(DataFileDefaultPath))
 				{
 					while (!dataFile.EndOfStream)
 					{
@@ -163,15 +171,35 @@ namespace PASOIB_ASYA
 			return result;
 		}
 
-		internal static string GetDialogTargetFile()
+		internal static string GetDataString()
 		{
-			using (var openFileDialog = new OpenFileDialog())
+			string result = "";
+			if (File.Exists(DataFileDefaultPath))
 			{
-				openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-				openFileDialog.RestoreDirectory = true;
-				if (openFileDialog.ShowDialog() == DialogResult.OK)
+				using (StreamReader dataFile = new StreamReader(DataFileDefaultPath))
 				{
-					return openFileDialog.FileName;
+					while (!dataFile.EndOfStream)
+					{
+						result += $"{dataFile.ReadLine()}\n";
+					}
+				}
+			}
+			return result;
+		}
+
+		internal static string GetTargetFileByDialog(bool save = false)
+		{
+			Type type = save ? typeof(SaveFileDialog) : typeof(OpenFileDialog);
+			using (var fileDialog = (FileDialog)type.GetConstructor(new Type[0]).Invoke(null))
+			{
+				fileDialog.InitialDirectory = DesktopDefaultPath;
+				fileDialog.RestoreDirectory = true;
+				fileDialog.AddExtension = true;
+				fileDialog.DefaultExt = ".pdf";
+				fileDialog.Filter = save ? "Pdf files|*.pdf|All files|*.*" : "All files|*.*|Pdf files|*.pdf";
+				if (fileDialog.ShowDialog() == DialogResult.OK)
+				{
+					return fileDialog.FileName;
 				}
 				else
 				{
