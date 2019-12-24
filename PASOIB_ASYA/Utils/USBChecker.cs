@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Management;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PASOIB_ASYA
 {
@@ -28,6 +25,13 @@ namespace PASOIB_ASYA
 		private readonly WqlEventQuery usbRemovalQuery = new WqlEventQuery("SELECT * FROM Win32_VolumeChangeEvent WHERE EventType = 3");
 		private readonly WqlEventQuery usbDeviceRemovalQuery = new WqlEventQuery("SELECT * FROM Win32_DeviceChangeEvent WHERE EventType = 3");
 
+		struct IncompleteUSBEntity
+		{
+			public string DiskLetter;
+			public string DeviceVendor;
+			public string PNPDeviceID;
+		}
+
 		public USBChecker()
 		{
 			usbDevices = GetUSBDevices();
@@ -43,84 +47,43 @@ namespace PASOIB_ASYA
 
 		private List<USBDeviceInfo> GetUSBDevices()
 		{
-			List<USBDeviceInfo> devices = new List<USBDeviceInfo>();
-
-			using (var searcher = new ManagementObjectSearcher(@"Select * From Win32_PnPEntity"))
+			var result = new List<USBDeviceInfo>();
+			foreach (var drive in new ManagementObjectSearcher("select * from Win32_DiskDrive where InterfaceType='USB'").Get())
 			{
-				using (ManagementObjectCollection collection = searcher.Get())
+				var USBDeviceDraft = new IncompleteUSBEntity();
+				foreach (var partition in new ManagementObjectSearcher("ASSOCIATORS OF {Win32_DiskDrive.DeviceID='" 
+					+ drive["DeviceID"]
+					+ "'} WHERE AssocClass = Win32_DiskDriveToDiskPartition").Get())
 				{
-					foreach (var device in collection)
+					foreach (var disk in new ManagementObjectSearcher("ASSOCIATORS OF {Win32_DiskPartition.DeviceID='"
+						  + partition["DeviceID"]
+						  + "'} WHERE AssocClass = Win32_LogicalDiskToPartition").Get())
 					{
-						if(!device["DeviceID"].ToString().StartsWith("USBSTOR", StringComparison.OrdinalIgnoreCase))
-						{
-							continue;
-						}
-						devices.Add(new USBDeviceInfo(
-						device["DeviceID"].ToString(),
-						device["PNPDeviceID"].ToString(),
-						device["Name"].ToString(),
-						device["Description"].ToString()
-						));
+						USBDeviceDraft.DiskLetter = disk["Name"].ToString().Trim();
 					}
 				}
-			}
-			return devices;
-		}
-
-		public string GetUSBDevicesFullPropertySet()
-		{
-			string result = "";
-
-			ManagementClass processClass = new ManagementClass("Win32_USBHub");
-			processClass.Options.UseAmendedQualifiers = true;
-			PropertyDataCollection properties = processClass.Properties;
-
-			using (var searcher = new ManagementObjectSearcher(@"Select * From Win32_USBHub"))
-			{
-				using (ManagementObjectCollection collection = searcher.Get())
-				{
-					foreach (var device in collection)
-					{
-						foreach (PropertyData property in properties)
-						{
-							result += $"{property.Name}: {(device[property.Name] == null ? " --- " : device[property.Name]).ToString()}\n";
-						}
-					}
-				}
+				USBDeviceDraft.DeviceVendor = drive["Model"].ToString();
+				USBDeviceDraft.PNPDeviceID = drive["PNPDeviceID"].ToString();
+				result.Add(new USBDeviceInfo(
+					USBDeviceDraft.DiskLetter,
+					GetUSBDeviceFriendlyNameByDiskLetter(USBDeviceDraft.DiskLetter),
+					USBDeviceDraft.PNPDeviceID,
+					USBDeviceDraft.DeviceVendor
+				));
 			}
 			return result;
 		}
 
-		public string GetFriendlyNamedUSBDevices()
+		private string GetUSBDeviceFriendlyNameByDiskLetter(string diskLetter)
 		{
-			string result = "";
 			foreach (DriveInfo drive in DriveInfo.GetDrives())
 			{
-				if (drive.DriveType == DriveType.Removable)
+				if (drive.Name.Replace("\\", "") == diskLetter)
 				{
-					result += $"({drive.Name.Replace("\\", "")}) {drive.VolumeLabel}\n";
+					return drive.VolumeLabel;
 				}
 			}
-			return result;
-		}
-
-		public List<string> GetUSBDevicesInfoList(bool refresh = false)
-		{
-			if (refresh)
-			{
-				usbDevices = GetUSBDevices();
-			}
-
-			var result = new List<string>();
-			foreach (var usbDevice in usbDevices)
-			{
-				var usbDeviceInfo = $"Device ID: {usbDevice.DeviceID}, " +
-					$"PNP Device ID: {usbDevice.PnpDeviceID}, " +
-					$"Name: {usbDevice.Name}" +
-					$"Description: {usbDevice.Description}";
-				result.Add(usbDeviceInfo);
-			}
-			return result;
+			return null;
 		}
 
 		public List<USBDeviceInfo> GetUSBDevicesInfo(bool refresh = false)

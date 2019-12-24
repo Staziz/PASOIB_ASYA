@@ -48,11 +48,11 @@
 			this.SelectButton = new System.Windows.Forms.Button();
 			this.VisualLock = new PASOIB_ASYA.VisualLock();
 			this.USBDevicesDataGrid = new System.Windows.Forms.DataGridView();
-			this.DeviceID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.PNPDeviceID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.DeviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tabControl = new System.Windows.Forms.TabControl();
+			this.DiskDrive = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.DeviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.DeviceID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.RealtimeDataTab.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.FilesSelectionTab.SuspendLayout();
@@ -287,9 +287,9 @@
 			this.USBDevicesDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
 			this.USBDevicesDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.USBDevicesDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.DeviceID,
-            this.PNPDeviceID,
+            this.DiskDrive,
             this.DeviceName,
+            this.DeviceID,
             this.Description});
 			this.USBDevicesDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.USBDevicesDataGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
@@ -301,30 +301,6 @@
 			this.AuthenticationTableLayout.SetRowSpan(this.USBDevicesDataGrid, 4);
 			this.USBDevicesDataGrid.Size = new System.Drawing.Size(546, 412);
 			this.USBDevicesDataGrid.TabIndex = 7;
-			// 
-			// DeviceID
-			// 
-			this.DeviceID.HeaderText = "Device ID";
-			this.DeviceID.Name = "DeviceID";
-			this.DeviceID.ReadOnly = true;
-			// 
-			// PNPDeviceID
-			// 
-			this.PNPDeviceID.HeaderText = "PNP Device ID";
-			this.PNPDeviceID.Name = "PNPDeviceID";
-			this.PNPDeviceID.ReadOnly = true;
-			// 
-			// DeviceName
-			// 
-			this.DeviceName.HeaderText = "Name";
-			this.DeviceName.Name = "DeviceName";
-			this.DeviceName.ReadOnly = true;
-			// 
-			// Description
-			// 
-			this.Description.HeaderText = "Description";
-			this.Description.Name = "Description";
-			this.Description.ReadOnly = true;
 			// 
 			// tabControl
 			// 
@@ -338,6 +314,34 @@
 			this.tabControl.SelectedIndex = 0;
 			this.tabControl.Size = new System.Drawing.Size(800, 450);
 			this.tabControl.TabIndex = 0;
+			// 
+			// DiskDrive
+			// 
+			this.DiskDrive.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+			this.DiskDrive.Frozen = true;
+			this.DiskDrive.HeaderText = "Disk Drive";
+			this.DiskDrive.Name = "DiskDrive";
+			this.DiskDrive.ReadOnly = true;
+			// 
+			// DeviceName
+			// 
+			this.DeviceName.HeaderText = "Name";
+			this.DeviceName.Name = "DeviceName";
+			this.DeviceName.ReadOnly = true;
+			// 
+			// DeviceID
+			// 
+			this.DeviceID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+			this.DeviceID.HeaderText = "Device ID";
+			this.DeviceID.Name = "DeviceID";
+			this.DeviceID.ReadOnly = true;
+			this.DeviceID.Width = 131;
+			// 
+			// Description
+			// 
+			this.Description.HeaderText = "Description";
+			this.Description.Name = "Description";
+			this.Description.ReadOnly = true;
 			// 
 			// MainActivity
 			// 
@@ -377,10 +381,6 @@
 		private System.Windows.Forms.DataGridView USBDevicesDataGrid;
 		private System.Windows.Forms.TableLayoutPanel FilesSelectionTableLayout;
 		private System.Windows.Forms.DataGridView ProctectingFilesDataGrid;
-		private System.Windows.Forms.DataGridViewTextBoxColumn DeviceID;
-		private System.Windows.Forms.DataGridViewTextBoxColumn PNPDeviceID;
-		private System.Windows.Forms.DataGridViewTextBoxColumn DeviceName;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Description;
 		private System.Windows.Forms.DataGridViewTextBoxColumn FileName;
 		private System.Windows.Forms.DataGridViewTextBoxColumn FileCreationTime;
 		private System.Windows.Forms.DataGridViewTextBoxColumn FileSize;
@@ -391,6 +391,10 @@
 		private System.Windows.Forms.ListBox EventsListBox;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
 		private System.Windows.Forms.Button PrintEventListButton;
+		private System.Windows.Forms.DataGridViewTextBoxColumn DiskDrive;
+		private System.Windows.Forms.DataGridViewTextBoxColumn DeviceName;
+		private System.Windows.Forms.DataGridViewTextBoxColumn DeviceID;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Description;
 	}
 }
 

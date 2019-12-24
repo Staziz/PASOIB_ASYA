@@ -107,7 +107,7 @@ namespace PASOIB_ASYA
 					{
 						System.Reflection.PropertyInfo[] properties = typeof(USBDeviceInfo).GetProperties();
 						USBDevicesDataGrid.Rows.Add(properties.Select(property => property.GetValue(usbDeviceInfo)).ToArray());
-						currentId = USBDevicesDataGrid.Rows[USBDevicesDataGrid.Rows.Count - 1].Cells[0].Value.ToString();
+						currentId = USBDevicesDataGrid.Rows[USBDevicesDataGrid.Rows.Count - 1].Cells[2].Value.ToString();
 						Authentication.TryAuthentify(currentId, masterId);
 						isAuthenticated = isAuthenticated ? isAuthenticated : Authentication.IsAuthenticated;
 					});
@@ -177,7 +177,7 @@ namespace PASOIB_ASYA
 		{
 			try
 			{
-				string currentId = USBDevicesDataGrid.SelectedRows[0].Cells[0].Value.ToString();
+				string currentId = USBDevicesDataGrid.SelectedRows[0].Cells[2].Value.ToString();
 				string masterId = DataAccess.GetIdentificator();
 				Authentication.TryAuthentify(currentId, masterId, true);
 				IsAuthenticated = Authentication.IsAuthenticated;
