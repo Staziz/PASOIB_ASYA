@@ -28,52 +28,41 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.SettingsTab = new System.Windows.Forms.TabPage();
 			this.RealtimeDataTab = new System.Windows.Forms.TabPage();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-			this.PrintEventListButton = new System.Windows.Forms.Button();
 			this.EventsListBox = new System.Windows.Forms.ListBox();
+			this.PrintEventListButton = new System.Windows.Forms.Button();
 			this.FilesSelectionTab = new System.Windows.Forms.TabPage();
 			this.FilesSelectionTableLayout = new System.Windows.Forms.TableLayoutPanel();
-			this.ProctectingFilesDataGrid = new System.Windows.Forms.DataGridView();
-			this.FileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.FileCreationTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.FileSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.ButtonsFlowLayout = new System.Windows.Forms.FlowLayoutPanel();
-			this.AddFileButton = new System.Windows.Forms.Button();
-			this.RestoreFileButton = new System.Windows.Forms.Button();
 			this.DeleteFileButton = new System.Windows.Forms.Button();
+			this.RestoreFileButton = new System.Windows.Forms.Button();
+			this.AddFileButton = new System.Windows.Forms.Button();
+			this.ProctectingFilesDataGrid = new System.Windows.Forms.DataGridView();
+			this.FileSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.FileCreationTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.FileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.AuthenticationTab = new System.Windows.Forms.TabPage();
 			this.AuthenticationTableLayout = new System.Windows.Forms.TableLayoutPanel();
-			this.SelectButton = new System.Windows.Forms.Button();
-			this.VisualLock = new PASOIB_ASYA.VisualLock();
 			this.USBDevicesDataGrid = new System.Windows.Forms.DataGridView();
-			this.tabControl = new System.Windows.Forms.TabControl();
-			this.DiskDrive = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.DeviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.DeviceID = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.DeviceID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.DeviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.DiskDrive = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.VisualLock = new PASOIB_ASYA.VisualLock();
+			this.SelectButton = new System.Windows.Forms.Button();
+			this.tabControl = new System.Windows.Forms.TabControl();
 			this.RealtimeDataTab.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.FilesSelectionTab.SuspendLayout();
 			this.FilesSelectionTableLayout.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.ProctectingFilesDataGrid)).BeginInit();
 			this.ButtonsFlowLayout.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.ProctectingFilesDataGrid)).BeginInit();
 			this.AuthenticationTab.SuspendLayout();
 			this.AuthenticationTableLayout.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.USBDevicesDataGrid)).BeginInit();
 			this.tabControl.SuspendLayout();
 			this.SuspendLayout();
-			// 
-			// SettingsTab
-			// 
-			this.SettingsTab.Location = new System.Drawing.Point(4, 22);
-			this.SettingsTab.Name = "SettingsTab";
-			this.SettingsTab.Padding = new System.Windows.Forms.Padding(3);
-			this.SettingsTab.Size = new System.Drawing.Size(792, 424);
-			this.SettingsTab.TabIndex = 4;
-			this.SettingsTab.Text = "Settings";
-			this.SettingsTab.UseVisualStyleBackColor = true;
 			// 
 			// RealtimeDataTab
 			// 
@@ -101,17 +90,6 @@
 			this.tableLayoutPanel1.Size = new System.Drawing.Size(786, 418);
 			this.tableLayoutPanel1.TabIndex = 1;
 			// 
-			// PrintEventListButton
-			// 
-			this.PrintEventListButton.Dock = System.Windows.Forms.DockStyle.Right;
-			this.PrintEventListButton.Location = new System.Drawing.Point(708, 387);
-			this.PrintEventListButton.Name = "PrintEventListButton";
-			this.PrintEventListButton.Size = new System.Drawing.Size(75, 28);
-			this.PrintEventListButton.TabIndex = 1;
-			this.PrintEventListButton.Text = "Print";
-			this.PrintEventListButton.UseVisualStyleBackColor = true;
-			this.PrintEventListButton.Click += new System.EventHandler(this.PrintEventListButton_Click);
-			// 
 			// EventsListBox
 			// 
 			this.EventsListBox.BackColor = System.Drawing.Color.White;
@@ -122,6 +100,17 @@
 			this.EventsListBox.Name = "EventsListBox";
 			this.EventsListBox.Size = new System.Drawing.Size(776, 374);
 			this.EventsListBox.TabIndex = 0;
+			// 
+			// PrintEventListButton
+			// 
+			this.PrintEventListButton.Dock = System.Windows.Forms.DockStyle.Right;
+			this.PrintEventListButton.Location = new System.Drawing.Point(708, 387);
+			this.PrintEventListButton.Name = "PrintEventListButton";
+			this.PrintEventListButton.Size = new System.Drawing.Size(75, 28);
+			this.PrintEventListButton.TabIndex = 1;
+			this.PrintEventListButton.Text = "Print";
+			this.PrintEventListButton.UseVisualStyleBackColor = true;
+			this.PrintEventListButton.Click += new System.EventHandler(this.PrintEventListButton_Click);
 			// 
 			// FilesSelectionTab
 			// 
@@ -150,6 +139,47 @@
 			this.FilesSelectionTableLayout.Size = new System.Drawing.Size(786, 418);
 			this.FilesSelectionTableLayout.TabIndex = 1;
 			// 
+			// ButtonsFlowLayout
+			// 
+			this.ButtonsFlowLayout.Controls.Add(this.AddFileButton);
+			this.ButtonsFlowLayout.Controls.Add(this.RestoreFileButton);
+			this.ButtonsFlowLayout.Controls.Add(this.DeleteFileButton);
+			this.ButtonsFlowLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.ButtonsFlowLayout.Location = new System.Drawing.Point(553, 212);
+			this.ButtonsFlowLayout.Name = "ButtonsFlowLayout";
+			this.ButtonsFlowLayout.Size = new System.Drawing.Size(230, 203);
+			this.ButtonsFlowLayout.TabIndex = 1;
+			// 
+			// DeleteFileButton
+			// 
+			this.DeleteFileButton.Location = new System.Drawing.Point(3, 32);
+			this.DeleteFileButton.Name = "DeleteFileButton";
+			this.DeleteFileButton.Size = new System.Drawing.Size(75, 23);
+			this.DeleteFileButton.TabIndex = 2;
+			this.DeleteFileButton.Text = "Delete File";
+			this.DeleteFileButton.UseVisualStyleBackColor = true;
+			this.DeleteFileButton.Click += new System.EventHandler(this.DeleteFileButton_Click);
+			// 
+			// RestoreFileButton
+			// 
+			this.RestoreFileButton.Location = new System.Drawing.Point(84, 3);
+			this.RestoreFileButton.Name = "RestoreFileButton";
+			this.RestoreFileButton.Size = new System.Drawing.Size(75, 23);
+			this.RestoreFileButton.TabIndex = 1;
+			this.RestoreFileButton.Text = "Restore File";
+			this.RestoreFileButton.UseVisualStyleBackColor = true;
+			this.RestoreFileButton.Click += new System.EventHandler(this.RestoreFileButton_Click);
+			// 
+			// AddFileButton
+			// 
+			this.AddFileButton.Location = new System.Drawing.Point(3, 3);
+			this.AddFileButton.Name = "AddFileButton";
+			this.AddFileButton.Size = new System.Drawing.Size(75, 23);
+			this.AddFileButton.TabIndex = 0;
+			this.AddFileButton.Text = "Add File";
+			this.AddFileButton.UseVisualStyleBackColor = true;
+			this.AddFileButton.Click += new System.EventHandler(this.AddFileButton_Click);
+			// 
 			// ProctectingFilesDataGrid
 			// 
 			this.ProctectingFilesDataGrid.AllowUserToAddRows = false;
@@ -168,11 +198,11 @@
 			this.ProctectingFilesDataGrid.Size = new System.Drawing.Size(544, 412);
 			this.ProctectingFilesDataGrid.TabIndex = 0;
 			// 
-			// FileName
+			// FileSize
 			// 
-			this.FileName.HeaderText = "File Name";
-			this.FileName.Name = "FileName";
-			this.FileName.ReadOnly = true;
+			this.FileSize.HeaderText = "Size";
+			this.FileSize.Name = "FileSize";
+			this.FileSize.ReadOnly = true;
 			// 
 			// FileCreationTime
 			// 
@@ -180,52 +210,11 @@
 			this.FileCreationTime.Name = "FileCreationTime";
 			this.FileCreationTime.ReadOnly = true;
 			// 
-			// FileSize
+			// FileName
 			// 
-			this.FileSize.HeaderText = "Size";
-			this.FileSize.Name = "FileSize";
-			this.FileSize.ReadOnly = true;
-			// 
-			// ButtonsFlowLayout
-			// 
-			this.ButtonsFlowLayout.Controls.Add(this.AddFileButton);
-			this.ButtonsFlowLayout.Controls.Add(this.RestoreFileButton);
-			this.ButtonsFlowLayout.Controls.Add(this.DeleteFileButton);
-			this.ButtonsFlowLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.ButtonsFlowLayout.Location = new System.Drawing.Point(553, 212);
-			this.ButtonsFlowLayout.Name = "ButtonsFlowLayout";
-			this.ButtonsFlowLayout.Size = new System.Drawing.Size(230, 203);
-			this.ButtonsFlowLayout.TabIndex = 1;
-			// 
-			// AddFileButton
-			// 
-			this.AddFileButton.Location = new System.Drawing.Point(3, 3);
-			this.AddFileButton.Name = "AddFileButton";
-			this.AddFileButton.Size = new System.Drawing.Size(75, 23);
-			this.AddFileButton.TabIndex = 0;
-			this.AddFileButton.Text = "Add File";
-			this.AddFileButton.UseVisualStyleBackColor = true;
-			this.AddFileButton.Click += new System.EventHandler(this.AddFileButton_Click);
-			// 
-			// RestoreFileButton
-			// 
-			this.RestoreFileButton.Location = new System.Drawing.Point(84, 3);
-			this.RestoreFileButton.Name = "RestoreFileButton";
-			this.RestoreFileButton.Size = new System.Drawing.Size(75, 23);
-			this.RestoreFileButton.TabIndex = 1;
-			this.RestoreFileButton.Text = "Restore File";
-			this.RestoreFileButton.UseVisualStyleBackColor = true;
-			this.RestoreFileButton.Click += new System.EventHandler(this.RestoreFileButton_Click);
-			// 
-			// DeleteFileButton
-			// 
-			this.DeleteFileButton.Location = new System.Drawing.Point(3, 32);
-			this.DeleteFileButton.Name = "DeleteFileButton";
-			this.DeleteFileButton.Size = new System.Drawing.Size(75, 23);
-			this.DeleteFileButton.TabIndex = 2;
-			this.DeleteFileButton.Text = "Delete File";
-			this.DeleteFileButton.UseVisualStyleBackColor = true;
-			this.DeleteFileButton.Click += new System.EventHandler(this.DeleteFileButton_Click);
+			this.FileName.HeaderText = "File Name";
+			this.FileName.Name = "FileName";
+			this.FileName.ReadOnly = true;
 			// 
 			// AuthenticationTab
 			// 
@@ -258,28 +247,6 @@
 			this.AuthenticationTableLayout.Size = new System.Drawing.Size(786, 418);
 			this.AuthenticationTableLayout.TabIndex = 0;
 			// 
-			// SelectButton
-			// 
-			this.SelectButton.Dock = System.Windows.Forms.DockStyle.Top;
-			this.SelectButton.Location = new System.Drawing.Point(120, 315);
-			this.SelectButton.Name = "SelectButton";
-			this.SelectButton.Size = new System.Drawing.Size(111, 23);
-			this.SelectButton.TabIndex = 4;
-			this.SelectButton.Text = "Select";
-			this.SelectButton.UseVisualStyleBackColor = true;
-			this.SelectButton.Click += new System.EventHandler(this.ButtonSelect_Click);
-			// 
-			// VisualLock
-			// 
-			this.VisualLock.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.AuthenticationTableLayout.SetColumnSpan(this.VisualLock, 2);
-			this.VisualLock.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.VisualLock.Location = new System.Drawing.Point(3, 107);
-			this.VisualLock.Name = "VisualLock";
-			this.VisualLock.Size = new System.Drawing.Size(228, 98);
-			this.VisualLock.State = PASOIB_ASYA.VisualLock._State.Locked;
-			this.VisualLock.TabIndex = 5;
-			// 
 			// USBDevicesDataGrid
 			// 
 			this.USBDevicesDataGrid.AllowUserToAddRows = false;
@@ -302,32 +269,11 @@
 			this.USBDevicesDataGrid.Size = new System.Drawing.Size(546, 412);
 			this.USBDevicesDataGrid.TabIndex = 7;
 			// 
-			// tabControl
+			// Description
 			// 
-			this.tabControl.Controls.Add(this.AuthenticationTab);
-			this.tabControl.Controls.Add(this.FilesSelectionTab);
-			this.tabControl.Controls.Add(this.RealtimeDataTab);
-			this.tabControl.Controls.Add(this.SettingsTab);
-			this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tabControl.Location = new System.Drawing.Point(0, 0);
-			this.tabControl.Name = "tabControl";
-			this.tabControl.SelectedIndex = 0;
-			this.tabControl.Size = new System.Drawing.Size(800, 450);
-			this.tabControl.TabIndex = 0;
-			// 
-			// DiskDrive
-			// 
-			this.DiskDrive.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-			this.DiskDrive.Frozen = true;
-			this.DiskDrive.HeaderText = "Disk Drive";
-			this.DiskDrive.Name = "DiskDrive";
-			this.DiskDrive.ReadOnly = true;
-			// 
-			// DeviceName
-			// 
-			this.DeviceName.HeaderText = "Name";
-			this.DeviceName.Name = "DeviceName";
-			this.DeviceName.ReadOnly = true;
+			this.Description.HeaderText = "Description";
+			this.Description.Name = "Description";
+			this.Description.ReadOnly = true;
 			// 
 			// DeviceID
 			// 
@@ -337,11 +283,53 @@
 			this.DeviceID.ReadOnly = true;
 			this.DeviceID.Width = 131;
 			// 
-			// Description
+			// DeviceName
 			// 
-			this.Description.HeaderText = "Description";
-			this.Description.Name = "Description";
-			this.Description.ReadOnly = true;
+			this.DeviceName.HeaderText = "Name";
+			this.DeviceName.Name = "DeviceName";
+			this.DeviceName.ReadOnly = true;
+			// 
+			// DiskDrive
+			// 
+			this.DiskDrive.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+			this.DiskDrive.Frozen = true;
+			this.DiskDrive.HeaderText = "Disk Drive";
+			this.DiskDrive.Name = "DiskDrive";
+			this.DiskDrive.ReadOnly = true;
+			// 
+			// VisualLock
+			// 
+			this.VisualLock.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.AuthenticationTableLayout.SetColumnSpan(this.VisualLock, 2);
+			this.VisualLock.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.VisualLock.Location = new System.Drawing.Point(3, 107);
+			this.VisualLock.Name = "VisualLock";
+			this.VisualLock.Size = new System.Drawing.Size(228, 98);
+			this.VisualLock.State = PASOIB_ASYA.VisualLock._State.Locked;
+			this.VisualLock.TabIndex = 5;
+			// 
+			// SelectButton
+			// 
+			this.SelectButton.Dock = System.Windows.Forms.DockStyle.Top;
+			this.SelectButton.Location = new System.Drawing.Point(120, 315);
+			this.SelectButton.Name = "SelectButton";
+			this.SelectButton.Size = new System.Drawing.Size(111, 23);
+			this.SelectButton.TabIndex = 4;
+			this.SelectButton.Text = "Select";
+			this.SelectButton.UseVisualStyleBackColor = true;
+			this.SelectButton.Click += new System.EventHandler(this.ButtonSelect_Click);
+			// 
+			// tabControl
+			// 
+			this.tabControl.Controls.Add(this.AuthenticationTab);
+			this.tabControl.Controls.Add(this.FilesSelectionTab);
+			this.tabControl.Controls.Add(this.RealtimeDataTab);
+			this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tabControl.Location = new System.Drawing.Point(0, 0);
+			this.tabControl.Name = "tabControl";
+			this.tabControl.SelectedIndex = 0;
+			this.tabControl.Size = new System.Drawing.Size(800, 450);
+			this.tabControl.TabIndex = 0;
 			// 
 			// MainActivity
 			// 
@@ -358,8 +346,8 @@
 			this.tableLayoutPanel1.ResumeLayout(false);
 			this.FilesSelectionTab.ResumeLayout(false);
 			this.FilesSelectionTableLayout.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.ProctectingFilesDataGrid)).EndInit();
 			this.ButtonsFlowLayout.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.ProctectingFilesDataGrid)).EndInit();
 			this.AuthenticationTab.ResumeLayout(false);
 			this.AuthenticationTableLayout.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.USBDevicesDataGrid)).EndInit();
@@ -370,31 +358,30 @@
 
 		#endregion
 
-		private System.Windows.Forms.TabPage SettingsTab;
 		private System.Windows.Forms.TabPage RealtimeDataTab;
+		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+		private System.Windows.Forms.Button PrintEventListButton;
+		private System.Windows.Forms.ListBox EventsListBox;
 		private System.Windows.Forms.TabPage FilesSelectionTab;
-		private System.Windows.Forms.TabPage AuthenticationTab;
-		private System.Windows.Forms.TabControl tabControl;
-		private System.Windows.Forms.TableLayoutPanel AuthenticationTableLayout;
-		private System.Windows.Forms.Button SelectButton;
-		private VisualLock VisualLock;
-		private System.Windows.Forms.DataGridView USBDevicesDataGrid;
 		private System.Windows.Forms.TableLayoutPanel FilesSelectionTableLayout;
 		private System.Windows.Forms.DataGridView ProctectingFilesDataGrid;
 		private System.Windows.Forms.DataGridViewTextBoxColumn FileName;
 		private System.Windows.Forms.DataGridViewTextBoxColumn FileCreationTime;
 		private System.Windows.Forms.DataGridViewTextBoxColumn FileSize;
-		private System.Windows.Forms.Button AddFileButton;
 		private System.Windows.Forms.FlowLayoutPanel ButtonsFlowLayout;
+		private System.Windows.Forms.Button AddFileButton;
 		private System.Windows.Forms.Button RestoreFileButton;
 		private System.Windows.Forms.Button DeleteFileButton;
-		private System.Windows.Forms.ListBox EventsListBox;
-		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-		private System.Windows.Forms.Button PrintEventListButton;
+		private System.Windows.Forms.TabPage AuthenticationTab;
+		private System.Windows.Forms.TableLayoutPanel AuthenticationTableLayout;
+		private System.Windows.Forms.Button SelectButton;
+		private VisualLock VisualLock;
+		private System.Windows.Forms.DataGridView USBDevicesDataGrid;
 		private System.Windows.Forms.DataGridViewTextBoxColumn DiskDrive;
 		private System.Windows.Forms.DataGridViewTextBoxColumn DeviceName;
 		private System.Windows.Forms.DataGridViewTextBoxColumn DeviceID;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Description;
+		private System.Windows.Forms.TabControl tabControl;
 	}
 }
 
