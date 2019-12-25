@@ -21,13 +21,24 @@ namespace PASOIB_ASYA
 		public FilesSelection()
 		{
 			ProtectedFileEntries = new List<ProtectedFileEntry>();
-			foreach (FileInfo fileInfo in new DirectoryInfo(Application.CommonAppDataPath)
-				.EnumerateFiles($"*{Properties.Resources.ProtectedFileExtension}"))
+			if (!File.Exists(DataAccess.ProtectingFilesEnumerationFilePath))
 			{
-				ProtectedFileEntry protectedFile = DataAccess.ReadProtectedFileContent(fileInfo.FullName);
+				return;
+			}
+			foreach (string protectedFilePath in File.ReadAllLines(DataAccess.ProtectingFilesEnumerationFilePath))
+			{
+				ProtectedFileEntry protectedFile = DataAccess.ReadProtectedFileContent(protectedFilePath);
+				if (protectedFile == null)
+				{
+					continue;
+				}
 				protectedFile.onFileChanged += ProtectedFile_onFileChanged;
 				protectedFile.onFileRenamed += ProtectedFile_onFileRenamed;
 				ProtectedFileEntries.Add(protectedFile);
+			}
+			if (ProtectedFileEntries.Count == 0)
+			{
+				File.Delete(DataAccess.ProtectingFilesEnumerationFilePath);
 			}
 		}
 
@@ -58,6 +69,7 @@ namespace PASOIB_ASYA
 			protectedFile.onFileRenamed += ProtectedFile_onFileRenamed;
 			ProtectedFileEntries.Add(protectedFile);
 			DataAccess.WriteProtectedFileContent(protectedFile);
+			File.AppendAllLines(DataAccess.ProtectingFilesEnumerationFilePath, new[] { DataAccess.GetProtectedFilePath(protectedFile.FullPath) });
 			return ProtectedFileEntries.Last();
 		}
 
@@ -86,6 +98,19 @@ namespace PASOIB_ASYA
 					MessageBoxIcon.Exclamation
 					);
 			ProtectedFileEntries.Remove(targetProtectedFile);
+			string[] protectingFiles = File.ReadAllLines(DataAccess.ProtectingFilesEnumerationFilePath);
+			protectingFiles = protectingFiles.Where(filePath => 
+				0 != StringComparer
+					.OrdinalIgnoreCase
+					.Compare(filePath, DataAccess.GetProtectedFilePath(targetProtectedFile.FullPath))).ToArray();
+			if (protectingFiles.Length != 0)
+			{
+				File.WriteAllLines(DataAccess.ProtectingFilesEnumerationFilePath, protectingFiles);
+			}
+			else
+			{
+				File.Delete(DataAccess.ProtectingFilesEnumerationFilePath);
+			}
 		}
 
 

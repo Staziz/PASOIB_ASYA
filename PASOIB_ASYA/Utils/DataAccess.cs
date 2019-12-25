@@ -17,9 +17,11 @@ namespace PASOIB_ASYA
 
 		internal static string DataFileReportDesktopPath => Path.Combine(DesktopDefaultPath, Properties.Resources.DataFileReport);
 
-		internal static string GetProtectedFilePath(string fileName)
+		internal static string ProtectingFilesEnumerationFilePath => Path.Combine(Application.CommonAppDataPath, Properties.Resources.ProtectedFilesEnumeration);
+
+		internal static string GetProtectedFilePath(string filePath)
 		{
-			return Path.Combine(Application.CommonAppDataPath, fileName + Properties.Resources.ProtectedFileExtension);
+			return Path.ChangeExtension(filePath, Properties.Resources.ProtectedFileExtension);
 		}
 
 		internal static string GetIdentificator()
@@ -105,6 +107,10 @@ namespace PASOIB_ASYA
 			{
 				name += Properties.Resources.ProtectedFileExtension;
 			}
+			if (!File.Exists(name))
+			{
+				return null;
+			}
 			using (StreamReader fileInput = new StreamReader(name))
 			{
 				string Name = fileInput.ReadLine();
@@ -132,7 +138,7 @@ namespace PASOIB_ASYA
 
 		internal static void WriteProtectedFileContent(ProtectedFileEntry protectedFile)
 		{
-			using (StreamWriter fileOutput = new StreamWriter(GetProtectedFilePath(protectedFile.Name)))
+			using (StreamWriter fileOutput = new StreamWriter(GetProtectedFilePath(protectedFile.FullPath)))
 			{
 				fileOutput.WriteLine(protectedFile.Name);
 				fileOutput.WriteLine(protectedFile.TargetDirectory);

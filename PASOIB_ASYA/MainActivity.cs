@@ -90,7 +90,6 @@ namespace PASOIB_ASYA
 			}
 			((Control)RealtimeDataTab).Enabled = IsAuthenticated;
 			UpdateEventLog();
-			((Control)SettingsTab).Enabled = IsAuthenticated;
 		}
 
 		private void ShowConnectedDevices()

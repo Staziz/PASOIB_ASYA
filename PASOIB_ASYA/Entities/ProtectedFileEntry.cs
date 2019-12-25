@@ -126,7 +126,7 @@ namespace PASOIB_ASYA
 		public void Delete()
 		{
 			Watcher.Dispose();
-			DataAccess.DeleteFile(Path.Combine(Application.CommonAppDataPath, Name + Properties.Resources.ProtectedFileExtension));
+			DataAccess.DeleteFile(DataAccess.GetProtectedFilePath(FullPath));
 		}
 		
 		public void UpdateRemoveContent()

@@ -125,5 +125,14 @@ namespace PASOIB_ASYA.Properties {
                 return ResourceManager.GetString("ProtectedFileExtension", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на enum.protec.
+        /// </summary>
+        internal static string ProtectedFilesEnumeration {
+            get {
+                return ResourceManager.GetString("ProtectedFilesEnumeration", resourceCulture);
+            }
+        }
     }
 }
