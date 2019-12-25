@@ -80,6 +80,15 @@ namespace PASOIB_ASYA.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Report.pdf.
+        /// </summary>
+        internal static string DataFileReport {
+            get {
+                return ResourceManager.GetString("DataFileReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap ImageLocked {

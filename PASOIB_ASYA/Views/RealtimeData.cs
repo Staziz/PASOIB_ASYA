@@ -81,7 +81,7 @@ namespace PASOIB_ASYA
 			string filename = DataAccess.GetTargetFileByDialog(true);
 			if (filename == null)
 			{
-				filename = DataAccess.DataFileDesktopPath;
+				filename = DataAccess.DataFileReportDesktopPath;
 			}
 			pdfRenderer.PdfDocument.Save(filename);
 			Process.Start(filename);
