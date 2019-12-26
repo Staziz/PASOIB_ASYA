@@ -56,9 +56,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PASOIB_ASYA\PASOIB_ASYA.csproj">
+    <ProjectReference Include="..\PASOIB\PASOIB.csproj">
       <Project>{5b7b175e-cf00-4a4c-ba70-06b3bff8d72d}</Project>
-      <Name>PASOIB_ASYA</Name>
+      <Name>PASOIB</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{5B7B175E-CF00-4A4C-BA70-06B3BFF8D72D}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>PASOIB_ASYA</RootNamespace>
-    <AssemblyName>PASOIB_ASYA</AssemblyName>
+    <RootNamespace>PASOIB</RootNamespace>
+    <AssemblyName>PASOIB</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

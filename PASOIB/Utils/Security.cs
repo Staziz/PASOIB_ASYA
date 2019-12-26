@@ -5,7 +5,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace PASOIB_ASYA
+namespace PASOIB
 {
 	public static class Security
 	{

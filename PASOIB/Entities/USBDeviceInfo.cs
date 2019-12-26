@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PASOIB_ASYA
+namespace PASOIB
 {
 	internal class USBDeviceInfo
 	{

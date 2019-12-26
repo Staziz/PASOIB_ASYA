@@ -1,4 +1,4 @@
-﻿namespace PASOIB_ASYA
+﻿namespace PASOIB
 {
 	partial class VisualLock
 	{
@@ -55,8 +55,8 @@
 			// lockPicture
 			// 
 			this.lockPicture.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.lockPicture.Image = global::PASOIB_ASYA.Properties.Resources.ImageLocked;
-			this.lockPicture.InitialImage = global::PASOIB_ASYA.Properties.Resources.ImageLocked;
+			this.lockPicture.Image = global::PASOIB.Properties.Resources.ImageLocked;
+			this.lockPicture.InitialImage = global::PASOIB.Properties.Resources.ImageLocked;
 			this.lockPicture.Location = new System.Drawing.Point(4, 4);
 			this.lockPicture.Name = "lockPicture";
 			this.lockPicture.Size = new System.Drawing.Size(142, 140);

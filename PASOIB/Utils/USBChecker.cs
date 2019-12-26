@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Management;
 
-namespace PASOIB_ASYA
+namespace PASOIB
 {
 	class USBChecker
 	{

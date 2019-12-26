@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PASOIB_ASYA
+namespace PASOIB
 {
 	internal class FilesSelection
 	{

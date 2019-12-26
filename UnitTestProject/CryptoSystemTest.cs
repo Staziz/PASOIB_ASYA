@@ -3,7 +3,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PASOIB_ASYA;
+using PASOIB;
 
 namespace UnitTestProject
 {

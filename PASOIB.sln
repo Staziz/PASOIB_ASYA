@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PASOIB_ASYA", "PASOIB_ASYA\PASOIB_ASYA.csproj", "{5B7B175E-CF00-4A4C-BA70-06B3BFF8D72D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PASOIB", "PASOIB\PASOIB.csproj", "{5B7B175E-CF00-4A4C-BA70-06B3BFF8D72D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTestProject\UnitTestProject.csproj", "{A2D0C481-8DD0-4EF0-AD68-8A89C7B466C1}"
 EndProject

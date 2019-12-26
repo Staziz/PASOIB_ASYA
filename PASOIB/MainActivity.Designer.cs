@@ -1,4 +1,4 @@
-﻿namespace PASOIB_ASYA
+﻿namespace PASOIB
 {
 	partial class MainActivity
 	{
@@ -49,7 +49,7 @@
 			this.DeviceID = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.DeviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.DiskDrive = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.VisualLock = new PASOIB_ASYA.VisualLock();
+			this.VisualLock = new PASOIB.VisualLock();
 			this.SelectButton = new System.Windows.Forms.Button();
 			this.tabControl = new System.Windows.Forms.TabControl();
 			this.RealtimeDataTab.SuspendLayout();
@@ -305,7 +305,7 @@
 			this.VisualLock.Location = new System.Drawing.Point(3, 107);
 			this.VisualLock.Name = "VisualLock";
 			this.VisualLock.Size = new System.Drawing.Size(228, 98);
-			this.VisualLock.State = PASOIB_ASYA.VisualLock._State.Locked;
+			this.VisualLock.State = PASOIB.VisualLock._State.Locked;
 			this.VisualLock.TabIndex = 5;
 			// 
 			// SelectButton
