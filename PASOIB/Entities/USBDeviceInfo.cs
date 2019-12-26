@@ -13,14 +13,11 @@ namespace PASOIB
 		public string DeviceID { get; private set; }
 		public string Description { get; private set; }
 
-		public readonly string USBControllerDeviceID;
-
 		public USBDeviceInfo(string diskDrive, string name, string deviceID, string description)
 		{
 			DiskDrive = diskDrive;
 			Name = name;
 			DeviceID = deviceID;
-			USBControllerDeviceID = null;
 			Description = description;
 		}
 	}

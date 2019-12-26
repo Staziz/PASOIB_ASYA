@@ -34,5 +34,17 @@ namespace PASOIB.Properties {
                 this["KeepFilesAlways"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("null")]
+        public string PhoneNumber {
+            get {
+                return ((string)(this["PhoneNumber"]));
+            }
+            set {
+                this["PhoneNumber"] = value;
+            }
+        }
     }
 }

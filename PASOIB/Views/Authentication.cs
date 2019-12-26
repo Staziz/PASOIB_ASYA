@@ -43,12 +43,14 @@ namespace PASOIB
 			}
 		}
 
-		public void TryAuthentify(string currentID, string masterID, bool force = false)
+		public bool TryAuthentify(string currentID, string masterID, bool force = false)
 		{
+			bool isFirstTime = false;
 			if ((masterID == null) && force)
 			{
 				DataAccess.SetIdentificator(currentID);
 				IsAuthenticated = true;
+				isFirstTime = true;
 			}
 			else
 			{
@@ -61,6 +63,7 @@ namespace PASOIB
 					IsAuthenticated = false;
 				}
 			}
+			return isFirstTime;
 		}
 	}
 }

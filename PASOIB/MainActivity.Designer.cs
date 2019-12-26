@@ -45,6 +45,7 @@
 			this.AuthenticationTab = new System.Windows.Forms.TabPage();
 			this.AuthenticationTableLayout = new System.Windows.Forms.TableLayoutPanel();
 			this.SelectButton = new System.Windows.Forms.Button();
+			this.VisualLock = new PASOIB.VisualLock();
 			this.USBDevicesDataGrid = new System.Windows.Forms.DataGridView();
 			this.DiskDrive = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.DeviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -56,7 +57,6 @@
 			this.KeepFilesOnRunTimeRadioButton = new System.Windows.Forms.RadioButton();
 			this.KeepFilesAlwaysRadioButton = new System.Windows.Forms.RadioButton();
 			this.label1 = new System.Windows.Forms.Label();
-			this.VisualLock = new PASOIB.VisualLock();
 			this.RealtimeDataTab.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.FilesSelectionTab.SuspendLayout();
@@ -265,6 +265,17 @@
 			this.SelectButton.UseVisualStyleBackColor = true;
 			this.SelectButton.Click += new System.EventHandler(this.ButtonSelect_Click);
 			// 
+			// VisualLock
+			// 
+			this.VisualLock.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.AuthenticationTableLayout.SetColumnSpan(this.VisualLock, 2);
+			this.VisualLock.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.VisualLock.Location = new System.Drawing.Point(3, 107);
+			this.VisualLock.Name = "VisualLock";
+			this.VisualLock.Size = new System.Drawing.Size(228, 98);
+			this.VisualLock.State = PASOIB.VisualLock._State.Locked;
+			this.VisualLock.TabIndex = 5;
+			// 
 			// USBDevicesDataGrid
 			// 
 			this.USBDevicesDataGrid.AllowUserToAddRows = false;
@@ -382,17 +393,6 @@
 			this.label1.Size = new System.Drawing.Size(168, 13);
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Keep protecting files in file system:";
-			// 
-			// VisualLock
-			// 
-			this.VisualLock.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.AuthenticationTableLayout.SetColumnSpan(this.VisualLock, 2);
-			this.VisualLock.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.VisualLock.Location = new System.Drawing.Point(3, 107);
-			this.VisualLock.Name = "VisualLock";
-			this.VisualLock.Size = new System.Drawing.Size(228, 98);
-			this.VisualLock.State = PASOIB.VisualLock._State.Locked;
-			this.VisualLock.TabIndex = 5;
 			// 
 			// MainActivity
 			// 

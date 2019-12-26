@@ -184,12 +184,22 @@ namespace PASOIB
 			{
 				string currentId = USBDevicesDataGrid.SelectedRows[0].Cells[2].Value.ToString();
 				string masterId = DataAccess.GetIdentificator();
-				Authentication.TryAuthentify(currentId, masterId, true);
-				IsAuthenticated = Authentication.IsAuthenticated;
-				if (!IsAuthenticated)
+				bool isFirstTime = Authentication.TryAuthentify(currentId, masterId, true);
+				if (!Authentication.IsAuthenticated)
 				{
 					MessageBox.Show(
 						"This is an incorrect identifier",
+						"Error",
+						MessageBoxButtons.OK,
+						MessageBoxIcon.Error);
+					return;
+				}
+				DialogResult secondAuthenticationFactor = new SMSAuthenticator().ShowDialog();
+				IsAuthenticated = Authentication.IsAuthenticated && (secondAuthenticationFactor == DialogResult.OK);
+				if (!IsAuthenticated)
+				{
+					MessageBox.Show(
+						"Your code is incorrect",
 						"Error",
 						MessageBoxButtons.OK,
 						MessageBoxIcon.Error);
