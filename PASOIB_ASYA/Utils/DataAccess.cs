@@ -15,7 +15,7 @@ namespace PASOIB_ASYA
 
 		internal static string DataFileDefaultPath => Path.Combine(Application.CommonAppDataPath, Properties.Resources.DataFile);
 
-		internal static string DataFileDesktopPath => Path.Combine(DesktopDefaultPath, Properties.Resources.DataFile);
+		internal static string DataFileReportDesktopPath => Path.Combine(DesktopDefaultPath, Properties.Resources.DataFileReport);
 
 		internal static string GetProtectedFilePath(string fileName)
 		{
