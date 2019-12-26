@@ -78,6 +78,7 @@
     <Compile Include="Entities\USBDeviceInfo.cs" />
     <Compile Include="Views\FilesSelection.cs" />
     <Compile Include="Views\RealtimeData.cs" />
+    <Compile Include="Views\Settings.cs" />
     <Compile Include="VisualLock.cs">
       <SubType>UserControl</SubType>
     </Compile>

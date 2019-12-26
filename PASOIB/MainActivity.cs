@@ -13,6 +13,7 @@ namespace PASOIB
 		private Authentication Authentication;
 		private FilesSelection FilesSelection;
 		private RealtimeData RealtimeData;
+		private Settings Settings;
 		private bool IsAuthenticated
 		{
 			get => Authentication.IsAuthenticated;
@@ -42,6 +43,8 @@ namespace PASOIB
 			FilesSelection.onProtectedFileRenamed += FilesSelection_onProtectedFileRenamed;
 
 			RealtimeData = new RealtimeData();
+
+			Settings = new Settings();
 
 			IsAuthenticated = false;
 		}
@@ -90,6 +93,7 @@ namespace PASOIB
 			}
 			((Control)RealtimeDataTab).Enabled = IsAuthenticated;
 			UpdateEventLog();
+			((Control)SettingsTab).Enabled = IsAuthenticated;
 		}
 
 		private void ShowConnectedDevices()
