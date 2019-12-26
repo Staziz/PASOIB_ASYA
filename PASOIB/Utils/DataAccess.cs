@@ -46,7 +46,7 @@ namespace PASOIB
 			string keyFilePath = Path.Combine(Application.CommonAppDataPath, Properties.Resources.KeyFile);
 			using (StreamWriter keyFile = File.Exists(keyFilePath) ? new StreamWriter(keyFilePath) : File.AppendText(keyFilePath))
 			{
-				keyFile.WriteLine(Security.GetMd5Hash(identificator));
+				keyFile.WriteLine(Security.GetSHA512Hash(identificator));
 				System.Windows.Forms.MessageBox.Show(
 					"The key was successfully saved!",
 					"Info",
@@ -140,7 +140,7 @@ namespace PASOIB
 				fileOutput.WriteLine(protectedFile.CreationTime);
 				fileOutput.WriteLine(protectedFile.LastWriteTime);
 				fileOutput.WriteLine(protectedFile.Size);
-				fileOutput.WriteLine(protectedFile.MD5Hash);
+				fileOutput.WriteLine(protectedFile.SHA512Hash);
 				fileOutput.WriteLine(protectedFile.InitializationVector);
 
 				fileOutput.Write(protectedFile.FileContent);

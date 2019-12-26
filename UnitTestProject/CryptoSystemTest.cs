@@ -45,7 +45,7 @@ namespace UnitTestProject
 		[TestMethod]
 		public void HashCompare()
 		{
-			string origHash = Security.GetMd5Hash(testString);
+			string origHash = Security.GetSHA512Hash(testString);
 			Assert.IsTrue(Security.IsStringEqualsHash(testString, origHash));
 		}
 	}

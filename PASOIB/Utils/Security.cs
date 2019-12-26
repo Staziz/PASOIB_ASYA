@@ -9,11 +9,11 @@ namespace PASOIB
 {
 	public static class Security
 	{
-		public static string GetMd5Hash(string input)
+		public static string GetSHA512Hash(string input)
 		{
-			using (MD5 md5Hash = MD5.Create())
+			using (SHA512 sha512Hash = SHA512.Create())
 			{
-				byte[] data = md5Hash.ComputeHash(Encoding.Unicode.GetBytes(input));
+				byte[] data = sha512Hash.ComputeHash(Encoding.Unicode.GetBytes(input));
 				StringBuilder sBuilder = new StringBuilder();
 				for (int i = 0; i < data.Length; i++)
 				{
@@ -25,7 +25,7 @@ namespace PASOIB
 
 		public static bool IsStringEqualsHash(string input, string hash)
 		{
-			string hashOfInput = GetMd5Hash(input);
+			string hashOfInput = GetSHA512Hash(input);
 			StringComparer comparer = StringComparer.OrdinalIgnoreCase;
 			return 0 == comparer.Compare(hashOfInput, hash);
 		}

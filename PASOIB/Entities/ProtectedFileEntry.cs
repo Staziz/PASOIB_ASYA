@@ -21,7 +21,7 @@ namespace PASOIB
 		internal readonly DateTime CreationTime;
 		internal readonly DateTime LastWriteTime;
 		internal readonly long Size;
-		internal string MD5Hash { get; private set; }
+		internal string SHA512Hash { get; private set; }
 
 		internal string FileContent { get; private set; }
 
@@ -43,9 +43,9 @@ namespace PASOIB
 			Size = targetFileInfo.Length;
 
 			FileContent = DataAccess.GetFileContent(targetFileInfo);
-			MD5Hash = Security.GetMd5Hash(FileContent);
+			SHA512Hash = Security.GetSHA512Hash(FileContent);
 
-			Key = Security.GetKey(keyInit: MD5Hash);
+			Key = Security.GetKey(keyInit: SHA512Hash);
 			InitializationVector = Security.GetInitializationVector();
 
 			FileContent = Security.EncryptFileAES(FileContent, Key, InitializationVector);
@@ -88,7 +88,7 @@ namespace PASOIB
 			this.InitializationVector = InitializationVector;
 
 			this.FileContent = FileContent;
-			this.MD5Hash = Security.GetMd5Hash(
+			this.SHA512Hash = Security.GetSHA512Hash(
 					Security.DecryptFileAES(
 						this.FileContent,
 						this.Key,
@@ -117,7 +117,7 @@ namespace PASOIB
 			DataAccess.SetFileContent(FullPath, restoredContent, Attributes, CreationTime, LastWriteTime);
 
 			restoredContent = DataAccess.GetFileContent(FullPath);
-			if (Security.GetMd5Hash(restoredContent) != MD5Hash)
+			if (Security.GetSHA512Hash(restoredContent) != SHA512Hash)
 			{
 				throw new ProtectedFileHashInconsistence(Name);
 			}
@@ -134,7 +134,7 @@ namespace PASOIB
 			if (File.Exists(FullPath))
 			{
 				FileContent = DataAccess.GetFileContent(FullPath);
-				MD5Hash = Security.GetMd5Hash(FileContent);
+				SHA512Hash = Security.GetSHA512Hash(FileContent);
 				FileContent = Security.EncryptFileAES(FileContent, Key, InitializationVector);
 				DataAccess.DeleteFile(FullPath);
 			}
