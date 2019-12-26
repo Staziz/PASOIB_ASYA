@@ -7,7 +7,7 @@ using System.IO;
 using System.Xml.Serialization;
 using System.Windows.Forms;
 
-namespace PASOIB_ASYA
+namespace PASOIB
 {
 	internal static class DataAccess
 	{

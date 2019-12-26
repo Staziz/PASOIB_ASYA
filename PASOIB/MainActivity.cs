@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace PASOIB_ASYA
+namespace PASOIB
 {
 	public partial class MainActivity : Form
 	{
@@ -90,7 +90,6 @@ namespace PASOIB_ASYA
 			}
 			((Control)RealtimeDataTab).Enabled = IsAuthenticated;
 			UpdateEventLog();
-			((Control)SettingsTab).Enabled = IsAuthenticated;
 		}
 
 		private void ShowConnectedDevices()

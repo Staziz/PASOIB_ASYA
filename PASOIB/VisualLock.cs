@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace PASOIB_ASYA
+namespace PASOIB
 {
 	public partial class VisualLock : UserControl
 	{

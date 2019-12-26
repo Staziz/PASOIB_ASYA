@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 
-namespace PASOIB_ASYA
+namespace PASOIB
 {
 	internal class RealtimeData
 	{
