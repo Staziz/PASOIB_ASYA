@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Settings.cs" />
     <Compile Include="Views\Authentication.cs" />
     <Compile Include="Utils\DataAccess.cs" />
     <Compile Include="Entities\ProtectedFileEntry.cs" />
@@ -78,7 +79,6 @@
     <Compile Include="Entities\USBDeviceInfo.cs" />
     <Compile Include="Views\FilesSelection.cs" />
     <Compile Include="Views\RealtimeData.cs" />
-    <Compile Include="Views\Settings.cs" />
     <Compile Include="VisualLock.cs">
       <SubType>UserControl</SubType>
     </Compile>

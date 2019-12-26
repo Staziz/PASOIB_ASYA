@@ -22,5 +22,17 @@ namespace PASOIB.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool KeepFilesAlways {
+            get {
+                return ((bool)(this["KeepFilesAlways"]));
+            }
+            set {
+                this["KeepFilesAlways"] = value;
+            }
+        }
     }
 }

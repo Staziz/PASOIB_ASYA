@@ -53,10 +53,10 @@
 			this.tabControl = new System.Windows.Forms.TabControl();
 			this.SettingsTab = new System.Windows.Forms.TabPage();
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.VisualLock = new PASOIB.VisualLock();
+			this.KeepFilesOnRunTimeRadioButton = new System.Windows.Forms.RadioButton();
+			this.KeepFilesAlwaysRadioButton = new System.Windows.Forms.RadioButton();
 			this.label1 = new System.Windows.Forms.Label();
-			this.radioButton1 = new System.Windows.Forms.RadioButton();
-			this.radioButton2 = new System.Windows.Forms.RadioButton();
+			this.VisualLock = new PASOIB.VisualLock();
 			this.RealtimeDataTab.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.FilesSelectionTab.SuspendLayout();
@@ -342,13 +342,46 @@
 			// panel1
 			// 
 			this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.panel1.Controls.Add(this.radioButton2);
-			this.panel1.Controls.Add(this.radioButton1);
+			this.panel1.Controls.Add(this.KeepFilesOnRunTimeRadioButton);
+			this.panel1.Controls.Add(this.KeepFilesAlwaysRadioButton);
 			this.panel1.Controls.Add(this.label1);
 			this.panel1.Location = new System.Drawing.Point(42, 32);
 			this.panel1.Name = "panel1";
 			this.panel1.Size = new System.Drawing.Size(402, 45);
 			this.panel1.TabIndex = 0;
+			// 
+			// KeepFilesOnRunTimeRadioButton
+			// 
+			this.KeepFilesOnRunTimeRadioButton.AutoSize = true;
+			this.KeepFilesOnRunTimeRadioButton.Checked = true;
+			this.KeepFilesOnRunTimeRadioButton.Location = new System.Drawing.Point(261, 14);
+			this.KeepFilesOnRunTimeRadioButton.Name = "KeepFilesOnRunTimeRadioButton";
+			this.KeepFilesOnRunTimeRadioButton.Size = new System.Drawing.Size(131, 17);
+			this.KeepFilesOnRunTimeRadioButton.TabIndex = 1;
+			this.KeepFilesOnRunTimeRadioButton.TabStop = true;
+			this.KeepFilesOnRunTimeRadioButton.Text = "While program running";
+			this.KeepFilesOnRunTimeRadioButton.UseVisualStyleBackColor = true;
+			this.KeepFilesOnRunTimeRadioButton.CheckedChanged += new System.EventHandler(this.KeepFilesOnRunTimeRadioButton_CheckedChanged);
+			// 
+			// KeepFilesAlwaysRadioButton
+			// 
+			this.KeepFilesAlwaysRadioButton.AutoSize = true;
+			this.KeepFilesAlwaysRadioButton.Location = new System.Drawing.Point(188, 14);
+			this.KeepFilesAlwaysRadioButton.Name = "KeepFilesAlwaysRadioButton";
+			this.KeepFilesAlwaysRadioButton.Size = new System.Drawing.Size(58, 17);
+			this.KeepFilesAlwaysRadioButton.TabIndex = 1;
+			this.KeepFilesAlwaysRadioButton.TabStop = true;
+			this.KeepFilesAlwaysRadioButton.Text = "Always";
+			this.KeepFilesAlwaysRadioButton.UseVisualStyleBackColor = true;
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(5, 16);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(168, 13);
+			this.label1.TabIndex = 0;
+			this.label1.Text = "Keep protecting files in file system:";
 			// 
 			// VisualLock
 			// 
@@ -360,38 +393,6 @@
 			this.VisualLock.Size = new System.Drawing.Size(228, 98);
 			this.VisualLock.State = PASOIB.VisualLock._State.Locked;
 			this.VisualLock.TabIndex = 5;
-			// 
-			// label1
-			// 
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(5, 16);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(168, 13);
-			this.label1.TabIndex = 0;
-			this.label1.Text = "Keep protecting files in file system:";
-			// 
-			// radioButton1
-			// 
-			this.radioButton1.AutoSize = true;
-			this.radioButton1.Location = new System.Drawing.Point(188, 14);
-			this.radioButton1.Name = "radioButton1";
-			this.radioButton1.Size = new System.Drawing.Size(58, 17);
-			this.radioButton1.TabIndex = 1;
-			this.radioButton1.TabStop = true;
-			this.radioButton1.Text = "Always";
-			this.radioButton1.UseVisualStyleBackColor = true;
-			// 
-			// radioButton2
-			// 
-			this.radioButton2.AutoSize = true;
-			this.radioButton2.Checked = true;
-			this.radioButton2.Location = new System.Drawing.Point(261, 14);
-			this.radioButton2.Name = "radioButton2";
-			this.radioButton2.Size = new System.Drawing.Size(131, 17);
-			this.radioButton2.TabIndex = 1;
-			this.radioButton2.TabStop = true;
-			this.radioButton2.Text = "While program running";
-			this.radioButton2.UseVisualStyleBackColor = true;
 			// 
 			// MainActivity
 			// 
@@ -449,8 +450,8 @@
 		private System.Windows.Forms.TabControl tabControl;
 		private System.Windows.Forms.TabPage SettingsTab;
 		private System.Windows.Forms.Panel panel1;
-		private System.Windows.Forms.RadioButton radioButton2;
-		private System.Windows.Forms.RadioButton radioButton1;
+		private System.Windows.Forms.RadioButton KeepFilesOnRunTimeRadioButton;
+		private System.Windows.Forms.RadioButton KeepFilesAlwaysRadioButton;
 		private System.Windows.Forms.Label label1;
 	}
 }

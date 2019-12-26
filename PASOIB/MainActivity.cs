@@ -13,7 +13,6 @@ namespace PASOIB
 		private Authentication Authentication;
 		private FilesSelection FilesSelection;
 		private RealtimeData RealtimeData;
-		private Settings Settings;
 		private bool IsAuthenticated
 		{
 			get => Authentication.IsAuthenticated;
@@ -44,8 +43,8 @@ namespace PASOIB
 
 			RealtimeData = new RealtimeData();
 
-			Settings = new Settings();
-
+			KeepFilesOnRunTimeRadioButton.Checked = !Properties.Settings.Default.KeepFilesAlways;
+			KeepFilesAlwaysRadioButton.Checked = Properties.Settings.Default.KeepFilesAlways;
 			IsAuthenticated = false;
 		}
 
@@ -83,13 +82,16 @@ namespace PASOIB
 			ShowConnectedDevices();
 			((Control)FilesSelectionTab).Enabled = IsAuthenticated;
 			UpdateProtectingFilesList();
-			if (IsAuthenticated)
+			if (KeepFilesOnRunTimeRadioButton.Checked)
 			{
-				FilesSelection.RestoreProtectingFiles();
-			}
-			else
-			{
-				FilesSelection.RemoveProtectingFiles();
+				if (IsAuthenticated)
+				{
+					FilesSelection.RestoreProtectingFiles();
+				}
+				else
+				{
+					FilesSelection.RemoveProtectingFiles();
+				}
 			}
 			((Control)RealtimeDataTab).Enabled = IsAuthenticated;
 			UpdateEventLog();
@@ -258,7 +260,11 @@ namespace PASOIB
 
 		private void MainActivity_FormClosed(object sender, FormClosedEventArgs e)
 		{
-			FilesSelection.RemoveProtectingFiles();
+			if (KeepFilesOnRunTimeRadioButton.Checked)
+			{
+				FilesSelection.RemoveProtectingFiles();
+			}
+			Properties.Settings.Default.Save();
 		}
 
 		private void PrintEventListButton_Click(object sender, EventArgs e)
@@ -266,5 +272,9 @@ namespace PASOIB
 			RealtimeData.PrintData();
 		}
 
+		private void KeepFilesOnRunTimeRadioButton_CheckedChanged(object sender, EventArgs e)
+		{
+			Properties.Settings.Default.KeepFilesAlways = !(sender as RadioButton).Checked;
+		}
 	}
 }
