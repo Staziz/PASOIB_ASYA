@@ -109,15 +109,6 @@ namespace PASOIB.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на idetificator.id.
-        /// </summary>
-        internal static string KeyFile {
-            get {
-                return ResourceManager.GetString("KeyFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на .protec.
         /// </summary>
         internal static string ProtectedFileExtension {

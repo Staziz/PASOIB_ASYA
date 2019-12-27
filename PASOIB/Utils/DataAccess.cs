@@ -24,35 +24,13 @@ namespace PASOIB
 
 		internal static string GetIdentificator()
 		{
-			string keyFilePath = Path.Combine(Application.CommonAppDataPath, Properties.Resources.KeyFile);
-			string identificator = "";
-			try
-			{
-				using (StreamReader keyFile = new StreamReader(keyFilePath))
-				{
-					identificator = keyFile.ReadLine();
-				}
-			}
-			catch (FileNotFoundException e)
-			{
-				identificator = null;
-			}
-
-			return identificator;
+			return Properties.Settings.Default.Identificator;
 		}
 
 		internal static void SetIdentificator(string identificator)
 		{
-			string keyFilePath = Path.Combine(Application.CommonAppDataPath, Properties.Resources.KeyFile);
-			using (StreamWriter keyFile = File.Exists(keyFilePath) ? new StreamWriter(keyFilePath) : File.AppendText(keyFilePath))
-			{
-				keyFile.WriteLine(Security.GetSHA512Hash(identificator));
-				System.Windows.Forms.MessageBox.Show(
-					"The key was successfully saved!",
-					"Info",
-					System.Windows.Forms.MessageBoxButtons.OK,
-					System.Windows.Forms.MessageBoxIcon.Asterisk);
-			}
+			Properties.Settings.Default.Identificator = Security.GetSHA512Hash(identificator);
+			Properties.Settings.Default.Save();
 		}
 
 		internal static string GetFileContent(string fileName)

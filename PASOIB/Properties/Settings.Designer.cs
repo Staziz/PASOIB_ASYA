@@ -46,5 +46,18 @@ namespace PASOIB.Properties {
                 this["PhoneNumber"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("7e522de0cfee98ca0a1a886bdaf11218d396e36eed81f4a7ce91670c13e8be8549d4ca921db6f2de1" +
+            "44c98f3e9d7da5e1462f627b114c1ba9c7271c4046c516c")]
+        public string Identificator {
+            get {
+                return ((string)(this["Identificator"]));
+            }
+            set {
+                this["Identificator"] = value;
+            }
+        }
     }
 }
