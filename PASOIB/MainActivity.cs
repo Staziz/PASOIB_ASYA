@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using SystemTrayNotification;
 
 namespace PASOIB
 {
@@ -13,6 +15,8 @@ namespace PASOIB
 		private Authentication Authentication;
 		private FilesSelection FilesSelection;
 		private RealtimeData RealtimeData;
+		private SystemTrayNotifyIcon m_SysTrayNotify;
+		private Icon[] iconArray;
 		private bool IsAuthenticated
 		{
 			get => Authentication.IsAuthenticated;
@@ -27,6 +31,23 @@ namespace PASOIB
 		public MainActivity()
 		{
 			InitializeComponent();
+
+			m_SysTrayNotify = new SystemTrayNotification.SystemTrayNotifyIcon(this, true);
+			iconArray = new Icon[18];
+			for (int i = 1; i <= iconArray.Length; i++)
+			{
+				try
+				{
+					iconArray[i - 1] = new Icon($@"../../Animation Icons/Default/icon{i}.ico");
+				}
+				catch (Exception e)
+				{
+					MessageBox.Show(e.Message, "Error",
+						 MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+			}
+			m_SysTrayNotify.LoadIcons(iconArray);
+			m_SysTrayNotify.Animate(-1, 50);
 		}
 
 		private void MainActivity_Load(object sender, EventArgs e)

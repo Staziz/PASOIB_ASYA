@@ -85,6 +85,7 @@
     <Compile Include="SMSAuthenticator.Designer.cs">
       <DependentUpon>SMSAuthenticator.cs</DependentUpon>
     </Compile>
+    <Compile Include="SystemTrayNotifyIcon.cs" />
     <Compile Include="Utils\TwilioSMSSender.cs" />
     <Compile Include="Views\Authentication.cs" />
     <Compile Include="Utils\DataAccess.cs" />

@@ -56,10 +56,10 @@
 			this.KeepFilesOnRunTimeRadioButton = new System.Windows.Forms.RadioButton();
 			this.KeepFilesAlwaysRadioButton = new System.Windows.Forms.RadioButton();
 			this.label1 = new System.Windows.Forms.Label();
-			this.VisualLock = new PASOIB.VisualLock();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
 			this.PrintEventListButton = new System.Windows.Forms.Button();
 			this.ClearEventListButton = new System.Windows.Forms.Button();
+			this.VisualLock = new PASOIB.VisualLock();
 			this.RealtimeDataTab.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.FilesSelectionTab.SuspendLayout();
@@ -389,16 +389,6 @@
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Keep protecting files in file system:";
 			// 
-			// VisualLock
-			// 
-			this.AuthenticationTableLayout.SetColumnSpan(this.VisualLock, 2);
-			this.VisualLock.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.VisualLock.Location = new System.Drawing.Point(3, 107);
-			this.VisualLock.Name = "VisualLock";
-			this.VisualLock.Size = new System.Drawing.Size(228, 98);
-			this.VisualLock.State = PASOIB.VisualLock._State.Locked;
-			this.VisualLock.TabIndex = 5;
-			// 
 			// flowLayoutPanel1
 			// 
 			this.flowLayoutPanel1.Controls.Add(this.PrintEventListButton);
@@ -432,6 +422,16 @@
 			this.ClearEventListButton.Text = "Clear";
 			this.ClearEventListButton.UseVisualStyleBackColor = true;
 			this.ClearEventListButton.Click += new System.EventHandler(this.ClearEventListButton_Click);
+			// 
+			// VisualLock
+			// 
+			this.AuthenticationTableLayout.SetColumnSpan(this.VisualLock, 2);
+			this.VisualLock.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.VisualLock.Location = new System.Drawing.Point(3, 107);
+			this.VisualLock.Name = "VisualLock";
+			this.VisualLock.Size = new System.Drawing.Size(228, 98);
+			this.VisualLock.State = PASOIB.VisualLock._State.Locked;
+			this.VisualLock.TabIndex = 5;
 			// 
 			// MainActivity
 			// 
