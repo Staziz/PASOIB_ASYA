@@ -30,7 +30,6 @@
 		{
 			this.RealtimeDataTab = new System.Windows.Forms.TabPage();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-			this.PrintEventListButton = new System.Windows.Forms.Button();
 			this.EventsListBox = new System.Windows.Forms.ListBox();
 			this.FilesSelectionTab = new System.Windows.Forms.TabPage();
 			this.FilesSelectionTableLayout = new System.Windows.Forms.TableLayoutPanel();
@@ -45,7 +44,6 @@
 			this.AuthenticationTab = new System.Windows.Forms.TabPage();
 			this.AuthenticationTableLayout = new System.Windows.Forms.TableLayoutPanel();
 			this.SelectButton = new System.Windows.Forms.Button();
-			this.VisualLock = new PASOIB.VisualLock();
 			this.USBDevicesDataGrid = new System.Windows.Forms.DataGridView();
 			this.DiskDrive = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.DeviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -53,10 +51,15 @@
 			this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tabControl = new System.Windows.Forms.TabControl();
 			this.SettingsTab = new System.Windows.Forms.TabPage();
+			this.ChangePhoneNumberButton = new System.Windows.Forms.Button();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.KeepFilesOnRunTimeRadioButton = new System.Windows.Forms.RadioButton();
 			this.KeepFilesAlwaysRadioButton = new System.Windows.Forms.RadioButton();
 			this.label1 = new System.Windows.Forms.Label();
+			this.VisualLock = new PASOIB.VisualLock();
+			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+			this.PrintEventListButton = new System.Windows.Forms.Button();
+			this.ClearEventListButton = new System.Windows.Forms.Button();
 			this.RealtimeDataTab.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.FilesSelectionTab.SuspendLayout();
@@ -69,6 +72,7 @@
 			this.tabControl.SuspendLayout();
 			this.SettingsTab.SuspendLayout();
 			this.panel1.SuspendLayout();
+			this.flowLayoutPanel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// RealtimeDataTab
@@ -86,8 +90,8 @@
 			// 
 			this.tableLayoutPanel1.ColumnCount = 1;
 			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.tableLayoutPanel1.Controls.Add(this.PrintEventListButton, 0, 1);
 			this.tableLayoutPanel1.Controls.Add(this.EventsListBox, 0, 0);
+			this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 1);
 			this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
 			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -96,17 +100,6 @@
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
 			this.tableLayoutPanel1.Size = new System.Drawing.Size(786, 418);
 			this.tableLayoutPanel1.TabIndex = 1;
-			// 
-			// PrintEventListButton
-			// 
-			this.PrintEventListButton.Dock = System.Windows.Forms.DockStyle.Right;
-			this.PrintEventListButton.Location = new System.Drawing.Point(708, 387);
-			this.PrintEventListButton.Name = "PrintEventListButton";
-			this.PrintEventListButton.Size = new System.Drawing.Size(75, 28);
-			this.PrintEventListButton.TabIndex = 1;
-			this.PrintEventListButton.Text = "Print";
-			this.PrintEventListButton.UseVisualStyleBackColor = true;
-			this.PrintEventListButton.Click += new System.EventHandler(this.PrintEventListButton_Click);
 			// 
 			// EventsListBox
 			// 
@@ -241,8 +234,8 @@
 			this.AuthenticationTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
 			this.AuthenticationTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
 			this.AuthenticationTableLayout.Controls.Add(this.SelectButton, 1, 3);
-			this.AuthenticationTableLayout.Controls.Add(this.VisualLock, 0, 1);
 			this.AuthenticationTableLayout.Controls.Add(this.USBDevicesDataGrid, 2, 0);
+			this.AuthenticationTableLayout.Controls.Add(this.VisualLock, 0, 1);
 			this.AuthenticationTableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.AuthenticationTableLayout.Location = new System.Drawing.Point(3, 3);
 			this.AuthenticationTableLayout.Name = "AuthenticationTableLayout";
@@ -251,6 +244,8 @@
 			this.AuthenticationTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
 			this.AuthenticationTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
 			this.AuthenticationTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+			this.AuthenticationTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+			this.AuthenticationTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
 			this.AuthenticationTableLayout.Size = new System.Drawing.Size(786, 418);
 			this.AuthenticationTableLayout.TabIndex = 0;
 			// 
@@ -264,17 +259,6 @@
 			this.SelectButton.Text = "Select";
 			this.SelectButton.UseVisualStyleBackColor = true;
 			this.SelectButton.Click += new System.EventHandler(this.ButtonSelect_Click);
-			// 
-			// VisualLock
-			// 
-			this.VisualLock.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.AuthenticationTableLayout.SetColumnSpan(this.VisualLock, 2);
-			this.VisualLock.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.VisualLock.Location = new System.Drawing.Point(3, 107);
-			this.VisualLock.Name = "VisualLock";
-			this.VisualLock.Size = new System.Drawing.Size(228, 98);
-			this.VisualLock.State = PASOIB.VisualLock._State.Locked;
-			this.VisualLock.TabIndex = 5;
 			// 
 			// USBDevicesDataGrid
 			// 
@@ -341,6 +325,7 @@
 			// 
 			// SettingsTab
 			// 
+			this.SettingsTab.Controls.Add(this.ChangePhoneNumberButton);
 			this.SettingsTab.Controls.Add(this.panel1);
 			this.SettingsTab.Location = new System.Drawing.Point(4, 22);
 			this.SettingsTab.Name = "SettingsTab";
@@ -349,6 +334,16 @@
 			this.SettingsTab.TabIndex = 4;
 			this.SettingsTab.Text = "Settings";
 			this.SettingsTab.UseVisualStyleBackColor = true;
+			// 
+			// ChangePhoneNumberButton
+			// 
+			this.ChangePhoneNumberButton.Location = new System.Drawing.Point(703, 32);
+			this.ChangePhoneNumberButton.Name = "ChangePhoneNumberButton";
+			this.ChangePhoneNumberButton.Size = new System.Drawing.Size(58, 58);
+			this.ChangePhoneNumberButton.TabIndex = 1;
+			this.ChangePhoneNumberButton.Text = "Change Phone Number";
+			this.ChangePhoneNumberButton.UseVisualStyleBackColor = true;
+			this.ChangePhoneNumberButton.Click += new System.EventHandler(this.ChangePhoneNumberButton_Click);
 			// 
 			// panel1
 			// 
@@ -394,6 +389,50 @@
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Keep protecting files in file system:";
 			// 
+			// VisualLock
+			// 
+			this.AuthenticationTableLayout.SetColumnSpan(this.VisualLock, 2);
+			this.VisualLock.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.VisualLock.Location = new System.Drawing.Point(3, 107);
+			this.VisualLock.Name = "VisualLock";
+			this.VisualLock.Size = new System.Drawing.Size(228, 98);
+			this.VisualLock.State = PASOIB.VisualLock._State.Locked;
+			this.VisualLock.TabIndex = 5;
+			// 
+			// flowLayoutPanel1
+			// 
+			this.flowLayoutPanel1.Controls.Add(this.PrintEventListButton);
+			this.flowLayoutPanel1.Controls.Add(this.ClearEventListButton);
+			this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
+			this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 387);
+			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+			this.flowLayoutPanel1.Size = new System.Drawing.Size(780, 28);
+			this.flowLayoutPanel1.TabIndex = 1;
+			// 
+			// PrintEventListButton
+			// 
+			this.PrintEventListButton.AutoSize = true;
+			this.PrintEventListButton.Dock = System.Windows.Forms.DockStyle.Right;
+			this.PrintEventListButton.Location = new System.Drawing.Point(702, 3);
+			this.PrintEventListButton.Name = "PrintEventListButton";
+			this.PrintEventListButton.Size = new System.Drawing.Size(75, 23);
+			this.PrintEventListButton.TabIndex = 2;
+			this.PrintEventListButton.Text = "Print";
+			this.PrintEventListButton.UseVisualStyleBackColor = true;
+			// 
+			// ClearEventListButton
+			// 
+			this.ClearEventListButton.AutoSize = true;
+			this.ClearEventListButton.Dock = System.Windows.Forms.DockStyle.Right;
+			this.ClearEventListButton.Location = new System.Drawing.Point(621, 3);
+			this.ClearEventListButton.Name = "ClearEventListButton";
+			this.ClearEventListButton.Size = new System.Drawing.Size(75, 23);
+			this.ClearEventListButton.TabIndex = 3;
+			this.ClearEventListButton.Text = "Clear";
+			this.ClearEventListButton.UseVisualStyleBackColor = true;
+			this.ClearEventListButton.Click += new System.EventHandler(this.ClearEventListButton_Click);
+			// 
 			// MainActivity
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -418,6 +457,8 @@
 			this.SettingsTab.ResumeLayout(false);
 			this.panel1.ResumeLayout(false);
 			this.panel1.PerformLayout();
+			this.flowLayoutPanel1.ResumeLayout(false);
+			this.flowLayoutPanel1.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -426,7 +467,6 @@
 
 		private System.Windows.Forms.TabPage RealtimeDataTab;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-		private System.Windows.Forms.Button PrintEventListButton;
 		private System.Windows.Forms.ListBox EventsListBox;
 		private System.Windows.Forms.TabPage FilesSelectionTab;
 		private System.Windows.Forms.TableLayoutPanel FilesSelectionTableLayout;
@@ -453,6 +493,10 @@
 		private System.Windows.Forms.RadioButton KeepFilesOnRunTimeRadioButton;
 		private System.Windows.Forms.RadioButton KeepFilesAlwaysRadioButton;
 		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Button ChangePhoneNumberButton;
+		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+		private System.Windows.Forms.Button PrintEventListButton;
+		private System.Windows.Forms.Button ClearEventListButton;
 	}
 }
 

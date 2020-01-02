@@ -95,7 +95,12 @@ namespace PASOIB
 			}
 			((Control)RealtimeDataTab).Enabled = IsAuthenticated;
 			UpdateEventLog();
+			if (IsAuthenticated)
+			{
+				EventsListBox.TopIndex = -1;
+			}
 			((Control)SettingsTab).Enabled = IsAuthenticated;
+			tabControl.SelectTab(IsAuthenticated ? 2 : 0);
 		}
 
 		private void ShowConnectedDevices()
@@ -157,7 +162,7 @@ namespace PASOIB
 						List<string> tempFileEventsList = RealtimeData.FileEventsList.ToList();
 						tempFileEventsList.ForEach(eventString =>
 						{
-							EventsListBox.Items.Add(eventString);
+							EventsListBox.TopIndex = EventsListBox.Items.Add(eventString);
 						});
 						tempFileEventsList.Clear();
 					}
@@ -187,31 +192,19 @@ namespace PASOIB
 				bool isFirstTime = Authentication.TryAuthentify(currentId, masterId, true);
 				if (!Authentication.IsAuthenticated)
 				{
-					MessageBox.Show(
-						"This is an incorrect identifier",
-						"Error",
-						MessageBoxButtons.OK,
-						MessageBoxIcon.Error);
+					ShowErrorMessageBox("This is an incorrect identifier");
 					return;
 				}
 				DialogResult secondAuthenticationFactor = new SMSAuthenticator().ShowDialog();
 				IsAuthenticated = Authentication.IsAuthenticated && (secondAuthenticationFactor == DialogResult.OK);
 				if (!IsAuthenticated)
 				{
-					MessageBox.Show(
-						"Your code is incorrect",
-						"Error",
-						MessageBoxButtons.OK,
-						MessageBoxIcon.Error);
+					ShowErrorMessageBox("Your code is incorrect");
 				}
 			}
 			catch
 			{
-				MessageBox.Show(
-					"Please select one row to proceed",
-					"Error",
-					MessageBoxButtons.OK,
-					MessageBoxIcon.Error);
+				ShowErrorMessageBox("Please select one row to proceed");
 			}
 		}
 
@@ -240,11 +233,7 @@ namespace PASOIB
 			}
 			catch
 			{
-				MessageBox.Show(
-					"Please select one row to proceed",
-					"Error",
-					MessageBoxButtons.OK,
-					MessageBoxIcon.Error);
+				ShowErrorMessageBox("Please select one row to proceed");
 			}
 		}
 
@@ -260,11 +249,7 @@ namespace PASOIB
 			}
 			catch
 			{
-				MessageBox.Show(
-					"Please select one row to proceed",
-					"Error",
-					MessageBoxButtons.OK,
-					MessageBoxIcon.Error);
+				ShowErrorMessageBox("Please select one row to proceed");
 			}
 		}
 
@@ -282,9 +267,40 @@ namespace PASOIB
 			RealtimeData.PrintData();
 		}
 
+		private void ClearEventListButton_Click(object sender, EventArgs e)
+		{
+			RealtimeData.ClearData();
+			UpdateEventLog();
+		}
+
 		private void KeepFilesOnRunTimeRadioButton_CheckedChanged(object sender, EventArgs e)
 		{
 			Properties.Settings.Default.KeepFilesAlways = !(sender as RadioButton).Checked;
+			Properties.Settings.Default.Save();
+		}
+
+		private void ChangePhoneNumberButton_Click(object sender, EventArgs e)
+		{
+			DialogResult secondAuthenticationFactor = new SMSAuthenticator(true).ShowDialog();
+			if (secondAuthenticationFactor == DialogResult.OK)
+			{
+				ShowSuccessMessageBox($"Phone number was successfully changed to +7{Properties.Settings.Default.PhoneNumber}");
+			}
+		}
+
+		private void ShowMessageBox(string title, string message, MessageBoxButtons buttons = 0, MessageBoxIcon icon = 0)
+		{
+			MessageBox.Show(message, title, buttons, icon);
+		}
+
+		private void ShowSuccessMessageBox(string message)
+		{
+			MessageBox.Show(message, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+		}
+
+		private void ShowErrorMessageBox(string message)
+		{
+			MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 		}
 	}
 }

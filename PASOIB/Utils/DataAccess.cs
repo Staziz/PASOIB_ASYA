@@ -67,8 +67,7 @@ namespace PASOIB
 		internal static void DeleteFile(string fileName)
 		{
 			RemoveProtectingFileAttributes(fileName);
-			FileInfo fileInfo = new FileInfo(fileName);
-			fileInfo.Delete();
+			File.Delete(fileName);
 		}
 
 		internal static void DeleteFile(FileInfo fileInfo)

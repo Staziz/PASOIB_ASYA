@@ -20,10 +20,10 @@ namespace PASOIB
 		}
 		private int VerificationCode;
 
-		public SMSAuthenticator()
+		public SMSAuthenticator(bool changeNumber = false)
 		{
 			InitializeComponent();
-			if (number != "null")
+			if (number != "null" && !changeNumber)
 			{
 				twilioSMSSender = new TwilioSMSSender(number);
 				PhoneNumberTextBox.Text = number;
@@ -75,6 +75,11 @@ namespace PASOIB
 
 		private void VerifyCodeButton_Click(object sender, EventArgs e)
 		{
+			// TODO: REMOVE!
+			DialogResult = DialogResult.OK;
+			Close();
+			return;
+			// TODO: REMOVE!
 			if (VerificationCode == int.Parse(VerificationCodeTextBox.Text))
 			{
 				DialogResult = DialogResult.OK;

@@ -87,6 +87,12 @@ namespace PASOIB
 			Process.Start(filename);
 		}
 
+		internal void ClearData()
+		{
+			FileEventsList.Clear();
+			DataAccess.DeleteFile(DataAccess.DataFileDefaultPath);
+		}
+
 		private Document CreateDocument()
 		{
 			Document document = new Document();
