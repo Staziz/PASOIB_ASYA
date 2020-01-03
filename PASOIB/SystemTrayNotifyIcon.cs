@@ -4,9 +4,10 @@ using System.Windows.Forms;
 
 namespace SystemTrayNotification
 {
-	public class SystemTrayNotifyIcon
+	internal class SystemTrayNotifyIcon : IDisposable
 	{
-		private NotifyIcon notifyIcon = new NotifyIcon();	// NotifyIcon object
+		internal System.Threading.SemaphoreSlim semaphore;
+		private NotifyIcon notifyIcon = new NotifyIcon();
 		private ContextMenu BaseMenu;
 		private Form mainForm;
 		private Icon[] iconArray;
@@ -18,23 +19,18 @@ namespace SystemTrayNotification
 		private int animationCounter = 0;
 		private bool iconsLoaded = false;
 
-		public bool Visibility
+		internal bool Visibility
 		{
 			get => notifyIcon.Visible;
 			set => notifyIcon.Visible = value;
 		}
 
-		public bool KeepAnimationAlive { get; set; } = false;
+		internal bool IsClosing = false;
+		internal bool KeepAnimationAlive = false;
 
-		/// <summary>
-		/// Overloaded Constructor -- 1 --
-		/// Icon = Application Icon (Default),
-		/// Tooltip = Application Name (Default),
-		/// Visibility = Programmer must provide,
-		/// ContextMenu = SystemTrayNotifyIcon class generated menu (Default).
-		/// </summary>
-		public SystemTrayNotifyIcon(Form form, bool visible)
+		internal SystemTrayNotifyIcon(Form form, bool visible)
 		{
+			semaphore = new System.Threading.SemaphoreSlim(0, 1);
 			mainForm = form;
 			notifyIcon.Visible = visible;
 			notifyIcon.Icon = mainForm.Icon;
@@ -47,14 +43,7 @@ namespace SystemTrayNotification
 			iconTimer.Tick += new EventHandler(TimerProc);
 		}
 
-		/// <summary>
-		/// Overloaded Constructor -- 2 --
-		/// Icon = Application Icon (Default),
-		/// Tooltip = Programmer must provide,
-		/// Visibility = Programmer must provide,
-		/// ContextMenu = SystemTrayNotifyIcon class generated menu (Default).
-		/// </summary>
-		public SystemTrayNotifyIcon(Form form, bool visible, string toolTip)
+		internal SystemTrayNotifyIcon(Form form, bool visible, string toolTip)
 		{
 			mainForm = form;
 			notifyIcon.Visible = visible;
@@ -68,14 +57,7 @@ namespace SystemTrayNotification
 			iconTimer.Tick += new EventHandler(TimerProc);
 		}
 
-		/// <summary>
-		/// Overloaded Constructor -- 3 --
-		/// Icon = Programmer must provide,
-		/// Tooltip = Programmer must provide,
-		/// Visibility = Programmer must provide,
-		/// ContextMenu = SystemTrayNotifyIcon class generated menu (Default).
-		/// </summary>
-		public SystemTrayNotifyIcon(Form form, bool visible, string toolTip, Icon icon)
+		internal SystemTrayNotifyIcon(Form form, bool visible, string toolTip, Icon icon)
 		{
 			mainForm = form;
 			notifyIcon.Visible = visible;
@@ -92,14 +74,7 @@ namespace SystemTrayNotification
 			iconTimer.Tick += new EventHandler(TimerProc);
 		}
 
-		/// <summary>
-		/// Overloaded Constructor -- 4 --
-		/// Icon = Application Icon (Default),
-		/// Tooltip = Programmer must provide,
-		/// Visibility = Programmer must provide,
-		/// ContextMenu = Programmer must provide.
-		/// </summary>
-		public SystemTrayNotifyIcon(Form form, bool visible, string toolTip, ContextMenu contextMenu)
+		internal SystemTrayNotifyIcon(Form form, bool visible, string toolTip, ContextMenu contextMenu)
 		{
 			mainForm = form;
 			notifyIcon.Visible = visible;
@@ -113,14 +88,7 @@ namespace SystemTrayNotification
 			iconTimer.Tick += new EventHandler(TimerProc);
 		}
 
-		/// <summary>
-		/// Overloaded Constructor -- 5 --
-		/// Icon = Programmer must provide,
-		/// Tooltip = Programmer must provide,
-		/// Visibility = Programmer must provide,
-		/// ContextMenu = Programmer must provide.
-		/// </summary>
-		public SystemTrayNotifyIcon(Form form, bool visible, string toolTip, Icon icon, ContextMenu contextMenu)
+		internal SystemTrayNotifyIcon(Form form, bool visible, string toolTip, Icon icon, ContextMenu contextMenu)
 		{
 			mainForm = form;
 			notifyIcon.Visible = visible;
@@ -153,9 +121,9 @@ namespace SystemTrayNotification
 		{
 			BaseMenu = new ContextMenu();
 
-			BaseMenu.MenuItems.Add(new MenuItem("Hide Icon", new EventHandler(DefaultMenuHandler)));
+			BaseMenu.MenuItems.Add(new MenuItem("Open", new EventHandler(DefaultMenuHandler)));
 			BaseMenu.MenuItems.Add(new MenuItem("-", new EventHandler(DefaultMenuHandler)));
-			BaseMenu.MenuItems.Add(new MenuItem("Exit Application", new EventHandler(DefaultMenuHandler)));
+			BaseMenu.MenuItems.Add(new MenuItem("Stop security service", new EventHandler(DefaultMenuHandler)));
 
 			return BaseMenu;
 		}
@@ -166,17 +134,11 @@ namespace SystemTrayNotification
 			{
 				switch (((MenuItem)sender).Text)
 				{
-					case "Animate":
-						Animate(-1, 50);
+					case "Open":
+						mainForm.Show();
 						break;
-					case "Stop Animation":
-						KeepAnimationAlive = false;
-						break;
-					case "Hide Icon":
-						notifyIcon.Visible = false;
-						break;
-					case "Exit Application":
-						notifyIcon.Visible = false;
+					case "Stop security service":
+						IsClosing = true;
 						mainForm.Close();
 						break;
 				}
@@ -187,7 +149,7 @@ namespace SystemTrayNotification
 			}
 		}
 
-		public void Animate(int nTimes)
+		internal void Animate(int nTimes)
 		{
 			if (!iconsLoaded)
 			{
@@ -201,7 +163,7 @@ namespace SystemTrayNotification
 			}
 		}
 
-		public void Animate(int nTimes, int timerinterval)
+		internal void Animate(int nTimes, int timerinterval)
 		{
 			timerInterval = (timerinterval>50000 || timerinterval<50)?200:timerinterval;
 			if (!iconsLoaded)
@@ -212,11 +174,6 @@ namespace SystemTrayNotification
 
 			if ((nTimes == -1) || (nTimes > 0))
 			{
-				if (BaseMenu != null)
-				{
-					BaseMenu.MenuItems.RemoveAt(0);
-					BaseMenu.MenuItems.Add(0, new MenuItem("Stop Animation", new System.EventHandler(DefaultMenuHandler)));
-				}
 				totalAnimations = nTimes;
 				iconTimer.Interval = timerInterval;
 				KeepAnimationAlive = true;
@@ -227,15 +184,13 @@ namespace SystemTrayNotification
 		/// <summary>
 		/// Loads default icons of size 16x16 for animation,
 		/// </summary>
-		public void LoadIcons(Icon[] iconarray)
+		internal void LoadIcons(Icon[] iconarray)
 		{
 			iconsLoaded = true;
 			iconCounter = 0;
 			totalAnimations = 0;
 			mainIcon = notifyIcon.Icon;
 			iconArray = iconarray;
-			if (BaseMenu != null)
-				BaseMenu.MenuItems.Add(0, new MenuItem("Animate", new System.EventHandler(DefaultMenuHandler)));
 		}
 
 		private void TimerProc(object sender, EventArgs e)
@@ -246,11 +201,6 @@ namespace SystemTrayNotification
 				iconCounter = 0;
 				animationCounter = 0;
 				notifyIcon.Icon = mainIcon;
-				if (BaseMenu != null)
-				{
-					BaseMenu.MenuItems.RemoveAt(0);
-					BaseMenu.MenuItems.Add(0, new MenuItem("Animate", new System.EventHandler(DefaultMenuHandler)));
-				}
 			}
 			else
 			{

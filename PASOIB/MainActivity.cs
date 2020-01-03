@@ -274,15 +274,6 @@ namespace PASOIB
 			}
 		}
 
-		private void MainActivity_FormClosed(object sender, FormClosedEventArgs e)
-		{
-			if (KeepFilesOnRunTimeRadioButton.Checked)
-			{
-				FilesSelection.RemoveProtectingFiles();
-			}
-			Properties.Settings.Default.Save();
-		}
-
 		private void PrintEventListButton_Click(object sender, EventArgs e)
 		{
 			RealtimeData.PrintData();
@@ -322,6 +313,26 @@ namespace PASOIB
 		private void ShowErrorMessageBox(string message)
 		{
 			MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+		}
+
+		private void MainActivity_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			if (!Properties.Settings.Default.KeepFilesAlways)
+			{
+				FilesSelection.RemoveProtectingFiles();
+			}
+			Properties.Settings.Default.Save();
+			m_SysTrayNotify.Visibility = false;
+		}
+
+		private void MainActivity_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			if (e.CloseReason != CloseReason.UserClosing || m_SysTrayNotify.IsClosing)
+			{
+				return;
+			}
+			e.Cancel = true;
+			(sender as Form).Hide();
 		}
 	}
 }
