@@ -129,13 +129,21 @@ namespace PASOIB
 			DataAccess.DeleteFile(Path.Combine(Application.CommonAppDataPath, Name + Properties.Resources.ProtectedFileExtension));
 		}
 		
-		public void UpdateRemoveContent()
+		public void UpdateContent()
 		{
 			if (File.Exists(FullPath))
 			{
 				FileContent = DataAccess.GetFileContent(FullPath);
 				SHA512Hash = Security.GetSHA512Hash(FileContent);
 				FileContent = Security.EncryptFileAES(FileContent, Key, InitializationVector);
+				DataAccess.DeleteFile(FullPath);
+			}
+		}
+
+		public void RemoveContent()
+		{
+			if (File.Exists(FullPath))
+			{
 				DataAccess.DeleteFile(FullPath);
 			}
 		}

@@ -59,5 +59,17 @@ namespace PASOIB.Properties {
                 this["Identificator"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UpdateOnRemove {
+            get {
+                return ((bool)(this["UpdateOnRemove"]));
+            }
+            set {
+                this["UpdateOnRemove"] = value;
+            }
+        }
     }
 }

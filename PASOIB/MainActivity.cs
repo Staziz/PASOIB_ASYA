@@ -32,7 +32,7 @@ namespace PASOIB
 		{
 			InitializeComponent();
 
-			m_SysTrayNotify = new SystemTrayNotification.SystemTrayNotifyIcon(this, true);
+			m_SysTrayNotify = new SystemTrayNotifyIcon(this, true);
 			iconArray = new Icon[18];
 			for (int i = 1; i <= iconArray.Length; i++)
 			{
@@ -103,7 +103,7 @@ namespace PASOIB
 			ShowConnectedDevices();
 			((Control)FilesSelectionTab).Enabled = IsAuthenticated;
 			UpdateProtectingFilesList();
-			if (KeepFilesOnRunTimeRadioButton.Checked)
+			if (!Properties.Settings.Default.KeepFilesAlways)
 			{
 				if (IsAuthenticated)
 				{
@@ -111,7 +111,7 @@ namespace PASOIB
 				}
 				else
 				{
-					FilesSelection.RemoveProtectingFiles();
+					FilesSelection.RemoveProtectingFiles(Properties.Settings.Default.UpdateOnRemove);
 				}
 			}
 			((Control)RealtimeDataTab).Enabled = IsAuthenticated;
@@ -291,6 +291,12 @@ namespace PASOIB
 			Properties.Settings.Default.Save();
 		}
 
+		private void UpdateFilesOnRemoveRadioButton_CheckedChanged(object sender, EventArgs e)
+		{
+			Properties.Settings.Default.UpdateOnRemove = !(sender as RadioButton).Checked;
+			Properties.Settings.Default.Save();
+		}
+
 		private void ChangePhoneNumberButton_Click(object sender, EventArgs e)
 		{
 			DialogResult secondAuthenticationFactor = new SMSAuthenticator(true).ShowDialog();
@@ -319,7 +325,7 @@ namespace PASOIB
 		{
 			if (!Properties.Settings.Default.KeepFilesAlways)
 			{
-				FilesSelection.RemoveProtectingFiles();
+				FilesSelection.RemoveProtectingFiles(Properties.Settings.Default.UpdateOnRemove);
 			}
 			Properties.Settings.Default.Save();
 			m_SysTrayNotify.Visibility = false;

@@ -89,11 +89,15 @@ namespace PASOIB
 		}
 
 
-		public void RemoveProtectingFiles()
+		public void RemoveProtectingFiles(bool needUpdate)
 		{
 			foreach (ProtectedFileEntry protectedFile in ProtectedFileEntries)
 			{
-				protectedFile.UpdateRemoveContent();
+				if (needUpdate)
+				{
+					protectedFile.UpdateContent();
+				}
+				protectedFile.RemoveContent();
 			}
 		}
 

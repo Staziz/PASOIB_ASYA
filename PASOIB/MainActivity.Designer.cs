@@ -60,6 +60,10 @@
 			this.KeepFilesOnRunTimeRadioButton = new System.Windows.Forms.RadioButton();
 			this.KeepFilesAlwaysRadioButton = new System.Windows.Forms.RadioButton();
 			this.label1 = new System.Windows.Forms.Label();
+			this.panel2 = new System.Windows.Forms.Panel();
+			this.radioButton1 = new System.Windows.Forms.RadioButton();
+			this.radioButton2 = new System.Windows.Forms.RadioButton();
+			this.label2 = new System.Windows.Forms.Label();
 			this.RealtimeDataTab.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
@@ -73,6 +77,7 @@
 			this.tabControl.SuspendLayout();
 			this.SettingsTab.SuspendLayout();
 			this.panel1.SuspendLayout();
+			this.panel2.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// RealtimeDataTab
@@ -370,6 +375,7 @@
 			// SettingsTab
 			// 
 			this.SettingsTab.Controls.Add(this.ChangePhoneNumberButton);
+			this.SettingsTab.Controls.Add(this.panel2);
 			this.SettingsTab.Controls.Add(this.panel1);
 			this.SettingsTab.Location = new System.Drawing.Point(4, 22);
 			this.SettingsTab.Name = "SettingsTab";
@@ -397,14 +403,14 @@
 			this.panel1.Controls.Add(this.label1);
 			this.panel1.Location = new System.Drawing.Point(42, 32);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(402, 45);
+			this.panel1.Size = new System.Drawing.Size(446, 45);
 			this.panel1.TabIndex = 0;
 			// 
 			// KeepFilesOnRunTimeRadioButton
 			// 
 			this.KeepFilesOnRunTimeRadioButton.AutoSize = true;
 			this.KeepFilesOnRunTimeRadioButton.Checked = true;
-			this.KeepFilesOnRunTimeRadioButton.Location = new System.Drawing.Point(261, 14);
+			this.KeepFilesOnRunTimeRadioButton.Location = new System.Drawing.Point(307, 14);
 			this.KeepFilesOnRunTimeRadioButton.Name = "KeepFilesOnRunTimeRadioButton";
 			this.KeepFilesOnRunTimeRadioButton.Size = new System.Drawing.Size(131, 17);
 			this.KeepFilesOnRunTimeRadioButton.TabIndex = 1;
@@ -433,6 +439,50 @@
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Keep protecting files in file system:";
 			// 
+			// panel2
+			// 
+			this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.panel2.Controls.Add(this.radioButton1);
+			this.panel2.Controls.Add(this.radioButton2);
+			this.panel2.Controls.Add(this.label2);
+			this.panel2.Location = new System.Drawing.Point(42, 93);
+			this.panel2.Name = "panel2";
+			this.panel2.Size = new System.Drawing.Size(446, 45);
+			this.panel2.TabIndex = 0;
+			// 
+			// radioButton1
+			// 
+			this.radioButton1.AutoSize = true;
+			this.radioButton1.Checked = true;
+			this.radioButton1.Location = new System.Drawing.Point(307, 14);
+			this.radioButton1.Name = "radioButton1";
+			this.radioButton1.Size = new System.Drawing.Size(54, 17);
+			this.radioButton1.TabIndex = 1;
+			this.radioButton1.TabStop = true;
+			this.radioButton1.Text = "Never";
+			this.radioButton1.UseVisualStyleBackColor = true;
+			this.radioButton1.CheckedChanged += new System.EventHandler(this.UpdateFilesOnRemoveRadioButton_CheckedChanged);
+			// 
+			// radioButton2
+			// 
+			this.radioButton2.AutoSize = true;
+			this.radioButton2.Location = new System.Drawing.Point(188, 14);
+			this.radioButton2.Name = "radioButton2";
+			this.radioButton2.Size = new System.Drawing.Size(99, 17);
+			this.radioButton2.TabIndex = 1;
+			this.radioButton2.TabStop = true;
+			this.radioButton2.Text = "On program exit";
+			this.radioButton2.UseVisualStyleBackColor = true;
+			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(5, 16);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(116, 13);
+			this.label2.TabIndex = 0;
+			this.label2.Text = "Update protecting files:";
+			// 
 			// MainActivity
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -460,6 +510,8 @@
 			this.SettingsTab.ResumeLayout(false);
 			this.panel1.ResumeLayout(false);
 			this.panel1.PerformLayout();
+			this.panel2.ResumeLayout(false);
+			this.panel2.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -498,6 +550,10 @@
 		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
 		private System.Windows.Forms.Button PrintEventListButton;
 		private System.Windows.Forms.Button ClearEventListButton;
+		private System.Windows.Forms.Panel panel2;
+		private System.Windows.Forms.RadioButton radioButton1;
+		private System.Windows.Forms.RadioButton radioButton2;
+		private System.Windows.Forms.Label label2;
 	}
 }
 
