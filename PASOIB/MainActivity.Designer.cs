@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainActivity));
 			this.RealtimeDataTab = new System.Windows.Forms.TabPage();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
 			this.EventsListBox = new System.Windows.Forms.ListBox();
@@ -489,8 +490,9 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 450);
 			this.Controls.Add(this.tabControl);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "MainActivity";
-			this.Text = "Form1";
+			this.Text = "Files Security";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainActivity_FormClosing);
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainActivity_FormClosed);
 			this.Load += new System.EventHandler(this.MainActivity_Load);
