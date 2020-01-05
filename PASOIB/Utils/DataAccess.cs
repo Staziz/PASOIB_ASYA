@@ -24,7 +24,7 @@ namespace PASOIB
 
 		internal static string GetIdentificator()
 		{
-			return Properties.Settings.Default.Identificator;
+			return Properties.Settings.Default.Identificator == "null" ? null : Properties.Settings.Default.Identificator;
 		}
 
 		internal static void SetIdentificator(string identificator)
