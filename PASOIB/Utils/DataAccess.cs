@@ -187,9 +187,14 @@ namespace PASOIB
 
 		private static void RemoveFileAttributes(string fileName, FileAttributes attributes)
 		{
-			FileInfo file = new FileInfo(fileName);
-			FileAttributes oldAttributes = File.GetAttributes(fileName);
-			File.SetAttributes(fileName, oldAttributes & ~attributes);
+			try
+			{
+				FileInfo file = new FileInfo(fileName);
+				FileAttributes oldAttributes = File.GetAttributes(fileName);
+				File.SetAttributes(fileName, oldAttributes & ~attributes);
+			}
+			catch
+			{ }
 		}
 
 		private static void RemoveProtectingFileAttributes(string fileName)
