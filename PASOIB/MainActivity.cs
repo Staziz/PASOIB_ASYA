@@ -63,10 +63,23 @@ namespace PASOIB
 			FilesSelection.onProtectedFileRenamed += FilesSelection_onProtectedFileRenamed;
 
 			RealtimeData = new RealtimeData();
+			RealtimeData.onEventAdded += RealtimeData_onEventAdded;
+			RealtimeData.onEventRemoved += RealtimeData_onEventRemoved;
+			RealtimeData.AddSystemEvent("Launching application");
 
 			KeepFilesOnRunTimeRadioButton.Checked = !Properties.Settings.Default.KeepFilesAlways;
 			KeepFilesAlwaysRadioButton.Checked = Properties.Settings.Default.KeepFilesAlways;
 			IsAuthenticated = false;
+		}
+
+		private void RealtimeData_onEventAdded(object sender, EventArgs e)
+		{
+			UpdateEventLog();
+		}
+
+		private void RealtimeData_onEventRemoved(object sender, EventArgs e)
+		{
+			UpdateEventLog();
 		}
 
 		private void FilesSelection_onProtectedFileChanged(ProtectedFileEntry protectedFile, FileSystemEventArgs eventArgs)
@@ -145,6 +158,7 @@ namespace PASOIB
 					if (!isAuthenticated)
 					{
 						IsAuthenticated = false;
+						RealtimeData.AddSystemEvent("The USB key was removed!");
 					}
 				}));
 			}
@@ -214,14 +228,19 @@ namespace PASOIB
 				if (!Authentication.IsAuthenticated)
 				{
 					ShowErrorMessageBox("This is an incorrect identifier");
+					RealtimeData.AddSystemEvent("Incorrect identifier was selected");
 					return;
 				}
+				RealtimeData.AddSystemEvent("The USB key was recognized!");
 				DialogResult secondAuthenticationFactor = new SMSAuthenticator().ShowDialog();
 				IsAuthenticated = Authentication.IsAuthenticated && (secondAuthenticationFactor == DialogResult.OK);
 				if (!IsAuthenticated)
 				{
 					ShowErrorMessageBox("Your code is incorrect");
+					RealtimeData.AddSystemEvent("Incorrect code was entered");
+					return;
 				}
+				RealtimeData.AddSystemEvent("Successfull authentication!");
 			}
 			catch
 			{
@@ -239,7 +258,6 @@ namespace PASOIB
 			RealtimeData.AddSystemEvent("File is tracking now", targerFileName);
 			FilesSelection.AddFile(new FileInfo(targerFileName));
 			UpdateProtectingFilesList();
-			UpdateEventLog();
 		}
 
 		private void RestoreFileButton_Click(object sender, EventArgs e)
@@ -250,7 +268,6 @@ namespace PASOIB
 				RealtimeData.AddSystemEvent("Restore started", fileName);
 				FilesSelection.RestoreFile(fileName);
 				RealtimeData.AddSystemEvent("Restore completed", fileName);
-				UpdateEventLog();
 			}
 			catch
 			{
@@ -266,7 +283,6 @@ namespace PASOIB
 				RealtimeData.AddSystemEvent("File is not tracking anymore", fileName);
 				FilesSelection.DeleteFile(fileName);
 				UpdateProtectingFilesList();
-				UpdateEventLog();
 			}
 			catch
 			{
@@ -282,7 +298,6 @@ namespace PASOIB
 		private void ClearEventListButton_Click(object sender, EventArgs e)
 		{
 			RealtimeData.ClearData();
-			UpdateEventLog();
 		}
 
 		private void KeepFilesOnRunTimeRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -321,16 +336,6 @@ namespace PASOIB
 			MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 		}
 
-		private void MainActivity_FormClosed(object sender, FormClosedEventArgs e)
-		{
-			if (!Properties.Settings.Default.KeepFilesAlways)
-			{
-				FilesSelection.RemoveProtectingFiles(Properties.Settings.Default.UpdateOnRemove);
-			}
-			Properties.Settings.Default.Save();
-			m_SysTrayNotify.Visibility = false;
-		}
-
 		private void MainActivity_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			if (e.CloseReason != CloseReason.UserClosing || m_SysTrayNotify.IsClosing)
@@ -339,6 +344,18 @@ namespace PASOIB
 			}
 			e.Cancel = true;
 			(sender as Form).Hide();
+			RealtimeData.AddSystemEvent("Tracking files in background mode");
+		}
+
+		private void MainActivity_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			if (!Properties.Settings.Default.KeepFilesAlways)
+			{
+				FilesSelection.RemoveProtectingFiles(Properties.Settings.Default.UpdateOnRemove);
+			}
+			Properties.Settings.Default.Save();
+			m_SysTrayNotify.Visibility = false;
+			RealtimeData.AddSystemEvent("Exiting application");
 		}
 	}
 }

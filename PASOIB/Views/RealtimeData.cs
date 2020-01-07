@@ -13,6 +13,12 @@ namespace PASOIB
 		private readonly ReaderWriterLock IOLock;
 		private readonly int WriteTimeoutMs;
 
+		public event EventAddedHandler onEventAdded;
+		public delegate void EventAddedHandler(object sender, EventArgs e);
+
+		public event EventRemovedHandler onEventRemoved;
+		public delegate void EventRemovedHandler(object sender, EventArgs e);
+
 		public RealtimeData()
 		{
 			FileEventsList = DataAccess.GetData();
@@ -23,7 +29,7 @@ namespace PASOIB
 		internal async void AddChangeEvent(string source, string whatKind)
 		{
 			string eventString = $"({DateTime.Now}) | File : {source} \t\t {whatKind}";
-			FileEventsList.Add(eventString);
+			AddEventToList(eventString);
 			try
 			{
 				IOLock.AcquireWriterLock(WriteTimeoutMs);
@@ -38,7 +44,7 @@ namespace PASOIB
 		internal async void AddRenameEvent(string oldName, string newName)
 		{
 			string eventString = $"({DateTime.Now}) | File : {oldName} renamed to\t {newName}";
-			FileEventsList.Add(eventString);
+			AddEventToList(eventString);
 			try
 			{
 				IOLock.AcquireWriterLock(WriteTimeoutMs);
@@ -53,7 +59,7 @@ namespace PASOIB
 		internal async void AddSystemEvent(params string[] arguments)
 		{
 			string eventString = $"({DateTime.Now}) | {string.Join(" : ", arguments)}";
-			FileEventsList.Add(eventString);
+			AddEventToList(eventString);
 			try
 			{
 				IOLock.AcquireWriterLock(WriteTimeoutMs);
@@ -63,6 +69,12 @@ namespace PASOIB
 			{
 				IOLock.ReleaseLock();
 			}
+		}
+
+		private void AddEventToList(string eventString)
+		{
+			FileEventsList.Add(eventString);
+			onEventAdded(this, new EventArgs());
 		}
 
 		internal void PrintData()
@@ -89,6 +101,7 @@ namespace PASOIB
 
 		internal void ClearData()
 		{
+			onEventRemoved(this, new EventArgs());
 			FileEventsList.Clear();
 			DataAccess.DeleteFile(DataAccess.DataFileDefaultPath);
 		}
