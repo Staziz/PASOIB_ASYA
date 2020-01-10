@@ -37,7 +37,7 @@
 			// 
 			// tableLayout
 			// 
-			this.tableLayout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(174)))), ((int)(((byte)(201)))));
+			this.tableLayout.BackColor = System.Drawing.Color.White;
 			this.tableLayout.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
 			this.tableLayout.ColumnCount = 2;
 			this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 44.3787F));
@@ -54,6 +54,7 @@
 			// 
 			// lockPicture
 			// 
+			this.lockPicture.BackColor = System.Drawing.Color.White;
 			this.lockPicture.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.lockPicture.Image = global::PASOIB.Properties.Resources.ImageLocked;
 			this.lockPicture.InitialImage = global::PASOIB.Properties.Resources.ImageLocked;
@@ -67,7 +68,7 @@
 			// lockLabel
 			// 
 			this.lockLabel.AutoSize = true;
-			this.lockLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(174)))), ((int)(((byte)(201)))));
+			this.lockLabel.BackColor = System.Drawing.Color.White;
 			this.lockLabel.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.lockLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.lockLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(28)))), ((int)(((byte)(36)))));
